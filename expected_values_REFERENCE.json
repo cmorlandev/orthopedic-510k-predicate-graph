@@ -1,0 +1,34 @@
+{
+  "snapshot_date": "2026-08-08",
+  "corpus_devices": 15581,
+  "edges": 30476,
+  "is_dag": false,
+  "connected_nodes": 12010,
+  "max_chain_depth": 30,
+  "largest_component": 11734,
+  "recalled_nodes": 1691,
+  "pct_recalled": 10.9,
+  "persistent_predicates": 938,
+  "post_recall_citations": 2877,
+  "downstream_devices": 1873,
+  "first_after_recall": 381,
+  "max_gap_years": 21,
+  "sens_class_I_II": [
+    718,
+    2141,
+    1436
+  ],
+  "sens_high_conf": [
+    838,
+    2209,
+    1563
+  ],
+  "sens_combined": [
+    654,
+    1660,
+    1214
+  ],
+  "cov_resolvable_pct": 72.5,
+  "cov_name_only_pct": 2.8,
+  "cov_out_of_scope_pct": 12.2
+}
