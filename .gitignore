@@ -1,0 +1,13 @@
+.env
+snapshot/
+snapshot_registered_2026-07-21/
+data/summaries/
+data/text/
+data/*.json.gz
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+~$*
+
+# all data (frozen + derived + PDFs) is archived on OSF, not GitHub
+data/

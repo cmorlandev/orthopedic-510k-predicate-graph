@@ -1,0 +1,8 @@
+# Python 3.11.7 (pin the interpreter too)
+pandas==2.1.4
+networkx==3.1
+pymupdf==1.28.0
+numpy==1.26.4
+scipy==1.11.4
+jupyterlab==4.0.11
+jupytext==1.19.4
