@@ -4,8 +4,9 @@ A retrospective, observational network analysis of predicate-device citations am
 510(k)-cleared orthopedic implants, examining how recalled devices persist as predicates for later
 clearances. Descriptive; no intervention; no manufacturer naming.
 
-- **Preregistration (OSF):** `<PASTE PUBLIC REGISTRATION URL / DOI>`
-- **OSF project + frozen data + DOI:** `<PASTE OSF PROJECT URL / DOI>`
+- **Preregistration (OSF):** registered and timestamped before analysis; **under embargo until January**
+  (auto-publishes then). Public URL/DOI to be added on release. _(Not yet publicly citable.)_
+- **OSF project + frozen data:** private pending journal submission. Public URL/DOI to be added on release.
 - **Analysis plan of record:** `PREREGISTRATION.docx` (the locked contract)
 - **Full manual:** `PROJECT_RUN_MANUAL.docx`
 - **What actually happened + any departures from the plan:** `RUN_LOG.md`, `DEVIATIONS.md`
@@ -131,5 +132,7 @@ post-recall citations), H2 (381 first-cited-after-recall), H3 (21-year max persi
 all three sensitivity subsets). Stage 8 verify: 15/15 checks pass.
 
 ## Citation
-Cite **both** the OSF preregistration (timestamped plan) and the OSF project DOI (data + code). Report
-any further deviations in `DEVIATIONS.md`.
+On release, cite **both** the OSF preregistration (timestamped plan) and the OSF project DOI (data +
+code). Both are currently withheld: the registration is embargoed until January and the project stays
+private until journal submission. The DOIs will be filled in here when they are made public. Report any
+further deviations in `DEVIATIONS.md`.
