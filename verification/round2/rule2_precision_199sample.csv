@@ -1,0 +1,7 @@
+rule,tier,edges,accepted,precision,wilson_95
+Rule 1 (all edges),NEAR_CUE,134,125,93.3%,87.7-96.4%
+Rule 1 (all edges),DISTANT_CUE,65,37,56.9%,44.8-68.2%
+Rule 1 (all edges),both,199,162,81.4%,75.4-86.2%
+Rule 2 (surviving),NEAR_CUE,123,122,99.2%,95.5-99.9%
+Rule 2 (surviving),DISTANT_CUE,36,33,91.7%,78.2-97.1%
+Rule 2 (surviving),both,159,155,97.5%,93.7-99.0%
