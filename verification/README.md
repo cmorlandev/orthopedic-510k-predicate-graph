@@ -142,8 +142,21 @@ not-for-registration.
 
 ## Verifier independence
 
-The verifier was added as a contributor to the OSF project `osf.io/utr47` on
-2026-09-15, and appears in the contributor list of the registration. To be
-stated plainly by the verifier in the pull request: when involvement began,
-whether any finding was discussed with the analyst before filing, and that
-contributor status was conferred after the verification work was complete.
+The verifier was added as a contributor to this project on 2026-08-09 — one day
+after the analyst's confirmatory run (2026-08-08) and twelve days after the
+preregistration was registered (2026-07-28). Verification work began 2026-08-24
+and was filed 2026-09-16. The verifier made no contribution to the plan, the
+edge rule, the code, the data collection or the reference values, had no
+opportunity to do so, and his role on this study is limited to this
+verification.
+
+One qualification: contributor status was conferred before the verification
+began rather than after, and the verifier appears in the contributor list of
+the OSF registration, so he is a project contributor who performed the
+verification rather than an arms-length external reviewer. The protection is
+temporal — he arrived after the plan was locked and after every reported number
+existed.
+
+No finding in this report was discussed with the analyst before it was filed;
+the questions in section 10 of `PULL_REQUEST.md` are being put to him for the
+first time there. Section 9 of that file carries the full disclosure.

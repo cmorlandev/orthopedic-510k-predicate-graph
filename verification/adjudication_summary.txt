@@ -453,20 +453,26 @@ FOUR ITEMS REMAIN, none of them impugning the registration itself:
       readers to a public registration; the registration ID and date can still
       be cited.
 
-  (c) VERIFIER INDEPENDENCE -- DISCLOSE, AND CLARIFY THE SEQUENCE. The
-      registration lists Gant Duncan as a contributor, while the
-      project-contributor invitation arrived 2026-09-15, after the
-      verification work. OSF displays a registration's current contributor
-      list, so retroactive addition is the most likely explanation and is
-      benign. But a verifier who appears on the registration reads as a study
-      author rather than an independent checker, and the manual's premise is
-      that the verifier did not build the study.
-      ==> The pull request should state plainly when the verifier became
-          involved, that no verification finding was discussed with the
-          analyst in advance, and that contributor status was conferred after
-          the work was complete -- adjusted to whatever is actually the case.
-          Disclosure is sufficient; silence is not, particularly in a report
-          whose subject includes registration integrity.
+  (c) VERIFIER INDEPENDENCE -- RESOLVED AND FAVOURABLE, BUT DISCLOSE IT.
+      Contributor status was conferred 2026-08-09: twelve days after the
+      registration (2026-07-28) and ONE DAY AFTER the confirmatory run
+      (2026-08-08). Work began 2026-08-24; filed 2026-09-16. The verifier
+      arrived after the plan was locked and after every confirmatory quantity
+      existed, made no contribution to the hypotheses, the §5 edge rule, the
+      §7 thresholds, the code, the data collection or the reference values,
+      and his role is limited to the verification -- the analyst is writing
+      the manuscript. The manual's premise is satisfied.
+      Qualification to state: status was conferred BEFORE the work began, not
+      after, and the verifier appears in the registration's contributor list,
+      so he is a project contributor who verified rather than an arms-length
+      reviewer. The protection is temporal, not organisational.
+      No finding in this report was discussed with the analyst before filing;
+      the nine questions in PULL_REQUEST.md section 10 are put to him for the
+      first time there.
+      An earlier suggested wording in these notes ("contributor status was
+      conferred after the verification work was complete") is FALSE and is
+      withdrawn. A competing-interest paragraph drafted on the assumption that
+      the verifier would co-write the manuscript is also withdrawn: he is not.
 
   (d) A third contributor, Tanner Livsey, appears on the registration but
       nowhere in the repository, RUN_LOG.md or DEVIATIONS.md. Worth asking who

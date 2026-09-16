@@ -412,16 +412,37 @@ The real comparison is `compare_to_reference.py` (§2 above).
 
 ## 9. Verifier independence
 
-<!-- COMPLETE THIS SECTION BEFORE FILING. Only you know the facts. -->
+**Timeline.**
 
-The verifier appears in the contributor list of the OSF registration, and the
-OSF project contributor invitation was received 2026-09-15, after the
-verification work was performed. OSF displays a registration's current
-contributor list, so retroactive addition is the likely explanation.
+| date | event |
+|---|---|
+| 2026-07-28 | preregistration registered on OSF |
+| 2026-08-08 | analyst's confirmatory run; `expected_values.json` written |
+| 2026-08-09 | verifier added as a project contributor |
+| 2026-08-24 | verification work begins |
+| 2026-09-16 | verification filed (this report) |
 
-To be stated here: when the verifier's involvement in this study began; whether
-any verification finding was discussed with the analyst before this pull request
-was filed; and when contributor status was conferred relative to the work.
+The verifier joined the project the day after the confirmatory quantities were
+computed and twelve days after the analysis plan was registered. He made no
+contribution to the hypotheses (§4), the locked edge rule (§5), the
+pre-specified thresholds (§7), the pipeline code, the data collection, or the
+reference values, and had no opportunity to do so. His role on this study is
+limited to this verification; the analyst is writing the manuscript. The
+verifier manual's premise — a second person who did not build the study — is
+satisfied.
+
+**One qualification, for completeness.** Contributor status was conferred before
+the verification began rather than after it, and the verifier appears in the
+contributor list of the OSF registration. The verifier is therefore a project
+contributor who performed the verification, not an arms-length external
+reviewer. The protection is temporal — he arrived after the plan was locked and
+after every reported number already existed — rather than organisational, and
+readers should weigh the report on that basis.
+
+**No prior discussion.** No finding in this report was discussed with the
+analyst before it was filed. The questions in section 10 are being put to him
+for the first time here, and the nine of them are the whole of what the
+verifier is asking.
 
 ## 10. Questions for the analyst
 
