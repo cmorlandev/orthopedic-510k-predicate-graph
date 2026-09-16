@@ -25,7 +25,8 @@ may also be included.
 
 **NOT in the repo** (see `.gitignore`) — obtained from the **OSF project**, not GitHub:
 - `snapshot/` — the dated frozen FDA data the whole analysis is built on (~16 MB)
-- `data/summaries/` and `data/text/` — the ~12,400 source PDFs and their extracted text (~5 GB)
+- `data/text/` — the **frozen** extracted text of the 12,388 retrieved summaries (~120 MB); its hashes ARE in the repo (`TEXT_SNAPSHOT.json`, `TEXT_SNAPSHOT_files.csv`) and Stage 3 checks them before running
+- `data/summaries/` — the source PDFs (~5 GB); provenance only, no stage reads them once the text is frozen
 - `.env` — your personal openFDA API key (never commit this)
 
 ---
@@ -58,8 +59,8 @@ Launch JupyterLab **from the repo root** so relative paths resolve, and **Run Al
 | Stage | Notebook | Network | ~Time | Produces |
 |---|---|---|---|---|
 | 1 | `01_corpus.ipynb` | none | secs | `data/corpus.csv` |
-| 2 | `02_download_pdfs.ipynb` | accessdata.fda.gov | **1–3 h** | `data/summaries/*.pdf` (resumable) |
-| 3 | `03_extract_edges.ipynb` | none | ~10 min | `data/predicate_edges.csv`, validation sample |
+| 2 | `02_download_pdfs.ipynb` | accessdata.fda.gov | **1–3 h** | `data/summaries/*.pdf` (resumable) — **verifiers skip this**: use the frozen `data/text/` from OSF (D5) |
+| 3 | `03_extract_edges.ipynb` | none | ~10 min | `data/predicate_edges.csv` (Rule 2, primary), `predicate_edges_rule1.csv`, `excluded_edges.csv`, validation samples — reads the **frozen** `data/text/` only |
 | 4 | `04_recalls.ipynb` | none | secs | `data/recall_links.csv` |
 | 5 | `05_classify.ipynb` | none | secs | `data/recalled_nodes.csv` |
 | 6 | `06_graph_and_analysis.ipynb` | none | ~1 min | **`data/expected_values.json`** (the results) |
@@ -71,8 +72,9 @@ Launch JupyterLab **from the repo root** so relative paths resolve, and **Run Al
 rebuild.
 
 ### 3. What "matches" means
-- **Deterministic quantities (H1–H3, H5, graph metrics)** are computed entirely from the frozen
-  snapshot and must match **exactly**.
+- **Deterministic quantities (H1–H3, H5, graph metrics, edge counts)** are computed entirely from the frozen
+  snapshot and frozen text corpus and must match **exactly**. (Before D5, edge-derived counts could drift by
+  ~0.3% between runs because Stage 2 re-fetched PDFs live; that is no longer the case.)
 - **H4 / MAUDE (Stage 7)** reads the *live* adverse-event endpoint, whose event counts grow over
   time. Its magnitude will drift upward on a later run; the **direction** (recalled > matched, test
   significant) is what is being confirmed. This is disclosed in the preregistration.
@@ -104,6 +106,7 @@ preregistration are unchanged).
   the largest device corpus to date) rather than the earlier registered snapshot. Confirmatory
   quantities were still not computed until after registration, so no result was exposed to hindsight;
   the pre-specified §5–§8 rules were applied unchanged. The original registered snapshot is preserved.
+- **D4 — restricted edge rule (Rule 2) is primary** after independent adjudication found ~12% of registered-rule edges were compatibility-table or reference-device citations, not predicates; the registered rule is reported as a sensitivity arm. **D5 — frozen text corpus**: summary retrieval from FDA is not stable across runs, so `data/text/` is now a hashed, frozen input. **D6 — post hoc sensitivity arms** (maximal rule, `n/a` recall class, linked-only H4, §9 non-pilot panel). Tier names `SECTION_HEADED`/`PROXIMITY_ONLY` → `NEAR_CUE`/`DISTANT_CUE` (same rule).
 - **D2 — near-acyclicity.** The predicate graph is not strictly acyclic: ~5 of 30,476 edges (one
   mutual-citation 2-cycle + 4 forward-in-time edges) prevent a strict DAG. Per author decision, the
   edge set is **left exactly as the §5 rule produced it** and this is reported honestly; max chain
@@ -125,7 +128,7 @@ preregistration are unchanged).
 └── data/                       # derived outputs; PDFs + text are OSF-only
 ```
 
-## Result summary (this frozen run; see `RUN_LOG.md`)
+## Result summary (2026-08-08 run under the registered rule; superseded by the Rule 2 re-run — see `RUN_LOG.md` Part Five)
 All five preregistered hypotheses were confirmed: H1 (938 persistent recalled predicates; 2,877
 post-recall citations), H2 (381 first-cited-after-recall), H3 (21-year max persistence gap), H4
 (recalled median 1.07 vs 0.00 events/yr; one-sided Mann-Whitney p ≈ 6.4e-118), H5 (direction holds in

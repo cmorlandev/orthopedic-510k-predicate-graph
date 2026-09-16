@@ -1,0 +1,15 @@
+{
+  "frozen_on": "2026-09-16",
+  "text_dir": "data/text",
+  "n_files": 12388,
+  "corpus_sha256": "27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607",
+  "manifest_sha256": "847c6cd478dbcad1d1e0d65033c754f8c4b6504fbf807479e304ea7dc89f9c71",
+  "manifest_status_counts": {
+    "404": 924,
+    "200": 12388,
+    "-1": 1
+  },
+  "n_empty_text_files": 146,
+  "extractor": "pymupdf (fitz) page.get_text(), pages joined with '\\n' \u2014 see 03_extract_edges",
+  "note": "Stages 3-8 read ONLY these files. Re-running Stage 2 does not change them."
+}
