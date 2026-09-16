@@ -1,3 +1,5 @@
+> **CORRECTED 2026-09-16.** Six validation-sample verdicts in this report were wrong; the validation-sample precision figure is 78.4% (72.2-83.5), not 81.4%, and the corpus estimate is ~4,110 (13.5%), not ~3,572. No conclusion changes. See `verification/round2/CORRECTION_NOTICE.md`.
+
 # Independent verification — Orthopedic 510(k) Predicate-Graph Study
 
 **Verifier:** Gant Duncan
