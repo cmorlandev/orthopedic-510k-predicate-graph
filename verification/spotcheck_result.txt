@@ -1,0 +1,66 @@
+HAND ADJUDICATION RESULT
+worksheet: adjudication_199_edges.csv
+rows: 199   adjudicated: 199   blank: 0
+
+==================================================================
+PROXIMITY_ONLY    (65 edges over 15 devices)
+   YES 37   NO 28   UNCLEAR 0
+   precision (adjudicable)    56.9%   Wilson 95% CI 44.8-68.2%
+   precision (conservative)   56.9%   Wilson 95% CI 44.8-68.2%
+   -> at the conservative lower bound, up to 4,356 of the 7,896 PROXIMITY_ONLY edges could be spurious
+==================================================================
+SECTION_HEADED    (134 edges over 38 devices)
+   YES 125   NO 9   UNCLEAR 0
+   precision (adjudicable)    93.3%   Wilson 95% CI 87.7-96.4%
+   precision (conservative)   93.3%   Wilson 95% CI 87.7-96.4%
+   -> at the conservative lower bound, up to 2,772 of the 22,590 SECTION_HEADED edges could be spurious
+==================================================================
+
+POOLED (unweighted): YES 162  NO 37  UNCLEAR 0
+   81.4%  Wilson 95% CI 75.4-86.2%
+   NOTE: the pooled figure mixes tiers in the proportions you
+   SAMPLED, not the proportions in the graph (SECTION_HEADED 74.1%,
+   PROXIMITY_ONLY 25.9%). Report the per-tier figures as primary.
+
+ROWS NEEDING NARRATIVE IN THE REPORT
+  [NO] K050441 -> K002757   note: (none given)
+  [NO] K050441 -> K021380   note: (none given)
+  [NO] K050441 -> K033871   note: (none given)
+  [NO] K050441 -> K042774   note: (none given)
+  [NO] K050441 -> K974558   note: (none given)
+  [NO] K050441 -> K990830   note: (none given)
+  [NO] K072326 -> K051089   note: (none given)
+  [NO] K190123 -> K003016   note: (none given)
+  [NO] K190123 -> K012091   note: (none given)
+  [NO] K190123 -> K021346   note: (none given)
+  [NO] K190123 -> K061547   note: (none given)
+  [NO] K190123 -> K062693   note: (none given)
+  [NO] K190123 -> K100866   note: (none given)
+  [NO] K190123 -> K101575   note: (none given)
+  [NO] K190123 -> K120599   note: (none given)
+  [NO] K190123 -> K121221   note: (none given)
+  [NO] K190123 -> K122382   note: (none given)
+  [NO] K190123 -> K123434   note: (none given)
+  [NO] K190123 -> K123688   note: (none given)
+  [NO] K190123 -> K130984   note: (none given)
+  [NO] K190123 -> K140676   note: (none given)
+  [NO] K190123 -> K141235   note: (none given)
+  [NO] K190123 -> K142119   note: (none given)
+  [NO] K190123 -> K150133   note: (none given)
+  [NO] K190123 -> K150302   note: (none given)
+  [NO] K190123 -> K171181   note: (none given)
+  [NO] K190123 -> K173898   note: (none given)
+  [NO] K190123 -> K180798   note: (none given)
+  [NO] K190123 -> K181598   note: (none given)
+  [NO] K190123 -> K842559   note: (none given)
+  [NO] K190123 -> K932222   note: (none given)
+  [NO] K233507 -> K152298   note: (none given)
+  [NO] K233507 -> K162026   note: (none given)
+  [NO] K233507 -> K182039   note: (none given)
+  [NO] K233507 -> K200113   note: (none given)
+  [NO] K233507 -> K230563   note: (none given)
+  [NO] K233507 -> K231947   note: (none given)
+
+  Every NO and UNCLEAR should get a sentence in the pull request.
+  A single documented false positive is the most informative
+  result this check can produce -- do not bury it in a ratio.

@@ -1,0 +1,747 @@
+HAND ADJUDICATION RESULT -- complete validation sample
+Verifier: Gant Duncan   Adjudicated: 2026-09-15
+Sample: 199 candidate edges over 45 devices. Notebook 03 drew 60 devices with
+        retrievable text; 45 had >=1 extracted edge. Complete sample, no
+        sub-sampling. Single adjudicator, no second reader.
+
+OVERALL   YES 162   NO 37   UNCLEAR 0   pooled precision 81.4%
+
+=== THE HEADLINE IS NOT THE RATE, IT IS THE STRUCTURE ===
+
+All 37 false positives come from 4 of the 45 documents. Split on that:
+
+  41 "clean" documents    155 edges    0 false positives   precision 100.0%
+                                                           (Wilson 97.6-100%)
+   4 "list" documents      44 edges   37 false positives   precision  15.9%
+
+The extractor is not moderately unreliable across the corpus. It is exactly
+right on ordinary 510(k) summaries and almost always wrong on a specific,
+recognisable document structure.
+
+PER TIER (for completeness; the split above is the real finding)
+
+  tier             edges  devices  precision  FP rate  binomial CI   cluster CI
+  SECTION_HEADED     134       38      93.3%     6.7%   3.6-12.3%    0.0-17.4%
+  PROXIMITY_ONLY      65       15      56.9%    43.1%  31.8-55.2%    2.6-73.3%
+  pooled             199       45      81.4%    18.6%  13.8-24.6%    0.6-39.3%
+
+Cluster CIs are a bootstrap over the 45 devices (B=20,000). They are 2-4x
+wider than the binomial intervals because the document, not the edge, is the
+independent sampling unit. Any interval that treats 199 edges as independent
+draws is too narrow.
+
+Attributing the failures:
+  SECTION_HEADED  9 NOs, ALL 9 from the 4 list-documents.
+                  Excluding them: 0 of 120 edges wrong.
+  PROXIMITY_ONLY 28 NOs, ALL 28 from the 4 list-documents.
+                  Excluding them: 0 of 35 edges wrong.
+
+=== THE FAILURE MODE, DOCUMENTED ===
+
+  device     edges   NO   NO by tier
+  K190123       25   24   PROXIMITY_ONLY 19/19, SECTION_HEADED 5/6
+  K050441        8    6   PROXIMITY_ONLY 6/8
+  K233507        7    6   PROXIMITY_ONLY 2/2, SECTION_HEADED 4/5
+  K072326        4    1   PROXIMITY_ONLY 1/1
+
+Two were inspected directly and both are the same structure:
+
+K190123 (MicroPort CoCr Heads) -- section "X. Component and Accessory
+  Compatibility: Table #1 and #2 show the compatibility of the subject devices
+  with previously cleared MicroPort Orthopedics products." Two formal tables
+  follow, each with a column headed "510(k)" and a column of device names,
+  listing 30+ cleared K-numbers as COMPATIBLE COMPONENTS -- parts that may be
+  used together with the subject device, not devices it claims equivalence to.
+  24 of its 25 extracted edges come from these tables.
+
+K050441 (Taper 2 Porous Femoral Stem) -- same pattern on the Indications for
+  Use page: "specific indications for compatible components that can be used
+  with the above femoral stems", followed by seven parenthesised K-numbers.
+  6 of its 8 extracted edges come from that list.
+
+Why this also defeats the SECTION_HEADED tier: the compatibility tables carry
+a column header literally reading "510(k)". A heading-based cue almost
+certainly matches it, so the high-confidence tier inherits the same error on
+these documents. That is the likely source of all 9 SECTION_HEADED failures.
+
+This is a single, identifiable, fixable defect -- not diffuse noise. Excluding
+sections and tables whose headings denote compatibility or accessory
+co-use ("Component and Accessory Compatibility", "Compatible ... Including
+510(k) information") would, on this sample, have removed 37 of 37 false
+positives and cost nothing: the 155 edges from ordinary documents were all
+correct.
+
+=== EXTRAPOLATION ===
+
+Population-weighted point estimate: 16.1% of edges spurious, ~4,900 of 30,487.
+Treat as indicative only. Because failures are confined to rare document
+structures, the real total depends on how many compatibility-table documents
+exist in the full 12,392-PDF corpus -- not estimable from 45 devices. The
+tractable next step is a corpus-wide count of documents containing a
+compatibility table or a "510(k)" table column, which is a text search, not
+a re-adjudication.
+
+=== SECOND FAILURE MODE: "REFERENCE DEVICE" SECTIONS (found by auditing K190123) ===
+
+Auditing K190123 against its source PDF corrected an earlier reading of this
+verification. Its five SECTION_HEADED false positives do NOT come from the
+compatibility tables. They come from a section headed "V. Reference Device:".
+
+In FDA 510(k) terminology a REFERENCE device is a formally distinct category
+from a PREDICATE: cited for supporting data, test methods, standards or
+labelling precedent, carrying no substantial-equivalence claim. K190123's
+section V names five (K932222, K173898, K101575, K842559, K120599); the
+extractor's heading detector treated the section as a predicate cue and
+emitted all five as SECTION_HEADED edges.
+
+So there are two distinct mechanisms, not one:
+  1. reference-device sections  -> contaminate SECTION_HEADED (high-confidence)
+  2. compatibility tables       -> contaminate PROXIMITY_ONLY
+
+Mechanism 1 is the more consequential. Compatibility-table documents are rare
+(0.31% detected). Reference-device sections are a standard element of modern
+510(k) summaries.
+
+CORPUS SCAN (scan_reference_devices.py)
+  edge-bearing documents with readable text          8,981
+    with a detectable predicate-device heading       5,340  (59.5%)
+    with a detectable reference-device heading          778  ( 8.7%)
+  edges whose K-number sits inside a reference section 1,136  (3.73% of graph)
+    SECTION_HEADED                                     999  (4.42% of tier)
+    PROXIMITY_ONLY                                     137  (1.73% of tier)
+  candidates excluded because the same K-number also appears in that
+    document's predicate section (legitimately both, as K170444 is)   567
+
+All 1,136 are enumerated in reference_device_edges.csv. This is a LIST, not an
+extrapolation -- the analyst can act on it directly.
+
+UPPER BOUND, NOT A COUNT OF ERRORS. Two limits:
+  - only 59.5% of documents had a detectable predicate-section heading. Where
+    none was found the "also a predicate" exclusion could not be applied, so
+    some of the 1,136 may be genuine predicates named in a section the parser
+    missed. The exclusion did fire 567 times, so detection works often.
+  - the false-positive rate for this class rests on 5/5 within a single
+    document. That is a point estimate on n=5, not a measured rate.
+  Adjudicating 20-30 reference-section edges drawn from different documents
+  would convert this from an upper bound into an exact correction. That is now
+  the highest-value remaining check in this verification.
+
+DOES NOT ADD TO THE EARLIER ESTIMATE. The K-load calibrated figure (~2,064
+spurious, 6.8%) already covers both mechanisms; K190123's five reference edges
+sat inside the 26+ bin's measured 45.3%. The reference scan partitions part of
+the same total by cause rather than adding to it.
+
+IF CONFIRMED: removing these would take SECTION_HEADED from 22,580 to 21,581
+and the graph from 30,487 to 29,351 edges.
+
+THIS SETTLES THE CRITERION QUESTION AS THE CENTRAL ONE
+Notebook 03 instructs the adjudicator to confirm "every listed K-number is a
+genuine predicate/reference citation". FDA's own term for the category in
+section V is "Reference Device". That wording therefore reads as deliberately
+INCLUDING reference devices -- under which reading all five of K190123's
+section-V edges are correct and the analyst's 121/121 follows with no appeal
+to sampling luck at all. The verifier manual section 9 says "genuinely cited
+as predicates", which excludes them.
+
+  This is no longer a question about who adjudicated more carefully. It is a
+  question about what the graph is. The study's claims -- persistent
+  predicates, post-recall citations, downstream devices, chain depth -- are
+  claims about substantial-equivalence lineage. Reference citations are not
+  that. If the 1,136 edges belong in the graph, the object is a
+  "predicate-or-reference citation graph" and the claims need restating; if
+  they do not, 999 high-confidence edges come out and sens_high_conf changes.
+
+  ==> FIRST QUESTION TO THE ANALYST, ahead of all others: was the graph
+      intended to include FDA reference devices as edges? The answer
+      determines whether 1,136 edges are a defect or a design choice, and it
+      cannot be settled from the repository.
+
+=== CORPUS-WIDE ESTIMATE OF SPURIOUS EDGES (calibrated on the 199 verdicts) ===
+
+Method: bin every edge-bearing document by the number of distinct K-numbers in
+its extracted text; measure the false-positive rate within each bin from the
+adjudicated edges falling in it; apply those rates to all corpus edges in the
+same bin. Phrase-independent -- which matters, because a regex scan for
+compatibility wording detected only 2 of the 4 documents known from
+adjudication to be pathological (50% sensitivity, 95% CI 15-85%).
+
+  K-nums    docs    edges  adjud  FP  FP rate      95% CI   est. spurious
+     1-2   4,176    6,103     25   0     0.0%   0.0-13.3%               0
+     3-5   3,412   12,208     53   1     1.9%    0.3-9.9%             230
+    6-10   1,121    7,756     68  12    17.6%   10.4-28.4%          1,368
+   11-25     244    3,392      0   -   no data          -   NOT ESTIMABLE
+     26+      28    1,028     53  24    45.3%   32.7-58.5%            465
+   TOTAL   8,981   30,487    199  37     6.77%  3.88-15.84%          2,064
+
+REPORTED ESTIMATE: ~2,064 spurious edges of 30,487 = 6.8%
+                   95% interval 1,182 to 4,828 (3.9-15.8%)
+
+The false-positive rate rises strictly monotonically with K-number load across
+every calibrated bin: 0.0% -> 1.9% -> 17.6% -> (gap) -> 45.3%. That is the
+dose-response a document-structure mechanism predicts. Diffuse extraction
+noise would not produce it.
+
+DECLARED GAP: the 11-25 bin contains 244 documents and 3,392 edges (11.1% of
+the graph) and no adjudicated edge landed in it, so those edges are EXCLUDED
+from the 2,064 figure. Log-interpolating between the adjacent measured rates
+gives ~28.6%, implying ~971 further spurious edges and a total near 3,035
+(10.0%). That interpolation is NOT a measurement and is offered only to show
+the direction of the omission. Adjudicating two or three documents from this
+bin (~40 edges, roughly 20 minutes) would close the accounting properly and
+is the single cheapest remaining improvement to this verification.
+
+THREE APPROACHES, RECONCILED
+  sample extrapolation (4/45 devices)     4,900   16.1%
+  regex scan, sensitivity-corrected       1,274    4.2%
+  K-load calibrated on 199 verdicts       2,064    6.8%   <- report this
+The calibrated 95% interval (3.9-15.8%) contains all three; they agree within
+uncertainty. The calibrated figure is preferred because its rates are measured
+rather than assumed, it covers the whole corpus, and its one gap is declared.
+
+THE FILTER SCREENS, IT DOES NOT DIAGNOSE
+Concentration remains document-level inside every bin:
+  bin 6-10: all 12 false positives came from K050441 (6/8) and K233507 (6/7);
+            the other 53 adjudicated edges in that bin were all correct.
+  bin 26+ : all 24 came from K190123 (24/25); the other 28 adjudicated edges
+            in that bin were all correct.
+So a high K-number count raises risk without implying a defective document,
+and K072326 -- 1 of 4 edges wrong -- sits in the 3-5 bin alongside 12,208
+edges. K-number load is therefore a screening filter, not a decision rule.
+
+RECOMMENDATION TO THE ANALYST (revised, and weaker than a threshold rule)
+  1. Treat documents with >=6 distinct K-numbers as requiring review before
+     their edges enter the graph: 1,393 documents (15.5%) carrying 12,176
+     edges (39.9%). This is a review queue, not an exclusion rule.
+  2. Within those, suppress edges arising inside sections or tables that
+     enumerate compatible components, accessories or system parts. On the
+     adjudicated sample this would have removed 37 of 37 false positives at
+     no cost: the 155 edges from ordinary documents were all correct.
+  3. Report sens_high_conf as primary, but note it is not immune -- 9 of the
+     37 false positives were SECTION_HEADED, all from compatibility tables
+     whose column header reads "510(k)".
+  4. Enlarge the validation sample. At the estimated prevalence a 60-device
+     draw has roughly a 1-in-3 chance of containing no pathological document,
+     which is why the study's own 121/121 did not surface this.
+
+=== RECONCILIATION WITH THE ANALYST'S REPORTED 121/121 -- SUPERSEDED ===
+
+This section previously reasoned about how improbable the analyst's perfect
+precision was, first at "1 in 66" and then at "1 in 3", and speculated that a
+looser adjudication criterion might explain it. All of that is SUPERSEDED by
+F1-F6 below, which were written after reading the preregistration.
+
+The short version: §5 makes "reference device" a locked predicate cue and §8
+defines precision over "genuine predicate/reference citations", so reference
+citations are correct by the preregistered criterion; compatibility-table
+documents are rare (0.31-0.90% of the corpus). A result of 121/121 is
+therefore the EXPECTED outcome of applying the registered criterion to an
+ordinary draw. There is no anomaly to explain, no improbability to quantify,
+and no suggestion of loose adjudication. See F6.
+
+Retained here only so the reasoning trail is visible. Where this section and
+F6 differ, F6 governs.
+
+=== BEARING ON THE STUDY'S CLAIMS ===
+
+Once the four list-documents are set aside, the extraction supports the
+study's design well: 155 of 155 edges from ordinary summaries were genuine.
+The defect is narrow and correctable, and correcting it would raise precision
+rather than change any conclusion's direction.
+
+sens_high_conf (SECTION_HEADED only) remains the more defensible analysis, but
+note it is NOT immune: 9 of its edges here were wrong, all from the
+compatibility tables. Filtering those structures out matters more than
+choosing a confidence tier.
+
+=== LIMITATIONS ===
+
+Single adjudicator, no second reader, no inter-rater agreement -- the same
+limitation the analyst's validation carries. Per-row notes were not recorded,
+so the reasoning for individual verdicts is undocumented except for K190123
+and K050441, which were examined directly and are described above.
+Adjudication used the locally retrieved Stage 2 PDFs; the planned re-check of
+10 devices against the live FDA database could not be performed because
+accessdata.fda.gov returned application errors throughout the window.
+
+CONSISTENCY ITEM, RESOLVED. K190123's single YES is K170444, which also
+appears in its Table #1 of compatible shells and liners -- the same table
+whose seven other extracted entries were all marked NO. Checked against the
+document: section IV, headed "Predicate Device:", reads "TRANSCEND
+Articulation System (K170444, SE 06/26/2017)". K170444 is therefore genuinely
+the predicate AND separately listed as a compatible component. The YES stands.
+
+This is worth stating in the report as evidence about the adjudication rather
+than about the extractor: the same K-number occurring in two contexts within
+one document was judged on the predicate context and not the table context,
+and the seven table-only entries were rejected. The verdicts discriminate at
+the level of where in the document a citation appears, which is what the
+criterion requires.
+
+Incidental observation for the analyst: this summary also states "This
+predicate has not been subject to a design-related recall." If recall
+attestations appear in a reasonable share of 510(k) summaries, they would
+provide an independent cross-check on the study's recall-to-device linkage
+(6,961 links -> 1,691 corpus devices) that does not depend on the openFDA
+recall database at all. Worth a text search of the corpus to see how common
+the phrasing is.
+
+=== THIRD ADJUDICATION: THE 11-25 K-NUMBER BIN (45 edges, 3 documents) ===
+
+The first corpus estimate left this bin uncalibrated -- 244 documents, 3,392
+edges, 11.1% of the graph, with no adjudicated edge in it. Three documents
+were drawn (excluding edges already adjudicated) and every edge in them read,
+recording not only a verdict but WHERE in the document each K-number sits.
+
+  device     edges   YES   NO   where the K-numbers were
+  K160652       11    11    0   all under a predicate heading -- clean
+  K163577       13    13    0   all under a predicate heading -- clean
+  K243839       21     1   20   compatible-components enumeration
+  TOTAL         45    25   20   FP rate 44.4%, Wilson 95% CI 30.9-58.8%
+
+Note words recorded: 25 "predicate", 20 "compatibility", ZERO "reference".
+
+TWO SUBSTANTIVE RESULTS
+
+1. The interpolation was wrong, and in the direction that matters. This bin's
+   measured rate is 44.4%, not the 28.6% obtained by log-interpolating between
+   the neighbouring bins. It sits essentially level with the 26+ bin (45.3%),
+   so the dose-response PLATEAUS above roughly 10 K-numbers rather than
+   continuing to climb. Any future interpolation across this range should
+   assume a plateau, not a trend.
+
+2. This bin's failures are COMPATIBILITY, not reference citations. Not one of
+   the 20 was a reference-device entry. Combined with the 199-edge sample's 28
+   compatibility failures, compatibility enumerations are the dominant
+   mechanism -- and earlier notes in this file had the balance the other way
+   round, on the strength of a single document (K190123) that happened to
+   exhibit both.
+
+REVISED CORPUS ESTIMATE, ALL FIVE BINS CALIBRATED
+
+  K-nums    docs    edges  adjud  FP   rate      95% CI    est. spurious
+     1-2   4,176    6,103     25   0    0.0%   0.0-13.3%               0
+     3-5   3,412   12,208     53   1    1.9%    0.3-9.9%             230
+    6-10   1,121    7,756     68  12   17.6%   10.4-28.4%          1,368
+   11-25     244    3,392     45  20   44.4%   30.9-58.8%          1,507
+     26+      28    1,028     53  24   45.3%   32.7-58.5%            465
+   TOTAL   8,981   30,487    244  57   11.72%  7.32-22.38%         3,572
+
+  ~3,572 spurious edges of 30,487 = 11.7%, interval 2,232-6,823 (7.3-22.4%).
+  No bin is uncalibrated. The whole graph is now accounted for.
+
+  Supersedes: ~2,064 (6.8%, bin excluded) and ~3,035 (10.0%, bin interpolated).
+
+MECHANISM SPLIT
+  reference-device citations (from the 22-edge sample)  ~826   2.7%
+  compatibility / accessory enumerations               ~2,746   9.0%
+  total                                                ~3,572  11.7%
+  Roughly 3:1 in favour of compatibility.
+
+THE PHRASE SCAN IS NOT A PREVALENCE ESTIMATE (sensitivity measured: 40%)
+
+  scan_compatibility_sections.py detected 111 of 12,392 documents (0.90%).
+  Checked against the five documents hand adjudication identified as carrying
+  compatibility enumerations:
+
+    K190123   detected      full PDF audit, section X
+    K050441   detected      indications form, read directly
+    K243839   NOT detected  bin adjudication, note "compatibility"
+    K233507   NOT detected  verdicts only, source unverified
+    K072326   NOT detected  verdicts only, source unverified
+
+  Sensitivity 2 of 5 = 40%, Wilson 95% CI 12-77%. Both hits are documents
+  whose text was read directly; all three misses were identified from verdicts
+  -- the pattern expected when detection depends on particular phrasing.
+  Hand adjudication met such documents in 3-5 of 48 documents (6.2-10.4%),
+  an order of magnitude above the scan's 0.90%.
+
+  ==> Cite the phrase scan as a LOWER BOUND and a source of worked examples
+      only. The K-load stratified estimate is the figure to report, and it
+      does not depend on either scanner.
+
+MECHANISM SPLIT -- WHAT IS AND IS NOT A POINT ESTIMATE
+
+  reference-device citations   >= ~826    (>=2.7%)   a FLOOR
+  compatibility and similar    <= ~2,746  (<=9.0%)   the remainder
+  total                          ~3,572    11.7%     independent of both scans
+
+  The TOTAL is calibrated on hand verdicts alone and stands on its own. The
+  SPLIT depends on the two scanners and is therefore softer. 826 is a floor
+  rather than a point estimate: the 22-edge sample measured the reference
+  scanner's OVER-attribution (27% of detected reference edges were also
+  predicates) but nothing measures its UNDER-detection, and only 59.5% of
+  documents had a detectable predicate heading at all, so heading detection
+  is patchy corpus-wide. If the true reference population exceeds the 1,136
+  detected, the floor rises and the compatibility remainder falls by the same
+  amount. Either way the total is unchanged.
+
+CLUSTERING, AS BEFORE
+  All 20 failures came from 1 of the 3 documents. The edge-level Wilson
+  interval therefore understates the true uncertainty, exactly as in the
+  199-edge sample where 4 of 45 documents carried all 37 failures. The
+  document, not the edge, remains the independent unit. Reported per-bin
+  intervals should be read as optimistic.
+
+TOTAL HAND ADJUDICATION ACROSS THIS VERIFICATION
+  199 edges / 45 documents   complete validation sample (manual criterion)
+   45 edges /  3 documents   11-25 K-number bin, with location notes
+   22 edges / 12 documents   reference-section targeted sample
+  266 edges / 60 documents   single adjudicator throughout; no second reader.
+  The manual asked for 2-3 devices.
+
+=== STEP 19: THE PREREGISTRATION, READ AGAINST EVERYTHING ELSE ===
+
+This document resolves most of the open questions in this verification, and it
+inverts the principal finding. Read it before anything else in these notes.
+
+--- F1. REGISTRATION CONFIRMED. §12 STEP 1 SATISFIED. (finding withdrawn)
+
+An earlier draft of these notes recorded that the study appeared never to have
+been registered. That was wrong, and it is withdrawn in full. A submitted OSF
+registration exists:
+
+  title      Orthopedic 510(K) Predicate-Graph Study
+  template   OSF Preregistration
+  registry   OSF Registries          status  Submitted, under Embargo
+  registered 2026-07-28 17:17:21
+  last edit  2026-07-27 15:36:35
+  contributors  Cord Morlan, Tanner Livsey, Gant Duncan
+  project    osf.io/utr47
+
+TIMELINE
+  2026-07-06  openFDA data release (§2)
+  2026-07-21  data frozen -- registered snapshot date (§2)
+  2026-07-27  preregistration last edited
+  2026-07-28  REGISTERED on OSF Registries
+  2026-08-07  D1 re-freeze date as stated in DEVIATIONS.md
+  2026-08-08  re-freeze per RUN_LOG/SNAPSHOT; Stages 3-8 run;
+              expected_values.json written
+  2026-08-26  verifier Stage 2 (PDF download)
+  2026-09-15  verifier adjudication; added as project contributor
+
+The plan was timestamped by a third party ELEVEN DAYS before the confirmatory
+quantities were computed. §12 step 1 is satisfied and the anti-HARKing
+protection described in §1 is intact. The embargo does not weaken this: an
+embargoed OSF registration is still an immutable, timestamped snapshot; only
+public visibility is deferred. This should be stated affirmatively in the
+verification report -- it is the study's strongest integrity credential and it
+checks out.
+
+FOUR ITEMS REMAIN, none of them impugning the registration itself:
+
+  (a) LOAD-BEARING, AND THE ONE WORTH CHECKING. The repository's
+      PREREGISTRATION.docx is labelled "Version 1.0 (draft for review)", still
+      carries [to be completed] in the Authors and Contact fields, and closes
+      "Nothing here should be publicly registered until the author team has
+      confirmed the hypotheses and criteria reflect their intent." The dates
+      are consistent with this draft being what was frozen (registered one day
+      after its last edit), and OSF contributor metadata is separate from the
+      document body, so the placeholders do not by themselves indicate a
+      different text. But every finding below about the LOCKED §5 edge rule --
+      F2, F3, F4, F5 -- rests on the registered text being this text.
+      ==> Open the registration and confirm §5's three definitions (predicate
+          cue, predicate edge, confidence tier) and §8's precision definition
+          read exactly as quoted here. The verifier has access as a
+          contributor. Until that check is done, F2-F5 are conditional on the
+          repository copy being faithful.
+      ==> Separately: the repository should ship the REGISTERED version, or a
+          link to the registration, rather than a draft. A reader comparing
+          the manuscript against the repo copy is comparing against a document
+          marked "not for registration".
+
+  (b) Embargo end date unknown. Until it lifts, the manuscript cannot direct
+      readers to a public registration; the registration ID and date can still
+      be cited.
+
+  (c) VERIFIER INDEPENDENCE -- DISCLOSE, AND CLARIFY THE SEQUENCE. The
+      registration lists Gant Duncan as a contributor, while the
+      project-contributor invitation arrived 2026-09-15, after the
+      verification work. OSF displays a registration's current contributor
+      list, so retroactive addition is the most likely explanation and is
+      benign. But a verifier who appears on the registration reads as a study
+      author rather than an independent checker, and the manual's premise is
+      that the verifier did not build the study.
+      ==> The pull request should state plainly when the verifier became
+          involved, that no verification finding was discussed with the
+          analyst in advance, and that contributor status was conferred after
+          the work was complete -- adjusted to whatever is actually the case.
+          Disclosure is sufficient; silence is not, particularly in a report
+          whose subject includes registration integrity.
+
+  (d) A third contributor, Tanner Livsey, appears on the registration but
+      nowhere in the repository, RUN_LOG.md or DEVIATIONS.md. Worth asking who
+      performed which role -- in particular whether Tanner performed the
+      original 121-edge adjudication, since that bears on F6.
+
+NOTE BEARING ON F5. The registration's own public description reads: "a
+retrospective, observational network analysis of PREDICATE-DEVICE CITATIONS
+among U.S. FDA 510(k)-cleared orthopedic implants, examining how recalled
+devices persist AS PREDICATES for later clearances." That is the construct,
+not the §5 operationalisation, which counts any in-corpus K-number appearing
+in a cue-bearing document. The construct-validity gap is therefore visible in
+the registration's own description -- which strengthens F5 rather than
+weakening it.
+
+--- F2. THE REFERENCE-DEVICE EDGES ARE THE LOCKED RULE, NOT A DEFECT
+
+§5, verbatim: "Predicate cue: a case-insensitive match of predicate,
+substantially equivalent, or REFERENCE DEVICE in the summary text."
+§8, verbatim: precision is "the proportion of hand-adjudicated candidate edges
+that are genuine PREDICATE/REFERENCE citations".
+
+So "reference device" is a preregistered cue and reference citations count as
+genuine under the preregistered precision definition. The 1,136 reference-
+section edges (999 SECTION_HEADED) are the plan working as written. The
+earlier characterisation of them as a failure mode was wrong.
+
+--- F3. NEITHER IS THE COMPATIBILITY-TABLE BEHAVIOUR. THE RULE IS MAXIMAL.
+
+§5, verbatim: "Predicate edge (deterministic rule): in any summary containing
+a predicate cue, EVERY OTHER in-corpus K-number present in the text is
+recorded as an incoming predicate edge for that device."
+
+Every K-number anywhere in a document that mentions predicates anywhere
+becomes an edge. Compatibility tables, accessory lists, reference sections,
+standards discussions -- all of it, by design.
+
+Consequence: all 37 adjudicated NOs are the rule behaving exactly as specified.
+  K190123  5 SECTION_HEADED  section V "Reference Device" (a locked cue)
+  K190123 19 PROXIMITY_ONLY  compatibility tables (maximal rule)
+  K050441  6 PROXIMITY_ONLY  compatible-components list (maximal rule)
+  K233507  4 SECTION_HEADED  unverified; consistent with a reference section
+  K233507  2 PROXIMITY_ONLY  maximal rule
+  K072326  1 PROXIMITY_ONLY  maximal rule
+  ZERO implementation defects were found. The extractor is faithful to §5.
+
+--- F4. "SECTION_HEADED" DOES NOT MEAN WHAT ITS NAME SAYS
+
+§5: "SECTION_HEADED if a cue occurs within 300 characters of the K-number's
+first mention; otherwise PROXIMITY_ONLY."
+
+Both tiers are proximity rules. They differ only in window width -- there is
+no section-structure detection anywhere in the pipeline. This explains K190123
+exactly: the heading "V. Reference Device:" is itself a cue, so the five
+K-numbers beneath it fall within 300 characters and are labelled
+SECTION_HEADED, while the distant compatibility-table entries are
+PROXIMITY_ONLY.
+
+The name will mislead readers of the manuscript, and it undercuts what
+sens_high_conf can be claimed to demonstrate: it is a tighter-proximity
+subset, not a structurally-verified one.
+
+--- F5. THE REAL FINDING IS CONSTRUCT VALIDITY, NOT IMPLEMENTATION
+
+The hypotheses in §4 are about substantial-equivalence lineage: recalled
+devices "cited as predicates" by later devices, persistence of predicate
+citations, downstream devices, chain depth. The §5 operationalisation counts
+co-occurrence of a K-number in a document mentioning predicates. Those are not
+the same construct, and the gap is measurable -- which is what the hand
+adjudication measured:
+
+  criterion                                          precision   Wilson 95% CI
+  manual §9, "genuinely cited as predicates"         162/199  81.4%  75.4-86.2%
+  prereg §8, "predicate/reference" (K190123 only)    167/199  83.9%  78.2-88.4%
+  prereg §8, if K233507's 4 are also reference       171/199  85.9%  80.4-90.1%
+
+Even on the most generous preregistered reading, 28 of 199 edges are neither
+predicate nor reference citations -- they are compatible-component entries.
+
+So the study can defend its numbers as faithful to its plan, and cannot
+defend the plan as measuring predicate lineage. Roughly one edge in six is
+not a substantial-equivalence citation. This belongs in the manuscript as a
+construct-validity limitation with the measured precision attached, not as a
+bug report.
+
+  RECOMMENDATION: restrict the edge rule to K-numbers appearing within a
+  predicate or substantial-equivalence context, excluding reference-device
+  sections and compatibility/accessory enumerations; report the current graph
+  as a sensitivity analysis. Failing that, rename the object throughout --
+  "predicate-or-reference citation graph" -- and restate the hypotheses in
+  those terms.
+
+--- F6. THE ANALYST'S 121/121 IS NOW FULLY EXPLAINED, WITH NO ANOMALY
+
+Under §8's own criterion, reference citations are genuine, so a sample drawn
+from the 8.7% of documents carrying reference sections yields YES verdicts.
+Compatibility-table documents are rare (0.31-0.90%), so a 60-device draw very
+probably contained none. 121/121 is the expected result of applying the
+preregistered criterion to a typical draw. Earlier working figures in these
+notes that treated it as improbable (1 in 66, then 1 in 3) were both wrong in
+premise: there is nothing to explain.
+  Two earlier speculations are formally withdrawn: that the analyst may have
+  adjudicated loosely, and that their draw was unusually lucky. Neither is
+  needed and neither should appear in the report.
+
+--- F7. §2 ASSERTS THE PDFs ARE STATIC. THEY ARE NOT.
+
+§2: "Summary PDFs (the only place predicate relationships are written) are
+downloaded separately from accessdata.fda.gov; they are static documents and
+are treated as part of the frozen snapshot by retrieval date."
+
+This is the definitive resolution of the 8-field mismatch. The preregistration
+discloses that the PDFs sit outside the frozen snapshot, but asserts they are
+static. This verification demonstrates they are not: an 18-day gap between the
+analyst's Stage 2 and this one produced +11 edges and moved 8 of 20 reference
+fields, all in the positive direction, with node counts unchanged. Direct
+corroboration was observed during adjudication, when accessdata.fda.gov
+returned application errors for a valid K-number.
+
+"Treated as part of the frozen snapshot by retrieval date" means exact
+reproduction requires the same retrieval date, which no later verifier can
+have. The 8 differing fields are therefore not reproducible by construction --
+a property of the study's design, disclosed but mischaracterised, and not a
+defect in this rebuild.
+
+  RECOMMENDATION: freeze the extracted PDF text (or the PDFs) into the
+  snapshot bundle, or state the affected values as tolerance-bounded. As
+  written, every future verifier hits this same 8-field mismatch.
+
+--- F8. THE VALIDATION SAMPLE IS PREREGISTERED AS NON-REPRODUCIBLE
+
+§8: "60 devices drawn with a fixed seed (42) from devices with downloaded
+text." The population sampled from is itself run-dependent, so the fixed seed
+does not reproduce the sample across runs. This confirms the earlier finding
+and locates it in the plan rather than the code: 199 candidate edges over 45
+edge-bearing devices here, against the analyst's 121.
+
+--- F9. §9's INDEPENDENCE OPTION WAS PRE-SPECIFIED AND NOT RUN
+
+§3.1-3.2 disclose that hypotheses H1-H4 were derived from a 9-code pilot whose
+devices are ~35% of this corpus, making the confirmatory analysis an extension
+rather than a replication. §9 offers the remedy -- reporting on the 145
+non-pilot codes only -- and pre-specifies it so it cannot be presented later
+as a post-hoc discovery. No such field exists in expected_values_REFERENCE.json
+and no result appears in RUN_LOG.md. It is labelled optional, so skipping it is
+not a deviation, but the one measure offered for independence was not taken and
+that should be stated where the pilot overlap is disclosed.
+
+--- F10. ITEMS THAT RESOLVE IN THE STUDY'S FAVOUR (report these too)
+
+  - All three sensitivity analyses ARE preregistered in §8 as a closed list
+    with "no others will be added post hoc". The earlier concern that they
+    might be post-hoc is RESOLVED: sens_class_I_II, sens_high_conf and
+    sens_combined are exactly the three named. PASS.
+  - §7 thresholds were set in advance and the document says so explicitly.
+  - D1's account of the registered counts is accurate: 15,556 / 13,288 / 1,687
+    all appear in §2 and §3.3 as stated.
+  - §10 declares the ~16% name-only gap, MAUDE's passive-reporting floor, and
+    the H4 confounding risk -- all in advance.
+  - §3 discloses the pilot in full and quantifies the overlap.
+  - §7 commits to reporting non-confirmation with equal prominence.
+  - §10 makes no causal claim and names no manufacturer.
+  This is a carefully written plan, and it WAS registered before the
+  confirmatory run (F1). Its problems are the maximal edge rule (F5) and the
+  repository shipping a draft rather than the registered copy (F1a), not
+  carelessness.
+
+--- F11. REGISTERED vs ACTUAL, AFTER THE D1 RE-FREEZE
+
+  quantity              §2/§3.3     actual    delta        %
+  unique devices         15,556     15,581      +25   +0.161%
+  with Summary           13,288     13,313      +25   +0.188%
+  recall records          6,285      6,297      +12   +0.191%
+  enforcement records     4,089      4,096       +7   +0.171%
+  recalled devices        1,687      1,691       +4   +0.237%
+  Class II                1,305      1,306       +1   +0.077%
+  Class III                  18         18        0    0.000%
+  Class I                    11         11        0    0.000%
+  unclassified n/a          353        356       +3   +0.850%
+
+  Every delta positive and under 1%. D1 traded departure from the locked
+  snapshot for +25 devices in 15,556.
+
+  The exactly-4,096 enforcement count is now less suspicious: §2 reports 4,089
+  at registration, and a hard 4,096 pagination ceiling cannot produce 4,089.
+  But the two are not clearly the same quantity -- §2 describes 4,089 as
+  "records carrying a severity classification" (filtered) while the snapshot's
+  n_enforcement_raw = 4,096 is unfiltered. Still worth one question, downgraded
+  from a concern to a clarification.
+
+--- F12. §11 DEVIATION POLICY, MET IN FORM
+
+§11 requires departures to be logged in DEVIATIONS.md with reason and date and
+disclosed in the manuscript. D1, D2 and D3 exist and do this. The policy was
+followed. The one-day date inconsistency in D1 (2026-08-07 vs 2026-08-08 in
+RUN_LOG and SNAPSHOT.json) remains outstanding.
+
+--- F13. TWO ANALYTIC OBSERVATIONS
+
+(a) sens_class_I_II restricts to Class I+II = 1,317 devices, silently dropping
+    the 356 recalled devices carrying no severity class (21.1% of 1,691). And
+    "Class I/II" is in practice Class II: 1,306 of 1,317 (99.2%). A reader may
+    assume the most severe category carries the signal; Class I contributes 11
+    devices.
+(b) The H4 comparison carries a 35-point differential linkage gap between arms
+    (84% recalled vs 49% matched). At 49% control matching, at least 51% of
+    controls score zero events because they could not be linked at all, so a
+    control median of exactly 0 is what non-linkage alone produces. §10
+    declares this risk in advance; the exactly-reproduced match rates quantify
+    it and show it is structural rather than noise.
+
+--- F14. 08_verify CANNOT FAIL
+
+Its "expected" values are read from the file 06_graph_and_analysis writes in
+the same run, so it is a self-consistency check of the rebuild against itself.
+It cannot detect divergence from the analyst, and its 15/15 pass should not be
+presented as independent confirmation. The real comparison is
+compare_to_reference.py. The verifier manual's framing of this pass as a
+meaningful gate is misleading.
+
+=== SECOND ADJUDICATION: REFERENCE-SECTION EDGES (22 edges, 12 documents) ===
+
+A second, independent hand sample drawn from reference_device_edges.csv --
+12 documents, 22 edges, all adjudicated. This calibrates the 1,136 upper
+bound rather than testing for a defect, since §5 makes reference citations a
+locked part of the edge rule.
+
+Question per row: is this K-number under a reference-device heading only, or
+also under a predicate / substantial-equivalence heading?
+  NO  = reference-only (my scan's attribution was right)
+  YES = also a genuine predicate (my scan over-attributed)
+
+  tier              edges   YES   NO   reference-only      Wilson 95% CI
+  SECTION_HEADED       17     4   13        76.5%           52.7-90.4%
+  PROXIMITY_ONLY        5     2    3        60.0%           23.1-88.2%
+  TOTAL                22     6   16        72.7%           51.8-86.8%
+
+Per-document: 8 of 12 documents were entirely reference-only; 4 were mixed.
+No document was entirely YES.
+
+CALIBRATED RESULT
+  all reference-attributed edges  1,136 upper bound -> ~826  (588-986)
+  SECTION_HEADED subset             999 upper bound -> ~763  (526-903)
+  => ~826 edges (2.71% of the graph) are reference-only citations, of which
+     ~763 sit in the high-confidence tier (3.38% of it).
+
+THE 6 YESes MEASURE A KNOWN WEAKNESS IN MY SCAN
+  The scan excluded a K-number when it also appeared in a DETECTED predicate
+  section, but only 59.5% of documents had a detectable predicate heading.
+  Those 6 of 22 (27%) are precisely that gap -- now measured rather than
+  assumed. The scan over-attributes by roughly a quarter, and the calibrated
+  figure above corrects for it.
+
+NO DOUBLE COUNTING WITH THE EARLIER ESTIMATE
+  non-predicate edges, K-load calibrated        ~2,064   6.8%
+    of which reference-only                       ~826   2.7%
+    remainder (compatibility enumerations etc.) ~1,238   4.1%
+  The 199-edge sample's ratio was 9 reference : 28 compatibility (24:76);
+  the corpus ratio is nearer 40:60. That shift is expected, because the
+  45-device draw over-represented compatibility documents about sevenfold
+  relative to their corpus prevalence.
+
+LIMITATION
+  22 edges over 12 documents is a small sample and the intervals are wide
+  (51.8-86.8%). Both samples were adjudicated by the same single reader, so
+  this is not an inter-rater check. It is a second, independently drawn
+  sample from a different population, which is worth more than enlarging the
+  first, but it does not address the absence of a second adjudicator.
+
+WHAT IT MEANS FOR THE MANUSCRIPT
+  These ~826 edges are VALID under the preregistered §8 criterion ("genuine
+  predicate/reference citations") and INVALID under the construct the
+  hypotheses describe (substantial-equivalence lineage). They are therefore
+  the clearest available measure of the construct gap in F5: not an error
+  rate, but the size of the mismatch between what was locked and what is
+  claimed. A single sentence in the manuscript -- "approximately 2.7% of
+  edges, and 3.4% of high-confidence edges, are FDA reference-device
+  citations rather than predicate citations" -- would discharge it.

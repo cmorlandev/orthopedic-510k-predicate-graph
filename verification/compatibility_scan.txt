@@ -1,0 +1,31 @@
+CORPUS-WIDE SCAN FOR COMPATIBILITY-TABLE DOCUMENTS
+documents scanned (data/text/*.txt): 12,392
+
+  STRONG marker (explicit compatibility section/table): 39  (0.31%)
+  WEAK marker only (suggestive wording):                72  (0.58%)
+  no marker:                                            12,281
+
+marker frequencies:
+  compatible_shells_or_femoral         56
+  compatibility_of_subject             23
+  compatible_components_indications    11
+  may_be_used_with                     10
+  table_of_compatible                  6
+  accessory_compat_heading             6
+  compatible_X_including_510k          5
+
+EDGE ATTRIBUTION (from data/predicate_edges.csv)
+  STRONG: 39 of 39 such documents have edges, carrying 360 edges (1.18% of 30,487)
+        mean 9.23 edges per such document (adjudicated list-documents averaged 11.0)
+        at the observed 84.1% false-positive rate inside such documents,
+        estimated spurious edges: 302
+  WEAK: 65 of 72 such documents have edges, carrying 399 edges (1.31% of 30,487)
+        mean 6.14 edges per such document (adjudicated list-documents averaged 11.0)
+        at the observed 84.1% false-positive rate inside such documents,
+        estimated spurious edges: 335
+
+  Interpretation: this replaces the population-weighted extrapolation
+  (~4,900 spurious, cluster CI 0.6-39.3%) with a count grounded in the
+  actual corpus. Report the STRONG figure as primary and WEAK as an upper
+  bound; confirm by opening two or three STRONG documents that were NOT
+  in the adjudicated sample.

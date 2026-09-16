@@ -1,0 +1,31 @@
+CORPUS ESTIMATE OF SPURIOUS EDGES, CALIBRATED ON HAND ADJUDICATION
+edges file      : data/predicate_edges.csv
+adjudicated file: verification/adjudication_244_edges.csv
+documents with edges and readable text: 8,981
+
+Binned by the number of distinct K-numbers in the source document.
+FP rate is measured from adjudicated edges in that bin only.
+
+  K-nums    docs    edges  adjud   FP  FP rate          95% CI  est. spurious
+-----------------------------------------------------------------------------
+     1-2   4,176    6,103     25    0     0.0%    0.0-13.3  %              0
+     3-5   3,412   12,208     53    1     1.9%    0.3-9.9   %            230
+    6-10   1,121    7,756     68   12    17.6%   10.4-28.4  %          1,368
+   11-25     244    3,392     45   20    44.4%   30.9-58.8  %          1,507
+     26+      28    1,028     53   24    45.3%   32.7-58.5  %            465
+-----------------------------------------------------------------------------
+   TOTAL   8,981   30,487    244   57   11.72%   7.32-22.38 %          3,572
+
+ESTIMATE: ~3,572 spurious edges of 30,487 (11.72%)
+   interval from per-bin Wilson bounds: 2,232 to 6,823 (7.32-22.38%)
+
+WHERE THE KNOWN-PATHOLOGICAL DOCUMENTS LAND
+   K190123:  42 K-numbers in text, 25 edges -> bin 26+
+   K050441:   8 K-numbers in text, 8 edges -> bin 6-10
+   K233507:   7 K-numbers in text, 7 edges -> bin 6-10
+   K072326:   4 K-numbers in text, 4 edges -> bin 3-5
+
+If all four land in the high bins, K-number load separates the
+failure mode without any dependence on section wording -- and the
+recommendation to the analyst becomes a threshold rule rather than a
+list of phrases to match.

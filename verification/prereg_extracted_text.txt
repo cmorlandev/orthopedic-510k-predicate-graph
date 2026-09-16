@@ -1,0 +1,177 @@
+Preregistration — Orthopedic 510(k) Predicate-Graph Study (154-code confirmatory extension)
+Registration template: OSF Preregistration for Existing Data (chosen because the raw data are
+already collected and frozen; see §2).
+Study type: Retrospective, observational, secondary analysis of public U.S. FDA regulatory data.
+This is not a clinical trial (no intervention, no randomization, no human participants) and **not a
+systematic review** — so ClinicalTrials.gov and PROSPERO do not apply. See §1.
+Snapshot date (data frozen): 2026-07-21. openFDA data release: 2026-07-06.
+Status at registration: analysis plan locked before the confirmatory quantities (§6) are
+computed. See the prior-knowledge declaration in §3 — this is the anti-HARKing / anti-p-hacking core
+of this document.
+Authors: _[to be completed]_  ·  Contact: _[to be completed]_  ·  Version: 1.0 (draft for review)
+1. Purpose and why this registry
+The goal of preregistration here is narrow and explicit: to fix every analytical decision in advance
+so that the results of the 154-code analysis cannot be shaped — consciously or not — by seeing the
+numbers first. Concretely, it protects against:
+p-hacking — trying multiple thresholds, subsets, or tests and reporting whichever gives the
+  cleanest result. Prevented by pre-specifying the exact edge rule, confidence tiers, recall
+  linkage, statistical tests, and the full (closed) list of sensitivity analyses in §5–§8.
+HARKing (Hypothesizing After Results are Known) — presenting a finding discovered in the data as
+  though it had been predicted. Prevented by stating the hypotheses (§4) before the confirmatory
+  numbers exist, and by openly disclosing what we already know (§3).
+Because this is observational secondary-data research, the appropriate home is an **OSF
+Preregistration**, not a trial registry (no intervention) and not PROSPERO (not a systematic review of
+health outcomes). OSF's Existing Data template is used specifically because the raw snapshot is
+already in hand; that template requires the honesty declaration in §3.
+2. Data source (already collected and frozen)
+All raw data are drawn from openFDA device endpoints and were frozen to disk on 2026-07-21. No
+number in the confirmatory analysis will be derived from the live API; every number derives from the
+frozen files. The frozen snapshot comprises:
+File
+Endpoint
+Records
+510k_raw.json.gz
+/device/510k
+15,556 unique devices (13,288 with a public Summary)
+recall_raw.json.gz
+/device/recall
+6,285 recall records
+enforcement_raw.json.gz
+/device/enforcement
+4,089 records carrying a severity classification
+SNAPSHOT.json
+manifest
+date, counts, inclusion rule, full product-code list
+Summary PDFs (the only place predicate relationships are written) are downloaded separately from
+accessdata.fda.gov; they are static documents and are treated as part of the frozen snapshot by
+retrieval date.
+3. Prior-knowledge declaration (required; the honesty core)
+This section states exactly what is already known, so that no later claim can be mistaken for a naive
+prediction.
+3.1 A pilot study has been run. An exploratory analysis on 9 orthopedic product codes (5,426
+devices) was completed before this registration. It found, descriptively: ~10% of devices linked to a
+recall; recalled devices are cited as predicates by later non-recalled devices; some are first cited
+only after their own recall; persistence gaps of up to ~23 years; and higher adverse-event counts
+for recalled predicates than matched non-recalled predicates. **These pilot results are known to the
+authors and motivate the hypotheses in §4. This work is therefore a pre-registered confirmatory
+extension of an exploratory pilot**, not a naive first look.
+3.2 The 154-code corpus is a superset of the pilot. The inclusion rule (§4.1) captures all 9 pilot
+codes plus 145 more. The pilot devices are thus a subset (~35%) of the 15,556. This is an extension,
+not an independent replication; §9 specifies an optional held-out analysis on the 145 non-pilot codes
+for cleaner independence.
+3.3 What is already computed on the 154-code corpus (descriptive, treated as known):
+corpus size: 15,556 unique devices, 13,288 with a Summary;
+recall linkage: 1,687 recalled devices (worst-class: 1,305 Class II, 18 Class III, 11 Class I,
+  353 unclassified/pre-enforcement).
+These are reported as descriptive facts, not as confirmatory tests.
+3.4 What is NOT yet computed (the confirmatory quantities this registration locks): the predicate
+edge set and its validated precision; all graph-structure metrics; the persistent-recalled-predicate
+counts (predicates / citations / downstream devices); first-cited-after-recall count; persistence-gap
+distribution; the MAUDE recalled-vs-matched comparison; and every sensitivity subset. **None of these
+154-code values existed at the time this plan was registered.**
+4. Hypotheses (pre-specified)
+Each hypothesis restates a pilot observation as a directional prediction to be tested on the frozen
+154-code data. Confirmation/disconfirmation criteria are in §7.
+H1 (persistence exists). A non-trivial number of recalled devices are cited as predicates by
+  later devices cleared after the recall date, where the citing device is itself not recalled
+  ("persistent recalled predicates").
+H2 (post-recall entry). A subset of recalled devices are first cited as a predicate only after
+  their own recall date.
+H3 (long persistence). The maximum interval between a device's recall and its latest post-recall
+  predicate citation exceeds 10 years.
+H4 (adverse-event association). Recalled predicates have a higher adverse-event burden (MAUDE
+  events per year on market) than a matched random sample of non-recalled cited predicates. *This is
+  explicitly an associational hypothesis — see §8 and §10; no causal claim is made.*
+H5 (robustness). The direction of H1–H4 persists under the pre-specified sensitivity subsets
+  (§5), i.e. the findings are not an artifact of low-confidence edges or low-severity recalls.
+5. Operational definitions (locked)
+Corpus / inclusion rule (D2): every product code in the FDA device classification database with
+  medical_specialty = Orthopedic AND device_class = 2 AND implant_flag = Y AND *regulation number
+  beginning 888.3*. This yields the 154 codes listed in SNAPSHOT.json. The rule is applied
+  mechanically; no code is added or removed by hand.
+Predicate cue: a case-insensitive match of predicate, substantially equivalent, or
+  reference device in the summary text.
+Predicate edge (deterministic rule): in any summary containing a predicate cue, every other
+  in-corpus K-number present in the text is recorded as an incoming predicate edge for that device.
+  Direction: predicate → citing device.
+Confidence tier: SECTION_HEADED if a cue occurs within 300 characters of the K-number's first
+  mention; otherwise PROXIMITY_ONLY.
+Recalled node: a corpus device whose K-number appears in the structured k_numbers field of a
+  recall record. Linkage is by identity only — no fuzzy name matching.
+Recall severity class: taken from the enforcement record joined on
+  recall.product_res_number = enforcement.recall_number; recalls predating the enforcement dataset
+  are labeled n/a and retained, not dropped.
+Persistent recalled predicate: a recalled device A such that some device B is cleared in a year
+  later than A's recall year, B is a direct successor of A in the graph, and B is not itself recalled.
+Downstream device: any B meeting the persistent-predicate condition (counted once).
+6. Analysis plan (primary outcomes)
+Computed once, on the frozen data, by 06_graph_and_analysis.ipynb, and written to
+expected_values.json:
+Directed predicate graph over all 15,556 nodes; confirm acyclicity; report node/edge counts,
+   connected-node count, largest weakly-connected component, and maximum chain depth.
+Primary outcome: count of persistent recalled predicates; number of post-recall citations;
+   number of distinct downstream non-recalled devices.
+Count of devices first cited as a predicate only after their own recall (H2).
+Distribution and maximum of the recall-to-latest-citation gap in years (H3).
+Edge-set precision (§8) from a fresh 60-device hand-adjudicated sample.
+Coverage diagnostic: % of summaries with a cue, % edge-resolvable, % name-only, % out-of-scope.
+7. Confirmation / disconfirmation criteria (pre-specified)
+H1 confirmed if persistent recalled predicates &gt; 0 and post-recall citations ≥ 50 (a threshold
+  set now, not after seeing the count).
+H2 confirmed if first-cited-after-recall count &gt; 0.
+H3 confirmed if the maximum recall-to-latest gap &gt; 10 years.
+H4 confirmed if the recalled group's median MAUDE events-per-year exceeds the matched group's
+  and the pre-specified test (§8) is significant at α = 0.05, one-sided.
+H5 confirmed if H1's direction (persistent predicates &gt; 0, citations ≥ 50) holds in all three
+  sensitivity subsets (§5.sensitivity below).
+Any hypothesis not meeting its criterion is reported as not confirmed — including if that is the
+  case. Non-confirmation will be reported with equal prominence.
+8. Statistical tests (locked, with multiplicity handling)
+Edge precision: proportion of hand-adjudicated candidate edges that are genuine predicate/
+  reference citations, with a Wilson 95% confidence interval. Sample: 60 devices drawn with a
+  fixed seed (42) from devices with downloaded text. Reported as a precision estimate (adjudication
+  of rule-emitted candidates), explicitly not an independent-gold recall estimate.
+MAUDE comparison (H4): recalled cited predicates vs. an equal-size random sample (seed 42) of
+  non-recalled cited predicates. Primary test: one-sided Mann-Whitney U on events-per-year-on-
+  market (time-normalized to remove the age confound). Secondary: two-proportion z-test on the
+  match-rate (share with ≥1 event). α = 0.05.
+Multiplicity: five hypotheses; H4 is the only inferential test with a p-value, so no correction
+  is required for the primary. Where the two MAUDE tests are both reported, both are pre-specified and
+  will be reported regardless of outcome.
+Sensitivity analyses (closed list — no others will be added post hoc):
+Class I/II recalls only (drop Class III and unclassified).
+High-confidence edges only (SECTION_HEADED).
+Combined (Class I/II recalls AND high-confidence edges).
+9. Independence option (extension vs. replication)
+Because the 154-code corpus contains the 9-code pilot, the primary analysis is an extension. To offer a
+cleaner test, results may additionally be reported on the 145 non-pilot codes only (the devices
+not seen in the pilot). This split is pre-specified here so it cannot later be presented as a post-hoc
+discovery. It is optional and, if run, will be reported alongside the full-corpus result, not instead
+of it.
+10. Limitations declared in advance
+Name-only gap (D4): ~16% of summaries name a predicate in words but give no K-number. These
+  edges cannot be resolved and are not guessed at; the graph is therefore a lower bound on the
+  true citation network. This is a known, accepted limitation, reported as such.
+MAUDE is passive/voluntary reporting with incomplete device linkage; event counts are a floor,
+  and the H4 association may be confounded by device complexity or market volume. No event is
+  attributed to the predicate relationship.
+No causal claim. The study describes citation structure and its association with recalls and
+  adverse events. It does not claim any device is unsafe, nor that predicate lineage causes harm.
+Descriptive scope. No manufacturer is named; no device is ranked; no "harm score" is computed.
+11. Deviation policy
+Any departure from this plan (a definition that has to change, a test that cannot run as written, a
+data issue) will be recorded in a DEVIATIONS.md log with the reason and the date, and disclosed in
+the manuscript. The frozen expected_values.json (Stage 6 output) and the two-tier verification
+(Stage 8) are the immutable record against which the final manuscript numbers are checked.
+12. Registration mechanics (sequence)
+Register this plan on OSF (Existing-Data preregistration) with the frozen SNAPSHOT.json
+   attached, before running Stages 3, 6, 7, 8. This timestamps the analysis plan ahead of the
+   confirmatory numbers.
+Run Stages 3 → 6 → 7 → 8; Stage 6 writes expected_values.json.
+Push code (9 notebooks, verify script, RUN_MANUAL) to a public GitHub repo; the independent
+   verifier re-runs and signs off via pull request.
+Deposit the full bundle (frozen snapshot + code + results + manuscript) on OSF and mint a DOI; the
+   manuscript cites the preregistration and reports any §11 deviations.
+*This document is a draft for the authors' review. Placeholders ([to be completed]) must be filled
+before public registration. Nothing here should be publicly registered until the author team has
+confirmed the hypotheses and criteria reflect their intent.*

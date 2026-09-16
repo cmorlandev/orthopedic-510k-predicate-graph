@@ -1,0 +1,268 @@
+
+===PAGE 1===
+U.S. Food & Drug Administration
+10903 New Hampshire Avenue D o c I D # 0 4 0 1 7 . 0 4 . 0 5
+Silver Spring, MD 20993
+www.fda.gov
+MicroPort Orthopedics Inc. July 15, 2019
+Tejas Patel
+Senior Regulatory Affairs Specialist
+5677 Airline Road
+Arlington, Tennessee 38002 
+Re: K190123
+Trade/Device Name: MicroPort CoCr Femoral Heads
+Regulation Number: 21 CFR 888.3358
+Regulation Name: Hip Joint Metal/Polymer/Metal Semi-Constrained Porous-Coated Uncemented 
+Prosthesis
+Regulatory Class: Class II
+Product Code: LPH
+Dated: June 17, 2019
+Received: June 18, 2019
+Dear Tejas Patel:
+We have reviewed your Section 510(k) premarket notification of intent to market the device referenced 
+above and have determined the device is substantially equivalent (for the indications for use stated in the 
+enclosure) to legally marketed predicate devices marketed in interstate commerce prior to May 28, 1976, the 
+enactment date of the Medical Device Amendments, or to devices that have been reclassified in accordance 
+with the provisions of the Federal Food, Drug, and Cosmetic Act (Act) that do not require approval of a 
+premarket approval application (PMA). You may, therefore, market the device, subject to the general 
+controls provisions of the Act. Although this letter refers to your product as a device, please be aware that 
+some cleared products may instead be combination products. The 510(k) Premarket Notification Database 
+located at https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm identifies combination 
+product submissions. The general controls provisions of the Act include requirements for annual registration, 
+listing of devices, good manufacturing practice, labeling, and prohibitions against misbranding and 
+adulteration. Please note: CDRH does not evaluate information related to contract liability warranties. We 
+remind you, however, that device labeling must be truthful and not misleading.
+If your device is classified (see above) into either class II (Special Controls) or class III (PMA), it may be 
+subject to additional controls. Existing major regulations affecting your device can be found in the Code of 
+Federal Regulations, Title 21, Parts 800 to 898. In addition, FDA may publish further announcements 
+concerning your device in the Federal Register.
+Please be advised that FDA's issuance of a substantial equivalence determination does not mean that FDA 
+has made a determination that your device complies with other requirements of the Act or any Federal 
+statutes and regulations administered by other Federal agencies. You must comply with all the Act's 
+requirements, including, but not limited to: registration and listing (21 CFR Part 807); labeling (21 CFR Part 
+801); medical device reporting (reporting of medical device-related adverse events) (21 CFR 803) for 
+
+===PAGE 2===
+K190123 - Tejas Patel Page 2
+devices or postmarketing safety reporting (21 CFR 4, Subpart B) for combination products (see 
+https://www.fda.gov/combination-products/guidance-regulatory-information/postmarketing-safety-reporting￾combination-products); good manufacturing practice requirements as set forth in the quality systems (QS) 
+regulation (21 CFR Part 820) for devices or current good manufacturing practices (21 CFR 4, Subpart A) for 
+combination products; and, if applicable, the electronic product radiation control provisions (Sections 531-
+542 of the Act); 21 CFR 1000-1050.
+Also, please note the regulation entitled, "Misbranding by reference to premarket notification" (21 CFR Part 
+807.97). For questions regarding the reporting of adverse events under the MDR regulation (21 CFR Part 
+803), please go to https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting￾mdr-how-report-medical-device-problems.
+For comprehensive regulatory information about medical devices and radiation-emitting products, including 
+information about labeling regulations, please see Device Advice (https://www.fda.gov/medical￾devices/device-advice-comprehensive-regulatory-assistance) and CDRH Learn 
+(https://www.fda.gov/training-and-continuing-education/cdrh-learn). Additionally, you may contact the 
+Division of Industry and Consumer Education (DICE) to ask a question about a specific regulatory topic. See 
+the DICE website (https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory￾assistance/contact-us-division-industry-and-consumer-education-dice) for more information or contact DICE 
+by email (DICE@fda.hhs.gov) or phone (1-800-638-2041 or 301-796-7100).
+Sincerely,
+FOR Vesa Vuniqi
+Acting Assistant Director
+DHT6A: Division of Joint
+ Arthroplasty Devices
+OHT6: Office of Orthopedic Devices
+Office of Product Evaluation and Quality
+Center for Devices and Radiological Health
+Enclosure 
+
+===PAGE 3===
+DEPARTMENT OF HEAL TH AND HUMAN SERVICES 
+Food and Drug Administration 
+Indications for Use 
+51 0(k) Number (if known) 
+Device Name 
+MicroPort CoCr Femoral Heads 
+Indications for Use (Describe) 
+Form Approved: 0MB No. 0910-0120 
+Expiration Date: 06/30/2020 
+See PRA Statement below. 
+MicroPort total hip systems are intended for use in total hip arthroplasty for reduction or relief of pain and/or improved 
+hip function in skeletally mature patients with the following conditions: 
+1. non-inflammatory degenerative joint disease such as osteoarthritis, avascular necrosis, ankylosis, protrusio acetabuli,
+and painful hip dysplasia;
+2. inflammatory degenerative joint disease such as rheumatoid arthritis;
+3. correction of functional deformity; and,
+4. revision procedures where other treatments or devices have failed.
+Type of Use (Select one or both, as applicable) 
+IZI Prescription Use (Part 21 CFR 801 Subpart D) D Over-The-Counter Use (21 CFR 801 Subpart C) 
+CONTINUE ON A SEPARATE PAGE IF NEEDED. 
+This section applies only to requirements of the Paperwork Reduction Act of 1995. 
+*DO NOT SEND YOUR COMPLETED FORM TO THE PRA STAFF EMAIL ADDRESS BELOW.*
+The burden time for this collection of information is estimated to average 79 hours per response, including the 
+time to review instructions, search existing data sources, gather and maintain the data needed and complete 
+and review the collection of information. Send comments regarding this burden estimate or any other aspect 
+of this information collection, including suggestions for reducing this burden, to: 
+Department of Health and Human Services 
+Food and Drug Administration 
+Office of Chief Information Officer 
+Paperwork Reduction Act (PRA) Staff 
+PRAStaff@fda.hhs.gov 
+"An agency may not conduct or sponsor, and a person is not required to respond to, a collection of 
+information unless it displays a currently valid 0MB number." 
+FORM FDA 3881 (7/17) Page 1 of 1 PSC Publishing Seivices (301) 443-6740 EF 
+K190123
+
+===PAGE 4===
+MicroPort CoCr Heads
+Traditional 510(k)
+Tab 007: 510(k) summary
+007-1
+510(k) Summary 
+January 24, 2019 
+I. Company: MicroPort Orthopedics Inc. 
+5677 Airline Road 
+Arlington, TN 38002 
+Telephone Number: (901) 290-5175 
+II. Contact: Tejas Patel 
+Senior Regulatory Affairs Specialist 
+Telephone number: (901) 290-5175 
+Email: tejas.patel@ortho.microport.com
+III. Trade Name: MicroPort CoCr Femoral Heads
+Classification: Class II
+Classification Name:
+Hip joint metal/polymer/metal semi-constrained porous-coated 
+uncemented prosthesis (21 CFR 888.3358) 
+Subject Product Code and Panel Code: 
+Orthopedics/87/ LPH 
+IV. Predicate Device:
+x TRANSCEND® Articulation System (K170444, SE 06/26/2017) 
+This predicate has not been subject to a design-related recall. 
+V. Reference Device:
+x SLT Femoral Head (K932222, SE 05/27/1994) 
+x MicroPort Orthopedics Total Hip Systems MR Labeling (K173898, SE 09/20/2018) 
+x APEX Modular Head (K101575, SE 06/30/2010) 
+x Whiteside Ortholoc Total Hip Femoral (K842559, SE 12/20/1984) 
+x Depuy M-Spec 36mm Femoral Heads (K120599, SE 04/30/2013) 
+VI. Device Description:
+The subject MicroPort Orthopedics (MPO) CoCr femoral heads are spherical in shape
+and manufactured from low carbon cobalt chromium molybdenum alloy. The outer
+surface of the subject devices articulates against a polyethylene acetabular liner. The
+ƐƵďũĞĐƚĨĞŵŽƌĂůŚĞĂĚƐƉŽƐƐĞƐƐĂŶŽƵƚĞƌĂƌƚŝĐƵůĂƚŝŶŐƐƵƌĨĂĐĞĨŝŶŝƐŚŽĨчϯђŝŶ͘dŚĞƐƵďũĞĐƚ
+femoral heads are provided sterile. The proposed MPO femoral heads fill a gap in the
+current CoCr head offering. MicroPort CoCr heads are currently offered with short (S),
+medium (M), long (L) and extra-long (XL) offset for 32mm and 36mm diameter heads.
+The proposed new product offering in extra short (XS) and extra extra - long (XXL) offset
+ K190123 Page 1 of 4
+
+===PAGE 5===
+MicroPort CoCr Heads
+Traditional 510(k)
+Tab 007: 510(k) summary
+007-2
+will bring the CoCr heads offering into alignment with the current market presence of 
+32mm and 36mm heads. 
+The sole purpose for this traditional 510(k) is to seek clearance for the additional 
+offering (XS and XXL) of the CoCr femoral heads in 32mm and 36mm sizes. 
+VII. Indications for Use:
+The MicroPort total hip systems are indicated for use in total hip arthroplasty for
+reduction or relief of pain and/or improved hip function in skeletally mature patients
+with the following conditions:
+1. Non-inflammatory degenerative joint disease such as osteoarthritis, avascular
+necrosis, ankyloses, protrusio acetabuli, and painful hip dysplasia.
+2. Inflammatory degenerative joint disease such as rheumatoid arthritis.
+3. Correction of functional deformity.
+4. Revision procedures where other treatments or devices have failed.
+VIII. Comparison of Technological Characteristics with the Predicate devices:
+As established in this submission, the subject MPO CoCr femoral heads are substantially
+equivalent to the identified predicate devices cleared by the FDA for commercial
+distribution in the United States. The subject devices were shown to be substantially
+equivalent and have equivalent technological characteristics to their predicate devices
+through comparison in areas including design, intended use, material composition,
+operational principles and function.
+IX. Discussion of the Non-clinical Testing/Performance Data:
+Mechanical Testing:
+MicroPort has evaluated the subject devices to demonstrate substantial equivalence to
+the identified predicate devices. Design verification testing for the subject implants was
+completed in accordance with
+x ASTM F1714 - 96(2018) - Standard Guide for Gravimetric Wear Assessment of 
+Prosthetic Hip-Designs in Simulator Devices 
+x ASTM F2003 - 02(2015) Standard practice for Accelerated Aging of Ultra-High 
+Molecular Weight Polyethylene after Gamma Irradiation in Air 
+x ASTM F1877-16, Standard Practice for Characterization of Particles, ASTM 
+International, West Conshohocken, PA, 2016 
+x ISO 14242-2 (2016): Implants for surgery -- Wear of total hip-joint prostheses -- 
+Part 2: Methods of measurement. 
+x ISO 14242-3 (2009): Implants for surgery -- Wear of total hip-joint prostheses -- 
+Part 3: Loading and displacement parameters for orbital bearing type wear 
+testing machines and corresponding environmental conditions for test. 
+ K190123 Page 2 of 4
+
+===PAGE 6===
+MicroPort CoCr Heads
+Traditional 510(k)
+Tab 007: 510(k) summary
+007-3
+The tests completed were: 
+x Wear Testing 
+x Frictional Torque Test 
+The mechanical testing verifies that the subject components are substantially equivalent 
+to the predicate devices currently on the market and have met all mechanical testing
+requirements based on the worst case construct testing. 
+Non-Pyrogenicity Endotoxin Testing: 
+The bacterial endotoxin test, also known as Limulus amebocyte lysate (LAL) test, was 
+performed utilizing worst case subject implants to verify that the subject implants meet 
+the 20 endotoxin units (EU)/device pyrogen limit specification. Testing was successfully 
+performed and it was confirmed that the subject implants meet the 20 EU/device 
+testing limit for general medical devices that are implanted as outlined in ANSI/AAMI 
+ST72, Bacterial endotoxins – Test methods, routine monitoring, and alternatives to 
+batch testing and USP <161>, Medical Devices – Bacterial Endotoxin and Pyrogen Tests. 
+X. Component and Accessory Compatibility:
+Table #1 and #2 show the compatibility of the subject devices with previously cleared
+MicroPort Orthopedics products.
+Table #1: Compatible Shells and Liners, Including 510(k) information 
+510(k) Device Name 
+K061547 DYNASTY® Beaded Shells and Liners 
+K062693 GLADIATORTM Bipolar Shells and Liners 
+K070785 DYNASTY® Beaded Shells and Liners 
+K082924 DYNASTY® BIOFOAM® Shells and Liners 
+K122382 DYNASTY® BIOFOAM® Shells and Liners 
+K142119 PROCOTYL® L Beaded Shells and Liners
+K170444 PROCOTYL® PRIME Shell and Liners 
+K171181 PROCOTYL® PRIME E-CLASSTM Shells and Liners 
+K180798 Prime Acetabular Cup System 
+K181598 Prime E-Class XLPE Liner 
+Table #2: Compatible Femoral Components, Including 510(k) Information 
+510(k) Device Name 
+K003016 PRO-FEMUR R 
+K012091 PRO-FEMUR 
+K021346 STEM HIP REPLACEMENT SYSTEM 
+K041114 PROFEMUR TAPERED HIP STEM 
+K041586 PROFEMUR S HIP STEM 
+K051995 PROFEMUR RENAISSANCE HIP STEM
+K190123 Page 3 of 4
+
+===PAGE 7===
+MicroPort CoCr Heads
+Traditional 510(k)
+Tab 007: 510(k) summary
+007-4
+K052915 PROFEMUR XTR HIP STEM 
+K053588 PROFEMUR LX HIP STEM 
+K060358 PROFEMUR TL HIP STEM 
+K080663 PROFEMUR LX REVISION 5/8 COATED HIP STEM 
+K081090 PROFEMUR LX 5/8 COATED HIP STEM 
+K091423 
+K100866 PROFEMUR HIP SYSTEM MODULAR NECKS 
+K110399 GLADIATOR PLASMA CLASSIC HIP STEM 
+K111698 PROFEMUR(R) E CEMENTLESS HIP STEM 
+K111699 PROFEMUR(R) Z TITANIUM PLASMA SPRAYED HIP STEM 
+K111910 GLADIATOR HIP STEM 
+K112080 PRESERVE HIP STEM 
+K112150 PROFEMUR GLADIATOR HA HIP STEM 
+K121221 PROFEMUR Z REVISION HIP STEM 
+K123434 PROFEMUR Z CLASSIC STEM 
+K123688 PROFEMUR TL CLASSIC STEM 
+K130984 PROFEMUR RENAISSANCE CLASSIC STEM 
+K140676 PROFEMUR TL CLASSIC LONG NECK HIP STEMS 
+K141235 PROFEMUR RENAISSANCE CLASSIC LONG NECK HIP STEMS 
+K150133 PROFEMUR PRESERVE SIZE 1-3 HIP STEMS 
+K150302 PROFEMUR PRESERVE CLASSIC STEM 
+XI. Conclusion:
+Based on the design features, the use of established well-known materials, feature
+comparisons, indications for use, and results of the mechanical testing, the subject
+MicroPort CoCr femoral heads have shown to be substantially equivalent to the legally
+marketed predicate devices cited in this summary.
+K190123 Page 4 of 4

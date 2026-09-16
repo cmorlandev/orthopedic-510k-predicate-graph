@@ -1,0 +1,283 @@
+PRE-FLIGHT VERIFIER REPORT
+repo root: /Users/gantduncan/projects/orthopedic-510k-predicate-graph
+
+========================================================================
+1. FROZEN SNAPSHOT INTEGRITY
+========================================================================
+zip   (not found in repo root -- fine if you unzipped elsewhere and moved snapshot/ in, but then you cannot hash the original)
+
+unpacked ./snapshot/ :
+      snapshot/510k_raw.json.gz  2901523 bytes
+          sha256 6f5f640e0490b8749d8c7526a8b64045e01f9b27380753378278797a08bfeb34
+      snapshot/SNAPSHOT.json  2207 bytes
+          sha256 f4a56ea7bf58add6892d417ad4775e5f72b2ca3ff5cde1824179470f3c1abf58
+      snapshot/enforcement_raw.json.gz  4676630 bytes
+          sha256 7a968a7331fcd66df1985eeaa8163a3edd99fee3379ea05d483110b89a0f3848
+      snapshot/recall_raw.json.gz  8278660 bytes
+          sha256 51c2efaa68649d2efd2a133781dd86081fcbe7211275377acc929cad64c2bdd1
+
+      .json.gz count = 3 (manual says 3) -> OK
+
+      SNAPSHOT.json (provenance the analyst recorded):
+          {
+            "inclusion_rule": "Orthopedic panel + Class II + implant_flag=Y + regulation 888.3xxx",
+            "n_510k_raw": 15581,
+            "n_codes": 154,
+            "n_codes_with_devices": 137,
+            "n_enforcement_hard_failed": 0,
+            "n_enforcement_raw": 4096,
+            "n_recall_raw": 6297,
+            "n_unique_devices": 15581,
+            "n_with_summary": 13313,
+            "openfda_last_updated": "2026-07-27",
+            "product_codes": [
+              "HRS",
+              "HRY",
+              "HSB",
+              "HSD",
+              "HSH",
+              "HSN",
+              "HSX",
+              "HTG",
+              "HTN",
+              "HTY",
+              "HWC",
+              "HXA",
+              "JDB",
+              "JDC",
+              "JDD",
+              "JDG",
+              "JDI",
+              "JDN",
+              "JDO",
+              "JDP",
+              "JDQ",
+              "JDR",
+              "JDS",
+              "JDW",
+              "JEC",
+              "JWH",
+              "JWI",
+              "JWJ",
+              "KIG",
+              "KMB",
+              "KMC",
+              "KMD",
+              "KRO",
+              "KRQ",
+              "KRR",
+              "KTT",
+              "KTW",
+              "KTX",
+              "KWD",
+              "KWF",
+              "KWH",
+              "KWI",
+              "KWK",
+              "KWL",
+              "KWM",
+              "KWN",
+              "KWO",
+              "KWP",
+              "KWQ",
+              "KWS",
+              "KWT",
+              "KWY",
+              "KWZ",
+              "KXA",
+              "KXE",
+              "KYI",
+              "KYJ",
+              "KYK",
+              "LGE",
+              "LOD",
+              "LPH",
+              "LRN",
+              "LWJ",
+              "LXT",
+              "LYP",
+              "LYT",
+              "LZO",
+              "LZY",
+              "MAI",
+              "MAX",
+              "MAY",
+              "MBB",
+              "MBF",
+              "MBH",
+              "MBI",
+              "MBL",
+              "MBP",
+              "MBV",
+              "MDI",
+              "MEH",
+              "MJW",
+              "MNH",
+              "MNI",
+              "MNU",
+              "MQP",
+              "MQV",
+              "MRY",
+              "NDD",
+              "NDE",
+              "NDF",
+              "NDG",
+              "NDH",
+              "NDI",
+              "NDJ",
+              "NDK",
+              "NDL",
+              "NDM",
+              "NDN",
+              "NJA",
+              "NJD",
+              "NKB",
+              "NKG",
+              "NOV",
+              "NPJ",
+              "NQP",
+              "NQW",
+              "NUD",
+              "OBL",
+              "OBM",
+              "OBT",
+              "ODP",
+              "OIS",
+              "OIY",
+              "OJB",
+              "OJM",
+              "OQB",
+              "OQG",
+              "OQH",
+              "OQI",
+              "OSH",
+              "OSN",
+              "OUR",
+              "OVD",
+              "OVE",
+              "OVZ",
+              "OWI",
+              "OZI",
+              "PAO",
+              "PBI",
+              "PEK",
+              "PGM",
+              "PGN",
+              "PHM",
+              "PHQ",
+              "PHX",
+              "PKC",
+              "PLF",
+              "PLR",
+              "PML",
+              "QAC",
+              "QAD",
+              "QHQ",
+              "QJD",
+              "QKW",
+              "QNI",
+              "QPP",
+              "QPQ",
+              "QRR",
+              "QVI",
+              "QVL",
+              "QVV",
+              "QZY",
+              "QZZ",
+              "SAI"
+            ],
+            "refreeze_note": "live re-freeze 2026-08-08; enforcement re-fetched rate-limited (see DEVIATIONS.md D1)",
+            "snapshot_date": "2026-08-08"
+          }
+
+========================================================================
+2. IS THE REBUILD INDEPENDENT OF THE REFERENCE ANSWERS?
+========================================================================
+A rebuild that reads expected_values_REFERENCE.json, or hardcodes a
+headline number, cannot fail. Checking notebooks 01-08 for that.
+
+  clean 01_corpus.ipynb
+  clean 02_download_pdfs.ipynb
+  clean 03_extract_edges.ipynb
+  clean 04_recalls.ipynb
+  clean 05_classify.ipynb
+  clean 06_graph_and_analysis.ipynb
+  clean 07_maude.ipynb
+  clean 08_verify.ipynb
+
+-> No notebook in 01-08 touches the reference file. The rebuild is independent of the target numbers on this check.
+
+Random seeds (notebook 03 draws a validation sample; without a fixed seed your sample, and any number derived from it, will not match):
+  03_extract_edges.ipynb: random.seed(42)
+  07_maude.ipynb: random.seed(42)
+
+========================================================================
+3. ENVIRONMENT ACTUALLY IN USE
+========================================================================
+python     3.11.15  (/opt/anaconda3/envs/verify/bin/python)
+networkx   3.1
+pandas     2.1.4
+numpy      1.26.4
+scipy      1.11.4
+requests   2.34.2
+
+requirements.txt pins:
+  pandas==2.1.4
+  networkx==3.1
+  pymupdf==1.28.0
+  numpy==1.26.4
+  scipy==1.11.4
+  jupyterlab==4.0.11
+  jupytext==1.19.4
+
+OPENFDA_KEY set: yes (length 40)
+  (value deliberately not printed)
+
+git commit b9344ae346da3217d162df64716ce9ff54d2d2b6
+git worktree: MODIFIED
+  ?? orthopedic-510k-predicate-graph/
+  ?? preflight_verifier.py
+  -> record why you changed tracked files, or reset them; a modified worktree weakens the reproduction claim
+
+========================================================================
+4. GOVERNING DOCUMENTS PRESENT?
+========================================================================
+You are signing off that the study matches its locked plan, not
+only that it re-runs. These must exist and you must read them.
+
+  OK    PREREGISTRATION.docx
+  OK    DEVIATIONS.md
+  OK    RUN_LOG.md
+  OK    expected_values_REFERENCE.json
+  OK    compare_to_reference.py
+  OK    FOR_THE_VERIFIER.md
+  OK    README.md
+  OK    PROJECT_RUN_MANUAL.docx
+  OK    requirements.txt
+
+expected_values_REFERENCE.json sha256 a8d9ebd6ff507c0ea244dd410eda626c21f45de3da614aaca87b57c200e81b61
+  20 top-level fields you must reproduce:
+    connected_nodes
+    corpus_devices
+    cov_name_only_pct
+    cov_out_of_scope_pct
+    cov_resolvable_pct
+    downstream_devices
+    edges
+    first_after_recall
+    is_dag
+    largest_component
+    max_chain_depth
+    max_gap_years
+    pct_recalled
+    persistent_predicates
+    post_recall_citations
+    recalled_nodes
+    sens_class_I_II
+    sens_combined
+    sens_high_conf
+    snapshot_date
+
+========================================================================
+Resolve every '!!' and 'FLAG' with the analyst before running 01-08.
+========================================================================

@@ -1,0 +1,26 @@
+field                           analyst (reference)           your rebuild  result
+----------------------------------------------------------------------------------
+snapshot_date                            2026-08-08             2026-08-08  PASS
+corpus_devices                                15581                  15581  PASS
+edges                                         30476                  30487  FAIL <<<
+is_dag                                        False                  False  PASS
+connected_nodes                               12010                  12010  PASS
+max_chain_depth                                  30                     30  PASS
+largest_component                             11734                  11734  PASS
+recalled_nodes                                 1691                   1691  PASS
+pct_recalled                                   10.9                   10.9  PASS
+persistent_predicates                           938                    939  FAIL <<<
+post_recall_citations                          2877                   2880  FAIL <<<
+downstream_devices                             1873                   1875  FAIL <<<
+first_after_recall                              381                    382  FAIL <<<
+max_gap_years                                    21                     21  PASS
+sens_class_I_II                   [718, 2141, 1436]      [719, 2144, 1438]  FAIL <<<
+sens_high_conf                    [838, 2209, 1563]      [839, 2212, 1565]  FAIL <<<
+sens_combined                     [654, 1660, 1214]      [655, 1663, 1216]  FAIL <<<
+cov_resolvable_pct                             72.5                   72.5  PASS
+cov_name_only_pct                               2.8                    2.8  PASS
+cov_out_of_scope_pct                           12.2                   12.2  PASS
+----------------------------------------------------------------------------------
+RESULT: 8 FIELD(S) DIFFER — investigate before signing off.
+Common causes: you ran Stage 0 (used a fresh snapshot instead of the analyst's), a
+different networkx/pandas version, or notebooks run out of order. See FOR_THE_VERIFIER.md.

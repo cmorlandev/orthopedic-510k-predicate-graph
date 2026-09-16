@@ -1,0 +1,40 @@
+CORPUS SCAN: EDGES ORIGINATING IN A "REFERENCE DEVICE" SECTION
+
+edge-bearing documents with readable text : 8,981
+  with a predicate-device section heading : 5,340 (59.5%)
+  with a reference-device section heading : 778 (8.7%)
+
+edges whose K-number appears in a reference section : 1,136 of 30,487 (3.73%)
+  excluded because the same K-number is ALSO in the predicate
+  section of that document (legitimately both) : 567
+
+by confidence tier:
+  SECTION_HEADED   999
+  PROXIMITY_ONLY   137
+
+  SECTION_HEADED edges from reference sections: 999
+  -> 4.42% of the 22,580 SECTION_HEADED edges, i.e.
+     contamination of the tier the study treats as high-confidence
+     and of sens_high_conf specifically.
+
+CALIBRATION FROM THE HAND ADJUDICATION
+  In K190123, all 5 SECTION_HEADED false positives were reference-
+  section citations, and all 5 were adjudicated NO. That is a single
+  document: the observed false-positive rate for this class is 5/5,
+  which is a point estimate on n=5, not a measured rate. The count
+  above is the population at risk, NOT an estimate of spurious edges.
+
+  What would settle it: adjudicate 20-30 reference-section edges drawn
+  from reference_device_edges.csv across different documents. If they
+  are uniformly NO, every edge counted above is spurious and the
+  correction is exact rather than estimated.
+
+NOTE ON INTERPRETATION
+  Whether these edges SHOULD be in the graph is a definitional
+  question for the analyst, not a defect per se. Notebook 03's own
+  instruction says "genuine predicate/reference citation", which
+  reads as deliberately including them; the verifier manual section 9
+  says "genuinely cited as predicates", which excludes them. The
+  study's claims are about predicate relationships, so the strict
+  reading is the one the conclusions require -- but the analyst should
+  state which was intended.
