@@ -41,6 +41,14 @@ def retrieved_knumbers():
     return ks, counts
 
 
+def frozen_knumbers():
+    """The frozen document list: every K-number recorded in TEXT_SNAPSHOT_files.csv (committed to git).
+    Stages 3-8 build their document set from THIS, not from data/download_manifest.csv, so a verifier
+    whose own Stage 2 retrieved a slightly different set of PDFs still analyses exactly the frozen corpus."""
+    with open(OUT_CSV, newline="") as f:
+        return sorted(r["k_number"] for r in csv.DictReader(f))
+
+
 def hash_corpus(ks):
     """Per-file hashes plus one aggregate hash over (k_number, sha256) in sorted order."""
     per_file = []
@@ -88,14 +96,14 @@ def check():
     if not os.path.exists(OUT_JSON):
         sys.exit(f"ERROR: {OUT_JSON} not found — nothing to check against.")
     rec = json.load(open(OUT_JSON))
-    ks, counts = retrieved_knumbers()
+    ks = frozen_knumbers()                      # the frozen list, NOT the local manifest
     per_file, corpus_hash, missing = hash_corpus(ks)
     frozen = {r["k_number"]: r["sha256"] for r in csv.DictReader(open(OUT_CSV, newline=""))}
     changed = [k for k, h, _ in per_file if frozen.get(k) != h]
-    extra = sorted(set(k for k, _, _ in per_file) - set(frozen))
-    ok = (corpus_hash == rec["corpus_sha256"]) and not missing and not changed and not extra
-    print(f"frozen {rec['frozen_on']}: {rec['n_files']} files | now: {len(per_file)} files")
-    print(f"  missing {len(missing)} | changed {len(changed)} | not in freeze {len(extra)}")
+    ok = (corpus_hash == rec["corpus_sha256"]) and not missing and not changed
+    local_extra = [f for f in os.listdir(TEXT_DIR) if f.endswith(".txt") and f[:-4] not in frozen] if os.path.isdir(TEXT_DIR) else []
+    print(f"frozen {rec['frozen_on']}: {rec['n_files']} files | found locally: {len(per_file)} of them")
+    print(f"  missing {len(missing)} | changed {len(changed)} | extra local text files not in the freeze (ignored): {len(local_extra)}")
     print(f"  corpus sha256 frozen {rec['corpus_sha256'][:16]}… now {corpus_hash[:16]}…")
     print("RESULT: PASS — data/text/ matches the frozen record." if ok else
           "RESULT: FAIL — data/text/ differs from the frozen record. Restore it from OSF.")
