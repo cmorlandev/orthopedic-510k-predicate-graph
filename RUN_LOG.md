@@ -17,11 +17,12 @@
   - growth vs registered 2026-07-21: devices +25, summaries +25, recalls +12, enforcement +7
 
 ## Part Three — Pipeline checkpoints
-- Stage 1 (corpus): [filled after run]
-- Stage 2 (PDFs): 
-- Stage 3 (edges): 
-- Stage 4 (recalls): 
-- Stage 5 (classify): 
+- Stage 1 (corpus): 15,581 unique devices | 13,313 with Summary (matches SNAPSHOT.json)
+- Stage 2 (PDFs): DONE 2026-08-08 — manifest 13,313 rows: 12,388 retrieved (93.1%) | 924 HTTP 404 | 1 error
+  (recorded 2026-09-16 from data/download_manifest.csv; the verifier's 2026-08-26 rebuild retrieved 12,392 — see DEVIATIONS D5)
+- Stage 3 (edges): 30,476 edges | SECTION_HEADED/PROXIMITY_ONLY split as in Stage 6 sensitivity
+- Stage 4 (recalls): [count from data/recall_links.csv]
+- Stage 5 (classify): 1,691 recalled corpus devices | worst-class: Class II 1,306 | Class I 11 | n/a 356 | Class III [fill]
 - Stage 6 (graph & analysis — expected_values.json): DONE 2026-08-08
   - corpus 15,581 | edges 30,476 | recalled 1,691 (10.9%)
   - is_dag false (one mutual-citation 2-cycle; see DEVIATIONS D2) | max_chain_depth 30 (via condensation)
@@ -45,3 +46,39 @@
 - H3: CONFIRMED — max gap 21 yr > 10
 - H4: CONFIRMED — recalled median events/yr 1.07 > matched 0.00; Mann-Whitney p=6.4e-118 < 0.05
 - H5: CONFIRMED — H1 direction holds in all 3 sensitivity subsets
+
+
+---
+
+## Part Five — 2026-09-16 re-run (frozen text, Rule 2 primary; DEVIATIONS D4–D6)
+Inputs: snapshot/ (2026-08-08, unchanged) + frozen data/text/ (TEXT_SNAPSHOT.json corpus sha256
+27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607). Branch: rule2-rerun.
+- freeze_text.py: 2026-09-16 — 12,388 text files frozen | manifest 12,388 retrieved / 924 HTTP 404 / 1 error
+  - 146 text files are empty (PDF has no text layer; scanned image) — these documents can hold no edges under either rule
+- Stage 3 (edges): 2026-09-16 — Rule 1 edges 30,476 (= August run, exact) | Rule 2 edges 29,234 | excluded 1,242 (4.1%)
+  in 538 documents (reference-device sections 920 / compatibility sections & tables 322)
+  - Rule 2 confidence NEAR_CUE 21,541 / DISTANT_CUE 7,693 | devices with >=1 edge 8,942 (Rule 1: 8,981)
+  - coverage (Rule 2): cue 87.5% | resolvable 72.2% | excluded-only 0.29% | name-only 2.8% | out-of-scope 12.2%
+- Stage 6: 2026-09-16
+  - edges 29,234 | connected 11,960 | largest component 11,638 | is_dag False | max_chain_depth 30 (condensation)
+  - persistent_predicates 921 | post_recall_citations 2,712 | downstream_devices 1,798 | first_after_recall 382 | max_gap_years 21
+  - sens class_I_II [703/1997/1361] | high_conf [816/2087/1496] | combined [634/1554/1149]
+  - sens maximal_rule (Rule 1) [938/2877/1873] — reproduces the 2026-08-08 H1 triple exactly | class_na [210/704/583]
+  - recalled by worst class: Class I 11 | Class II 1,306 | Class III 18 | n/a 356 (of 1,691)
+  - §9 non-pilot panel: skipped — pilot_codes.txt absent (add the nine pilot codes and re-run Stage 6 to report it)
+- Stage 7 (MAUDE, live, 2026-09-16): family events 860,135 | deaths 2,462 | injuries 652,041
+  - recalled predicates 1,372 vs matched 1,372 | match 84.3% vs 49.6% | median events 17 vs 0 | events/yr 1.085 vs 0.000
+  - one-sided Mann-Whitney U p = 1.0e-113
+  - linked-only (post hoc, D6): n 1,156 vs 680 | median events 28 vs 7 | events/yr 1.76 vs 0.50 | p = 7.0e-35
+- Stage 8 (self-consistency): 17/17 PASS
+- Reference file: expected_values_REFERENCE.json replaced with the Rule 2 run; Rule 1 reference preserved as
+  expected_values_REFERENCE_rule1_2026-08-08.json
+- Independent reproduction (compare_to_reference.py, second analyst on the frozen inputs): [pending]
+
+## Hypotheses vs. pre-registered criteria (§7) — Rule 2 primary
+- H1: CONFIRMED — persistent 921 > 0 AND post-recall citations 2,712 >= 50
+- H2: CONFIRMED — first-cited-after-recall 382 > 0
+- H3: CONFIRMED — max gap 21 yr > 10
+- H4: CONFIRMED — recalled median events/yr 1.085 > matched 0.000; p = 1.0e-113 < 0.05
+  (linked-only: 1.76 > 0.50, p = 7.0e-35 — direction holds after removing differential non-linkage)
+- H5: CONFIRMED — H1 direction holds in all 3 preregistered sensitivity subsets; also in maximal_rule and class_na

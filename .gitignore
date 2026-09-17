@@ -11,3 +11,4 @@ __pycache__/
 
 # all data (frozen + derived + PDFs) is archived on OSF, not GitHub
 data/
+Claude outputs/
