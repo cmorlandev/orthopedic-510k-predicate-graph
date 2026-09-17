@@ -1,0 +1,50 @@
+========================================================================
+TEST 1 — installed pandas version
+========================================================================
+  pandas 2.1.4
+  study pins 2.1.4 -> MATCH
+  => explanation (b) cannot apply to this run.
+  requirements.txt says: ['pandas==2.1.4']
+
+========================================================================
+TEST 2 — K060694's recorded date, read from the frozen snapshot
+========================================================================
+  snapshot/recall_raw.json.gz: 6,297 records, 153 mentioning K060694
+    date fields: {'event_date_initiated': '2005-08-23', 'event_date_posted': '2005-10-07', 'event_date_terminated': '2005-12-08'}
+    date fields: {'event_date_initiated': '2005-08-23', 'event_date_posted': '2005-10-07', 'event_date_terminated': '2005-12-08'}
+
+  how the INSTALLED pandas handles each recorded date value:
+    event_date_initiated='2005-08-23' to_datetime 2005-08-23 00:00:00      format=%Y%m%d NaT                        <== PARSES
+    event_date_posted='2005-10-07' to_datetime 2005-10-07 00:00:00      format=%Y%m%d NaT                        <== PARSES
+    event_date_terminated='2005-12-08' to_datetime 2005-12-08 00:00:00      format=%Y%m%d NaT                        <== PARSES
+
+  NOTE: on pandas 2.3.3 a year-0012 date returns NaT via to_datetime,
+  format=%Y%m%d, and the datetime64[s]/[ms] casts added in 2.2. So
+  'pandas >=2.2 parses it' does not hold for those paths. A path that
+  builds np.datetime64(..., 's') and casts to [ns] DOES silently wrap
+  0012-03-15 to 1765-11-11 instead of erroring, which would count as a
+  valid early recall. Which path Stage 4/6 takes decides whether the
+  version matters; that needs the analyst's code, not this script.
+
+========================================================================
+TEST 3 — do the 11 extra edges touch a RECALLED predicate?
+========================================================================
+  data/predicate_edges_verifier_rule1_30487.csv: 30,487 edges (device='device_knumber' predicate='predicate_knumber')
+  data/recalled_nodes.csv: 1,691 recalled devices
+
+    K021661 -> (no edges)
+    K041939 -> K033702   predicate recalled: no
+    K192214 -> K070173   predicate recalled: no
+    K192214 -> K073649   predicate recalled: no
+    K192214 -> K112429   predicate recalled: YES
+    K192214 -> K140759   predicate recalled: no
+    K192214 -> K152475   predicate recalled: no
+    K192214 -> K173487   predicate recalled: no
+    K192214 -> K173787   predicate recalled: no
+    K192214 -> K182377   predicate recalled: no
+    K192217 -> K042695   predicate recalled: YES
+    K192217 -> K061211   predicate recalled: YES
+
+  edges from the four extra documents whose predicate is recalled: 3
+  => the 11 edges can contribute to the derived quantities.
+     (a) remains viable; compare the magnitude against +1/+3/+2/+1.
