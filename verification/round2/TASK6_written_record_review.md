@@ -131,6 +131,7 @@ implemented and skips cleanly when `pilot_codes.txt` is absent.
 | Part Three, Stage 5 | `Class III [fill]` — blank, though Part Five gives 18 |
 | Part Three, Stage 3 | tier split recorded as "as in Stage 6 sensitivity" rather than as numbers |
 | Part Four | records 100.0% (121/121) with no pointer to the verifier's figure |
+| Part Five, Stage 3 | `devices with >=1 edge 8,942 (Rule 1: 8,981)` — the frozen-text Rule 1 value is **8,978**, which is what §4 of the state-of-play memo reports and what the verifier's reproduction prints. 8,981 was the verifier's August figure on the 30,487-edge graph and appears to have been imported by mistake. |
 
 Stage 2 is now filled in (12,388 / 924 / 1, recorded 2026-09-16 from the
 manifest), which closes the gap the verification flagged — that was the one
@@ -152,5 +153,6 @@ would prevent the inference.
 4. D4: soften "independent" to the second-analyst formulation.
 5. D5: add the 146 empty text files to the coverage cascade.
 6. RUN_LOG: fill Stage 4, Stage 5 Class III, Stage 3 tier split, Part One URL; add the Part Four cross-reference.
+6a. RUN_LOG Part Five, Stage 3: Rule 1 `devices with >=1 edge` should read 8,978, not 8,981.
 7. Tooling: `--freeze` should be explicit in `freeze_text.py`; both scripts should reject unrecognized arguments.
 8. `test_edge_rules.py`: add K241000 (multi-zone) and ideally K072326, K221844, K233507.

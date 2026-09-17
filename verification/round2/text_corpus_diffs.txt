@@ -1,0 +1,33 @@
+manifest columns: key='k_number' hash='sha256' | 12,388 rows
+local data/text/: 12,392 files
+
+======================================================================
+CHANGED  0  (present in both, content differs)
+
+EXTRA    4  (local only — analyst got 404 for these)
+  K021661     6,387 bytes
+  K041939     7,577 bytes
+  K192214     9,782 bytes
+  K192217     9,479 bytes
+
+MISSING  0  (in freeze, absent locally)
+======================================================================
+
+EDGE CONTRIBUTION OF THE 4 AFFECTED DOCUMENTS
+(from data/predicate_edges.csv, 30,487 edges, device column 'device_knumber')
+  extra    K021661    0 outgoing edges
+  extra    K041939    1 outgoing edges
+  extra    K192214    8 outgoing edges
+  extra    K192217    2 outgoing edges
+  total across affected documents: 11
+
+The +11 edge difference between the two graphs (30,487 vs 30,476)
+must come out of this set. Edges from EXTRA documents are present
+only in the verifier's graph; edges from CHANGED documents may
+differ in either direction.
+
+TO MAKE THE CORPUS MATCH THE FREEZE:
+  1. ask the analyst for his copies of the 0 CHANGED files
+  2. move the 4 EXTRA files out of data/text/ (do not delete —
+     they are evidence for the retrieval-instability finding)
+  3. re-run: python freeze_text.py --check   (expect PASS)

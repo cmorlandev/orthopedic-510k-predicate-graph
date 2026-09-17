@@ -27,7 +27,8 @@
 > The sections below are retained unedited so the correction is auditable.
 
 Gant Duncan, 2026-09-16. Tasks 2, 3, 4 and 5 of `FOR_THE_VERIFIER_round2.md`.
-Task 1 (the frozen-input re-run) is pending the `data/text/` transfer.
+Task 1 (the frozen-input re-run) is **complete and PASS** — see the Task 1
+section below.
 
 All inputs: `excluded_edges.csv` (1,242 rows), `predicate_edges_rule1.csv`
 (30,476 rows), `edge_rules.py`, and the three adjudication CSVs committed in
@@ -263,6 +264,61 @@ which bounds how many true predicates the current rule may be discarding.
 
 ---
 
+# Task 1 — independent reproduction on the frozen inputs: PASS
+
+Run 2026-09-16 on `rule2-rerun` at `d97d96e`, conda env `verify`, pandas 2.1.4
+(pinned), macOS. `freeze_text.py --check` PASS; `test_edge_rules.py` 5/5;
+notebooks 01, 03, 04, 05, 06, 08 each Restart-Kernel-and-Run-All in order, 02
+skipped (Stage 3 reads only the frozen text and never opens a PDF);
+`compare_to_reference.py` against `expected_values_REFERENCE.json`.
+
+```
+RESULT: PASS — all deterministic values reproduce exactly.
+```
+
+**Twenty-nine of twenty-nine fields exact**, including every quantity that
+differed in August. Selected:
+
+| field | reference | rebuild |
+|---|---|---|
+| `edges` (Rule 2) | 29,234 | 29,234 |
+| `edges_rule1` | 30,476 | 30,476 |
+| `edges_excluded_by_rule2` | 1,242 | 1,242 |
+| `persistent_predicates` | 921 | 921 |
+| `post_recall_citations` | 2,712 | 2,712 |
+| `downstream_devices` | 1,798 | 1,798 |
+| `first_after_recall` | 382 | 382 |
+| `sens_maximal_rule` | [938, 2877, 1873] | [938, 2877, 1873] |
+| `text_corpus_sha256` | 27646debf7d7176c… | 27646debf7d7176c… |
+
+Stage 3 intermediate checkpoints also matched the analyst's run log: Rule 1
+30,476 edges over 8,978 devices, Rule 2 29,234 over 8,942, 1,242 exclusions in
+538 documents (920 reference / 322 compatibility), confidence 21,541 / 7,693,
+coverage cue 87.5% / resolvable 72.2% / excluded-only 0.29% / name-only 2.8% /
+out-of-scope 12.2%. Stage 8 self-consistency 17/17, with its former ±2%
+drift-tolerant tier now labelled exact.
+
+**What this establishes, and what it does not.** Two people on two machines, from
+one frozen text corpus, obtain identical deterministic values — including
+`sens_maximal_rule`, which is the registered rule's own H1 triple and equals the
+2026-08-08 confirmatory numbers exactly. The eight-field difference is therefore
+closed from both directions: enumerated forward (four documents, eleven edges,
+three of them citing recalled predicates) and eliminated in reverse (hold
+retrieval fixed and the difference vanishes).
+
+It does **not** establish that the pipeline reproduces from the FDA APIs, and it
+is not intended to. Stage 2 retrieval remains non-reproducible — that is the
+finding D5 records — and Stage 7 reads MAUDE live, so its numbers are reported
+"as of" the run date and are expected to grow. What is now reproducible is
+everything downstream of the frozen text, which is every preregistered
+confirmatory quantity except H4.
+
+One consequence for the manuscript: the reproduction statement can be made
+unconditionally for the deterministic values, and should be scoped explicitly to
+exclude Stage 2 and Stage 7 rather than left implicit.
+
+---
+
 # Addendum — zone diagnostics on real documents
 
 Run 2026-09-16 with `diagnose_zones.py` against the verifier's own 12,392-file
@@ -404,3 +460,194 @@ and `TEXT_SNAPSHOT_files.csv` with the local corpus. This happened during this
 session and was reverted with `git checkout --`. A script whose default action
 destroys the reference record it exists to protect should require an explicit
 `--freeze`, and should reject unknown flags.
+
+---
+
+# Addendum 2 — the edge difference, closed as an enumeration
+
+`identify_text_diffs.py`, run against the committed `TEXT_SNAPSHOT_files.csv`
+(12,388 rows) and the verifier's local `data/text/` (12,392 files):
+
+```
+CHANGED  0   (present in both, content differs)
+EXTRA    4   (local only — analyst got HTTP 404 for these)
+             K021661   6,387 bytes    0 outgoing edges
+             K041939   7,577 bytes    1 outgoing edge
+             K192214   9,782 bytes    8 outgoing edges
+             K192217   9,479 bytes    2 outgoing edges
+                                     11 total
+MISSING  0   (in freeze, absent locally)
+```
+
+**30,487 − 11 = 30,476, exactly Cord's Rule 1 edge count.** The four summaries
+FDA served the verifier on 2026-08-26 and returned 404 for the analyst on
+2026-08-08 carry precisely eleven edges, which is the entire edge difference
+between the two graphs.
+
+**Closed, edge count and all four derived fields.** The eleven edges account for
+the edge difference, `sens_maximal_rule` reproducing the August H1 triple on the
+frozen text closes the rule side, and all four derived deltas follow from the
+same eleven edges by four independent counts.
+
+Of the eleven, three have a **recalled** predicate:
+
+```
+K192214 -> K112429    recalled
+K192217 -> K042695    recalled
+K192217 -> K061211    recalled
+```
+
+| field | observed | predicted | basis |
+|---|---|---|---|
+| `post_recall_citations` | +3 | **+3** | the three edges whose predicate is recalled |
+| `downstream_devices` | +2 | **+2** | the two citing documents, K192214 and K192217 |
+| `persistent_predicates` | +1 | **+1** | K112429 has 0 citations in the analyst's graph; K042695 has 9 and K061211 has 3, so only K112429 becomes newly persistent |
+| `first_after_recall` | +1 | **+1** | K112429's recall was initiated 2017-03-17 (Class II, Z-2072-2017); K192214 was cleared 2019-10-11, 938 days later. K112429 has no other citation, so this is its first, and it postdates the recall |
+
+All four are exact, derived from four independent definitions and computed
+against the analyst's own `predicate_edges_rule1.csv` plus
+`data/recall_links_classified.csv`. The dates behind the fourth:
+
+```
+K112429  recall initiated 2017-03-17   Class II, Z-2072-2017, Eden Spine Europe SA
+         "implants have been disassembled by surgeons because of unscrewing
+          completely the locking screw"
+K192214  cleared          2019-10-11   938 days (2.57 years) later
+```
+
+K112429 has no other citation in the analyst's graph, so K192214's is its first,
+and it postdates the recall — `first_after_recall` +1 by construction.
+
+**Incidentally, this pair is a clean worked example of H2.** A Class II recall for
+implants coming apart in situ, and 2.57 years later a new device is cleared
+citing that recalled device as its predicate — its only citation in the corpus.
+H2 reports 382 such devices under Rule 2; this is one of them with its recall
+reason, dates and provenance all traceable, and it survives the restricted rule.
+Worth considering for the manuscript, where a single named instance does work
+that an aggregate count cannot.
+
+**The pandas mechanism is ruled out, and its premise does not hold.** The
+verifier's environment runs **pandas 2.1.4**, matching `requirements.txt`
+(`pandas==2.1.4`), so the version-dependent path cannot apply to the August
+rebuild. Separately, K060694's recall dates in `snapshot/recall_raw.json.gz` are
+`event_date_initiated` 2005-08-23, `event_date_posted` 2005-10-07,
+`event_date_terminated` 2005-12-08 — ordinary dates that parse in any version.
+No year-0012 value appears in that device's recall records. If such a value
+exists it is in another file or field (`enforcement_raw.json.gz` is the
+candidate); as a hazard for future runs on unpinned pandas it is worth keeping,
+but it is not an explanation for the eight-field difference and should not be
+offered as an alternative to the above.
+
+Recommended wording for the manuscript's reproducibility statement, limited to
+what is established: *"An independent rebuild 18 days later retrieved four
+additional summaries that had returned HTTP 404 at analysis time. Those four
+documents carry eleven edges, which is the whole of the difference between the
+two graphs (30,487 vs 30,476). Every one of the 12,388 summaries retrieved in
+both runs extracted to byte-identical text."*
+
+All four derived quantities may be added, since they are measured: *"Three of those eleven edges cite recalled predicates, which accounts for the
+differences in post-recall citations (+3), downstream devices (+2) and
+persistent predicates (+1) exactly."* The verifier's environment ran the pinned
+pandas 2.1.4, so the version-dependent date-parsing path is excluded.
+
+`first_after_recall` may be included on the same basis: K112429's recall was
+initiated 2017-03-17 and K192214, its only citing device, was cleared 2019-10-11.
+
+## What freeze_text.py --check actually reports
+
+`check()`, read in full on the verifier's machine:
+
+```python
+def check():
+    rec = json.load(open(OUT_JSON))
+    ks, counts = retrieved_knumbers()
+    per_file, corpus_hash, missing = hash_corpus(ks)
+    frozen = {r["k_number"]: r["sha256"] for r in csv.DictReader(open(OUT_CSV, newline=""))}
+    changed = [k for k, h, _ in per_file if frozen.get(k) != h]
+    extra = sorted(set(k for k, _, _ in per_file) - set(frozen))
+    ok = (corpus_hash == rec["corpus_sha256"]) and not missing and not changed and not extra
+```
+
+with `MANIFEST = "data/download_manifest.csv"` (line 17) feeding
+`retrieved_knumbers()`.
+
+**`changed` double-counts `extra` — a real bug.** `per_file` iterates the local
+files, so for a file absent from the frozen manifest `frozen.get(k)` returns
+`None`, compares unequal to the hash, and the file is reported as changed *and*
+as not-in-freeze. On the 12,392-file corpus this produced
+`changed 4 | not in freeze 4` for the same four documents, against an independent
+comparison's `CHANGED 0 | EXTRA 4`. Correct form:
+
+```python
+changed = [k for k, h, _ in per_file if k in frozen and frozen[k] != h]
+```
+
+**`missing 4` is not a bug — it is correct, and a previous claim in this report
+that it was wrong is withdrawn.** `ks` comes from the *local*
+`data/download_manifest.csv`, which records the verifier's own Stage 2: 12,392
+retrieved. After the four extra text files were moved aside, four manifest rows
+had no corresponding text file, which is exactly what `missing` is defined to
+count. The corpus hash still matched because `hash_corpus` aggregates over the
+files that exist, and that set is now identical to the freeze.
+
+**Consequence for Task 1.** `ok` requires `missing` to be empty as well as the
+corpus hash to match, so `--check` will keep reporting `FAIL` while the
+verifier's manifest lists 12,392 retrieved. The manifest is his own retrieval
+record and the evidence for the eleven-edge enumeration above, so it should not
+be edited. The clean resolution is the analyst's `data/download_manifest.csv`
+(12,388 retrieved / 924 / 1) — one small file, whose SHA-256 is already recorded
+as `manifest_sha256` in `TEXT_SNAPSHOT.json`, so its authenticity is checkable on
+arrival.
+
+**The substantive result does not depend on either point.** It rests on the
+corpus hash and on the independent per-file comparison against
+`TEXT_SNAPSHOT_files.csv`, which agree: every one of the 12,388 summaries
+retrieved in both runs extracted to byte-identical text. PyMuPDF output was
+identical across two machines and two runs eighteen days apart. Extraction is not
+a source of variation in this study; retrieval is the only one, and D5 can state
+that as a measured claim.
+
+## Finding — the frozen-text design is incomplete without the manifest
+
+Stage 3's gate, as written:
+
+```python
+frozen = json.load(open("TEXT_SNAPSHOT.json"))
+_, corpus_hash, missing = hash_corpus(have)
+assert not missing, f"{len(missing)} text files missing from data/text/ — restore from OSF ..."
+assert corpus_hash == frozen["corpus_sha256"], "data/text/ does not match TEXT_SNAPSHOT.json ..."
+```
+
+`have` derives from `data/download_manifest.csv`, so **the gate's file list comes
+from the local manifest, not from the frozen record.** A verifier whose manifest
+differs from the analyst's cannot pass it, even with a byte-identical text
+corpus. That is the state reached here: the corpus hash matches
+`TEXT_SNAPSHOT.json` exactly, and Stage 3 still refuses, naming the verifier's
+four extra documents as missing.
+
+`data/` is gitignored, so `download_manifest.csv` is not in the repository. Its
+hash *is* recorded — `manifest_sha256` in `TEXT_SNAPSHOT.json` — which shows it
+was understood to be part of the frozen state, but the file itself ships nowhere.
+D5 says "Stage 3 verifies the corpus hash before running and never opens a PDF";
+that is true and it is not sufficient, because the assert above fires first.
+
+**Recommendation:** commit `download_manifest.csv` alongside
+`TEXT_SNAPSHOT_files.csv` (13,313 rows, small, and already hashed in the
+snapshot), or derive `have` from `TEXT_SNAPSHOT_files.csv` rather than from the
+manifest. Either change makes the frozen-text corpus self-sufficient. Without
+one of them, every future verifier hits this assert and is told to restore from
+OSF when nothing is wrong with their corpus.
+
+## Task 1 needs one small file from the analyst
+
+Removing the four extra text files made the verifier's corpus hash-identical to
+the freeze, which is the condition Stage 3 checks. No text transfer and no OSF
+download is required; the four removed files are retained under
+`verification/round2/verifier_extra_text/` as evidence for D5.
+
+`freeze_text.py --check` will still report `FAIL` until the analyst's
+`data/download_manifest.csv` is in place, for the reason given above — the
+verifier's manifest lists 12,392 retrieved and four of those rows now have no
+text file. Whether Stage 3 is blocked by that depends on whether it gates on the
+corpus hash alone or on `check()`'s composite `ok`; this is worth establishing by
+running Stage 3 before requesting anything.

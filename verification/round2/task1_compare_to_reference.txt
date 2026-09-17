@@ -1,0 +1,35 @@
+field                           analyst (reference)           your rebuild  result
+----------------------------------------------------------------------------------
+snapshot_date                            2026-08-08             2026-08-08  PASS
+corpus_devices                                15581                  15581  PASS
+edges                                         29234                  29234  PASS
+is_dag                                        False                  False  PASS
+connected_nodes                               11960                  11960  PASS
+max_chain_depth                                  30                     30  PASS
+largest_component                             11638                  11638  PASS
+recalled_nodes                                 1691                   1691  PASS
+pct_recalled                                   10.9                   10.9  PASS
+persistent_predicates                           921                    921  PASS
+post_recall_citations                          2712                   2712  PASS
+downstream_devices                             1798                   1798  PASS
+first_after_recall                              382                    382  PASS
+max_gap_years                                    21                     21  PASS
+sens_class_I_II                   [703, 1997, 1361]      [703, 1997, 1361]  PASS
+sens_high_conf                    [816, 2087, 1496]      [816, 2087, 1496]  PASS
+sens_combined                     [634, 1554, 1149]      [634, 1554, 1149]  PASS
+edge_rule                          rule2_restricted       rule2_restricted  PASS
+edges_rule1                                   30476                  30476  PASS
+edges_excluded_by_rule2                        1242                   1242  PASS
+sens_maximal_rule                 [938, 2877, 1873]      [938, 2877, 1873]  PASS
+sens_class_na                       [210, 704, 583]        [210, 704, 583]  PASS
+recalled_by_class            {'Class I': 11, 'Class II': 1306, 'Class III': 18, 'n/a': 356} {'Class I': 11, 'Class II': 1306, 'Class III': 18, 'n/a': 356}  PASS
+panel_nonpilot                                 None                   None  PASS
+cov_excluded_only_pct                           0.3                    0.3  PASS
+text_corpus_sha256           27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607 27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607  PASS
+cov_resolvable_pct                             72.2                   72.2  PASS
+cov_name_only_pct                               2.8                    2.8  PASS
+cov_out_of_scope_pct                           12.2                   12.2  PASS
+----------------------------------------------------------------------------------
+RESULT: PASS — all deterministic values reproduce exactly.
+(MAUDE / Stage 7 numbers live in data/maude_comparison.json and are reported 'as of' your
+ run date; they read the live FDA endpoint and are expected to be >= the analyst's.)

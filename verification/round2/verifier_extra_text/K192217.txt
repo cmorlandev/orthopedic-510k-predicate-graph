@@ -1,0 +1,225 @@
+ 
+U.S. Food & Drug Administration 
+10903 New Hampshire Avenue  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+D o c I D # 0 4 0 1 7 . 0 4 . 0 7 
+Silver Spring, MD 20993  
+www.fda.gov 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+September 13, 2019
+ 
+ 
+Zimmer GmbH 
+Tiana Steinhoff 
+Regulatory Affairs Specialist 
+Sulzerallee 8 
+Winterthur,  8404 CH 
+ 
+Re:  K192217 
+Trade/Device Name: NCB Plating System Distal Femur and Proximal Tibia 
+Regulation Number:  21 CFR 888.3030 
+Regulation Name:  Single/Multiple Component Metallic Bone Fixation Appliances And Accessories 
+Regulatory Class:  Class II 
+Product Code:  HRS, HWC 
+Dated:  August 12, 2019 
+Received:  August 15, 2019 
+ 
+Dear Tiana Steinhoff: 
+ 
+We have reviewed your Section 510(k) premarket notification of intent to market the device referenced 
+above and have determined the device is substantially equivalent (for the indications for use stated in the 
+enclosure) to legally marketed predicate devices marketed in interstate commerce prior to May 28, 1976, the 
+enactment date of the Medical Device Amendments, or to devices that have been reclassified in accordance 
+with the provisions of the Federal Food, Drug, and Cosmetic Act (Act) that do not require approval of a 
+premarket approval application (PMA). You may, therefore, market the device, subject to the general 
+controls provisions of the Act. Although this letter refers to your product as a device, please be aware that 
+some cleared products may instead be combination products. The 510(k) Premarket Notification Database 
+located at https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm identifies combination 
+product submissions. The general controls provisions of the Act include requirements for annual registration, 
+listing of devices, good manufacturing practice, labeling, and prohibitions against misbranding and 
+adulteration. Please note:  CDRH does not evaluate information related to contract liability warranties. We 
+remind you, however, that device labeling must be truthful and not misleading. 
+ 
+If your device is classified (see above) into either class II (Special Controls) or class III (PMA), it may be 
+subject to additional controls. Existing major regulations affecting your device can be found in the Code of 
+Federal Regulations, Title 21, Parts 800 to 898. In addition, FDA may publish further announcements 
+concerning your device in the Federal Register. 
+ 
+Please be advised that FDA's issuance of a substantial equivalence determination does not mean that FDA 
+has made a determination that your device complies with other requirements of the Act or any Federal 
+
+K192217 - Tiana Steinhoff 
+Page 
+ 
+2
+statutes and regulations administered by other Federal agencies. You must comply with all the Act's 
+requirements, including, but not limited to: registration and listing (21 CFR Part 807); labeling (21 CFR Part 
+801); medical device reporting (reporting of medical device-related adverse events) (21 CFR 803) for 
+devices or postmarketing safety reporting (21 CFR 4, Subpart B) for combination products (see 
+https://www.fda.gov/combination-products/guidance-regulatory-information/postmarketing-safety-reporting-
+combination-products); good manufacturing practice requirements as set forth in the quality systems (QS) 
+regulation (21 CFR Part 820) for devices or current good manufacturing practices (21 CFR 4, Subpart A) for 
+combination products; and, if applicable, the electronic product radiation control provisions (Sections 531-
+542 of the Act); 21 CFR 1000-1050. 
+ 
+Also, please note the regulation entitled, "Misbranding by reference to premarket notification" (21 CFR Part 
+807.97). For questions regarding the reporting of adverse events under the MDR regulation (21 CFR Part 
+803), please go to https://www.fda.gov/medical-devices/medical-device-safety/medical-device-reporting-
+mdr-how-report-medical-device-problems. 
+ 
+For comprehensive regulatory information about medical devices and radiation-emitting products, including 
+information about labeling regulations, please see Device Advice (https://www.fda.gov/medical-
+devices/device-advice-comprehensive-regulatory-assistance) and CDRH Learn 
+(https://www.fda.gov/training-and-continuing-education/cdrh-learn). Additionally, you may contact the 
+Division of Industry and Consumer Education (DICE) to ask a question about a specific regulatory topic. See 
+the DICE website (https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-
+assistance/contact-us-division-industry-and-consumer-education-dice) for more information or contact DICE 
+by email (DICE@fda.hhs.gov) or phone (1-800-638-2041 or 301-796-7100). 
+ 
+Sincerely, 
+ 
+ 
+ 
+ 
+Shumaya Ali, MPH 
+Assistant Director 
+DHT6C: Division of Restorative, Repair 
+    and Trauma Devices 
+OHT6: Office of Orthopedic Devices 
+Office of Product Evaluation and Quality 
+Center for Devices and Radiological Health 
+ 
+Enclosure  
+ 
+ 
+Shumaya Ali -S
+
+DEPARTMENT OF HEALTH AND HUMAN SERVICES
+Food and Drug Administration
+lndications for Use
+Form Approved: OMB No. 0910-0120
+Expiration Date: 06/30/2020
+See PRA Statement below.
+510(k) Number (if known)
+Device Name
+NCB@ Plating System, Distal Femur and Proximal Tibia
+lndications for Use (Describe)
+The NCB Plating System is indicated for temporary internal fixation and stabilization of fractures and osteotomies of long
+bones.
+Type of Use (Se/ecl one or both, as applicable)
+[] Prescription Use (Part 21 CFR 801 Subpart D)
+X Over-The-Counter Use (21 CFR 8Ol Subpart C)
+CONTINUE ON A SEPARATE PAGE IF NEEDED.
+This section applies only to requirements of the Paperwork Reduction Act of 1995.
+*DO NOT SEND YOUR COMPLETED FORM TO THE PRA STAFF EMAIL ADDRESS BELOW.*
+The burden time for this collection of information is estimated to average 79 hours per response, including the
+time to review instructions, search existing data sources, gather and maintain the data needed and complete
+and review the collection of information. Send comments regarding this burden estimate or any other aspect
+of this information collection, including suggestions for reducing this burden, to:
+Department of Health and Human Services
+Food and Drug Administration
+Office of Chief lnformation Officer
+Paperwork Reduction Act (PRA) Staff
+PRAStaff@fda.hhs.gov
+"An agency may not conduct or sponsor, and a person is not required to respond to, a collection of
+information ünless it displays a cunently valid OMB number."
+FORM FDA 3881(7t171
+Page I of 1
+PSC I'ublishn4 scNiccs (10 I ) 44 l-6740 
+EF
+K192217
+
+510(K) SUMMARY 
+510(k) SUMMARY 
+Sponsor: 
+Zimmer GmbH 
+Sulzerallee 8, P.O. Box 
+8404 Winterthur, Switzerland 
+Contact Person: 
+Tiana Steinhoff 
+Specialist, Regulatory Affairs 
+Telephone: +41 58 854 82 96 
+Fax: +41 52 244 86 58 
+Date: 
+August 12th, 2019 
+Trade Name: 
+NCB® Plating System, Distal Femur and its line extension 
+Proximal Tibia 
+Classification Product Code : 
+Plate System 
+HRS 
+HWC 
+Device Classification Name: 
+Plate, fixation, bone 
+Screw, fixation, bone 
+Regulation Number / Description: 
+21 CFR § 888.3030 Single/multiple component metallic bone 
+fixation appliances and accessories 
+21 CFR § 888.3040 Smooth or threaded metallic bone fixation 
+fastener 
+Predicate Device: 
+NCB® Plating System, Distal Femur, manufactured by Zimmer 
+GmbH, K042695, cleared in October 2004 (primary predicate) 
+NCB® Plating System, Proximal Tibia, manufactured by Zimmer 
+GmbH, K061211, cleared in June 2006 (line extension of 
+K042695) 
+Device Description: 
+The NCB Plating System is an extramedullary internal fixation 
+plate system to be used for either distal femoral or proximal tibia 
+fractures. It is intended to be implanted either percutaneously or 
+by a traditional open method. 
+Intended Use: 
+The NCB Plating System is indicated for temporary internal 
+fixation and stabilization of fractures and osteotomies of 
+long bones. 
+Comparison to Predicate Device: 
+The intended use of the modified devices, as described in its 
+labeling, has not changed as a result of the modifications 
+K192217 - Page 1 of 2
+
+510(K) SUMMARY 
+proposed in the present submission. 
+The proposed packaging configuration and the methods to support 
+the package integrity have been previously cleared for Zimmer 
+GmbH products. Zimmer GmbH is furthermore seeking clearance 
+for certain system-specific Class II instruments - these instruments 
+that have previously considered Class I exempt and correction of 
+classification to Class II is proposed within present submission. 
+Performance Data (Nonclinical 
+and/or Clinical): 
+Non-Clinical Performance and Conclusions: 
+Class II: Amendment of Design Controls with verification of 
+mechanical integrity and resistance. 
+Clinical Performance and Conclusions:  
+Clinical data and conclusions were not needed for this device. 
+Conclusion: 
+The subject devices have the same intended use and same 
+indications for use as the predicate devices. The subject devices 
+use the same operating principle, incorporate the same basic 
+design and labeling and are manufactured and sterilized using the 
+same materials and processes as the predicate devices. 
+Except for the modifications described in this submission the 
+subject devices are identical to the predicate devices, and the 
+performance data and analyses demonstrate that: 
+•
+any differences do not raise new questions of safety and
+effectiveness as established with performance testing; and
+•
+the subject devices are at least as safe and effective as
+the legally marketed predicate devices.
+K192217 - Page 2 of 2

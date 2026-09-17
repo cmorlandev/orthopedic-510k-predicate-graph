@@ -1,0 +1,56 @@
+{
+  "snapshot_date": "2026-08-08",
+  "corpus_devices": 15581,
+  "edges": 29234,
+  "is_dag": false,
+  "connected_nodes": 11960,
+  "max_chain_depth": 30,
+  "largest_component": 11638,
+  "recalled_nodes": 1691,
+  "pct_recalled": 10.9,
+  "persistent_predicates": 921,
+  "post_recall_citations": 2712,
+  "downstream_devices": 1798,
+  "first_after_recall": 382,
+  "max_gap_years": 21,
+  "sens_class_I_II": [
+    703,
+    1997,
+    1361
+  ],
+  "sens_high_conf": [
+    816,
+    2087,
+    1496
+  ],
+  "sens_combined": [
+    634,
+    1554,
+    1149
+  ],
+  "edge_rule": "rule2_restricted",
+  "edges_rule1": 30476,
+  "edges_excluded_by_rule2": 1242,
+  "sens_maximal_rule": [
+    938,
+    2877,
+    1873
+  ],
+  "sens_class_na": [
+    210,
+    704,
+    583
+  ],
+  "recalled_by_class": {
+    "Class I": 11,
+    "Class II": 1306,
+    "Class III": 18,
+    "n/a": 356
+  },
+  "panel_nonpilot": null,
+  "cov_excluded_only_pct": 0.3,
+  "text_corpus_sha256": "27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607",
+  "cov_resolvable_pct": 72.2,
+  "cov_name_only_pct": 2.8,
+  "cov_out_of_scope_pct": 12.2
+}
