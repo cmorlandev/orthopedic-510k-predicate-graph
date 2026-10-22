@@ -82,3 +82,43 @@ Inputs: snapshot/ (2026-08-08, unchanged) + frozen data/text/ (TEXT_SNAPSHOT.jso
 - H4: CONFIRMED — recalled median events/yr 1.085 > matched 0.000; p = 1.0e-113 < 0.05
   (linked-only: 1.76 > 0.50, p = 7.0e-35 — direction holds after removing differential non-linkage)
 - H5: CONFIRMED — H1 direction holds in all 3 preregistered sensitivity subsets; also in maximal_rule and class_na
+
+
+---
+
+## Part Six — 2026-10-21/22 re-run (Rule 2 v2; exact-date post-recall rule; K060694 rescued; DEVIATIONS D8, D10)
+Inputs unchanged: snapshot/ (2026-08-08) + frozen data/text/ (corpus sha256 27646debf7d7…).
+Code changes: edge_rules.py (Rule 2 v2), test_edge_rules.py (16 tests), 03_extract_edges, 05_classify,
+06_graph_and_analysis, 08_verify.
+- Stage 3 (edges): 2026-10-21 — Rule 1 30,476 (unchanged) | Rule 2 v1 29,234 (= Part Five) | Rule 2 v2 28,562
+  - v1 → v2: 672 edges dropped in 345 documents (all reference-device zones), 0 added — data/rule2_v1_vs_v2.csv
+  - devices with >=1 edge: 8,928 (v1: 8,942)
+- Stage 5: 2026-10-22 — recall dates ignored as invalid: 1 (K060694, Z-0660-2013, "0012-12-06");
+  K060694 anchored on 2008-03-13. Recalled corpus devices 1,691; worst class unchanged.
+- Stage 6: 2026-10-22 — post_recall_rule = received_after_public
+  - edges 28,562 | connected 11,923 | largest component 11,588 | is_dag False | max_chain_depth 30
+  - recalled devices with a public date 1,689 of 1,691
+  - persistent_predicates 893 | post_recall_citations 2,553 | downstream_devices 1,709 | first_after_recall 356 | max_gap_years 21
+  - sens_year_rule (manuscript-v5 rule) [910/2643/1762] | first_after_recall (year rule) 376
+  - sens class_I_II [680/1883/1298] | high_conf [789/1949/1418] | combined [613/1454/1088]
+  - sens maximal_rule (Rule 1) [925/2793/1825] | class_na [206/661/546]
+- Stage 7 (MAUDE): 2026-10-22 — every query restricted to reports received on or before the snapshot date
+  (date_received:[19000101 TO 20260808]); check HRS 38,827 as of snapshot vs 39,163 live on the run date
+  - family events 856,492 | deaths 2,461 | injuries 649,620 (as of 2026-08-08)
+  - recalled predicates 1,360 vs matched 1,360 (seed 42; re-drawn from Rule 2 v2 edges)
+  - match 84.5% vs 51.5% | median events 17 vs 1 | events/yr 1.087 vs 0.043 | one-sided Mann-Whitney U p = 9.0e-102
+  - linked-only (D6): n 1,149 vs 700 | median events 28 vs 8 | events/yr 1.75 vs 0.60 | p = 1.0e-29
+  - Limitation: MAUDE is a live database. Reports received before the cutoff can later be edited,
+    reclassified or removed, so these counts may not be fully reproducible by a later run.
+- Stage 8 (self-consistency): 19/19 PASS
+- Reference file: expected_values_REFERENCE.json replaced with the Part Six run (2026-10-22); Part Five reference
+  preserved as expected_values_REFERENCE_rule2v1_2026-09-16.json
+- Independent reproduction (compare_to_reference.py, second analyst): [pending]
+
+## Hypotheses vs. pre-registered criteria (§7) — Part Six primary
+- H1: CONFIRMED — persistent 893 > 0 AND post-recall citations 2,553 >= 50
+- H2: CONFIRMED — first-cited-after-recall 356 > 0
+- H3: CONFIRMED — max gap 21 yr > 10
+- H4: CONFIRMED — recalled median events/yr 1.087 > matched 0.043; p = 9.0e-102 < 0.05
+  (linked-only: 1.75 > 0.60, p = 1.0e-29)
+- H5: CONFIRMED — H1 direction holds in all 3 preregistered sensitivity subsets; also in maximal_rule, class_na and year_rule

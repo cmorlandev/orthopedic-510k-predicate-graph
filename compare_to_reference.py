@@ -28,8 +28,10 @@ for k in ref:
 print("-" * 82)
 if mismatches == 0:
     print("RESULT: PASS — all deterministic values reproduce exactly.")
-    print("(MAUDE / Stage 7 numbers live in data/maude_comparison.json and are reported 'as of' your")
-    print(" run date; they read the live FDA endpoint and are expected to be >= the analyst's.)")
+    print("(MAUDE / Stage 7 numbers live in data/maude_comparison.json. They are restricted to reports FDA")
+    print(" received on or before the snapshot date (2026-08-08), but MAUDE is a live database: reports")
+    print(" received before that date can later be edited, reclassified or removed, so a small difference")
+    print(" from the analyst's counts is expected and is not a reproduction failure.)")
 else:
     print(f"RESULT: {mismatches} FIELD(S) DIFFER — investigate before signing off.")
     print("Common causes: you ran Stage 0 (used a fresh snapshot instead of the analyst's), a")

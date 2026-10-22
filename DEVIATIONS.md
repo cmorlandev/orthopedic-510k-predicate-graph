@@ -101,3 +101,71 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
 - **§9 independence panel** (pre-specified as optional in §9): H1–H3 quantities on the subgraph of
   devices in the 145 non-pilot product codes. Runs when `pilot_codes.txt` (the nine pilot codes, one
   per line) is present; written to `expected_values.json` under `panel_nonpilot`.
+
+
+## D7 — Alternative denominators and time-to-event analysis (post hoc, 2026-10-09)
+- **Critique addressed:** 921/1,690 (54.5%) is a crude proportion, not a standardized probability of
+  post-recall reuse; recalled devices differ in follow-up time and in prior predicate use.
+- **What we did:** reported the persistent-predicate proportion under alternative denominators
+  (follow-up ≥3, ≥5, ≥10 years; prior vs no prior predicate use; in-family opportunity), the cumulative
+  incidence of first post-recall citation (1 − Kaplan–Meier, administrative censoring at the last
+  corpus clearance), and an exploratory benchmark against matched non-recalled devices (same product
+  code and clearance year, index date = the recalled device's recall date). Competing risks were not
+  modelled: public data contain no event that ends predicate eligibility.
+- **Reporting:** all post hoc. The matched comparator is reported in Results as exploratory and worded
+  "recall did not reduce later predicate use", with no causal implication (author decision 2026-10-21).
+- **Status:** the 2026-10-09 numbers were computed on Rule 2 v1 edges, the year rule and K060694
+  excluded. They must be re-run on the D8/D10 definitions before reporting (pipeline stage 06b, pending).
+
+## D8 — Post-recall timing on exact dates; K060694 rescued (post hoc, 2026-10-13 / 2026-10-21)
+- **Prereg basis / manuscript v5:** a citation was post-recall if the citing device's clearance YEAR
+  was later than the predicate's recall YEAR. That rule can count a citation whose 510(k) was submitted
+  before the recall existed, or before it was public.
+- **What the reanalysis found (2026-10-13, Rule 2 v1 edges):** of 2,712 year-rule citations, 2,578
+  (95.1%) were submitted after the recall was public, 76 (2.8%) after initiation but before posting,
+  51 (1.9%) before initiation, 7 (0.3%) uncertain.
+- **What we changed (author decision 2026-10-21):** the PRIMARY post-recall rule is now
+  "citing 510(k) date_received > the predicate's recall public date", where the public date is the
+  earliest of the FDA recall-database posting (`event_date_posted`) and the weekly Enforcement Report
+  listing (`report_date`) across the predicate's linked recalls. The year rule is no longer applied as
+  a pre-filter. All dates come from the frozen 2026-08-08 snapshot. The year rule is reported as the
+  `sens_year_rule` sensitivity arm. Stage 6 switch: `POST_RECALL_RULE`.
+- **K060694:** its earliest recall record (Z-0660-2013) carries the corrupted initiation date
+  "0012-12-06". Stage 5 now takes each device's earliest VALID recall date (parsed; ≥1976; ≤ snapshot)
+  and lists ignored dates in `data/recall_dates_ignored.csv` (one record). K060694 is anchored on its
+  2008-03-13 recall. No other device's date changed.
+- **Effect:** see RUN_LOG Part Six. Primary triple 893 / 2,553 / 1,709 (year rule 910 / 2,643 / 1,762),
+  on Rule 2 v2 edges.
+
+## D9 — Design-related recall arm (post hoc, 2026-10-15)
+- **Critique addressed:** a K-number linked to a recall does not show that the predicate's design was
+  defective; recalls can be limited to lots, components, packaging or labelling.
+- **What we did:** a separate arm (`design_arm/`) restricting exposure to predicates linked to ≥1
+  design-related recall event. Unit = FDA recall event (`res_event_number`); recall date = earliest
+  design-related recall; successor exclusion unchanged (any recall), so the arm is nested in the
+  primary analysis. FDA root cause is mapped to five categories (`cause_map.py`); all unclear events
+  and a 40-per-category validation sample are dual-coded by blinded reviewers with adjudication;
+  agreement (Cohen's kappa) and FDA-mapping concordance are reported.
+- **Status:** coding and adjudication pending. Must use the D8 timing rule and D10 edges before reporting.
+
+## D10 — Rule 2 revised (v2) after the largest-component audit (2026-10-21)
+- **What the audit found:** Rule 2 (D4) kept FDA reference devices as predicate edges in three
+  situations: (1) reference headings that do not START with "Reference Device", e.g. "Legally Marketed
+  Reference Devices Used to Support Substantial Equivalence:" (K161569); (2) font-encoded headings, where
+  PyMuPDF extracts "Reference Predicates" as "5HIHUHQFH3UHGLFDWHV" (K180373); (3) reference devices
+  re-mentioned in body text (materials, biocompatibility), which D4's "mentioned once outside a zone"
+  rescue let back in (K171595).
+- **What we changed (`edge_rules.py`, `rule2_version="v2"`, author decision 2026-10-21):** reference
+  headings are recognised anywhere in a heading line ending in ":" that names no predicate; spaceless
+  font-encoded heading tokens are decoded for heading detection only; a K-number that a document
+  INTRODUCES under a reference heading stays excluded unless another mention is on a line naming it a
+  predicate. Parenthetical table labels and lines carrying a K-number never open a zone. "Reference
+  Predicate(s)" labels are treated as reference devices (author decision). Compatibility zones are
+  unchanged from D4.
+- **Validation:** the first v2 draft over-reached (primary predicates dropped via table labels and
+  recurring mentions; one non-breaking-space heading mis-decoded). All were corrected before adoption;
+  every dropped edge whose K-number also appeared beside the word "predicate" was read in its source
+  text. 16 unit tests (`test_edge_rules.py`). v1 is retained and reproduces D4 exactly.
+- **Effect:** Rule 2 v1 29,234 edges → v2 28,562; 672 edges dropped in 345 documents, all from
+  reference-device zones; none added. Every change is listed in `data/rule2_v1_vs_v2.csv`.
+- **Pending:** the second analyst's validation join is repeated on the v2 edge set.

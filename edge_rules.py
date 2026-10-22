@@ -6,7 +6,7 @@ RULE 1 (registered, preregistration §5): in any summary containing a predicate 
 (predicate / substantially equivalent / reference device), every OTHER in-corpus
 K-number mentioned anywhere in the text becomes an edge predicate -> device.
 
-RULE 2 (restricted, adopted after independent verification, DEVIATIONS.md D4):
+RULE 2 (restricted, adopted after independent verification, DEVIATIONS.md D4; revised D10):
 Rule 1, minus K-numbers whose every mention falls inside an EXCLUSION ZONE.
 An exclusion zone is the span of text from a heading-like line that denotes
   (a) component / accessory compatibility, or
@@ -15,6 +15,29 @@ to the next heading-like line that starts a different section.
 A K-number mentioned at least once OUTSIDE every exclusion zone is kept
 (e.g. a device named under "Predicate Device:" and again in a compatibility
 table is still a predicate).
+
+RULE 2 VERSIONS (DEVIATIONS.md D10). `extract(..., rule2_version=...)`:
+  "v1" — the 2026-09 rule exactly as D4 adopted it (kept for reproduction).
+  "v2" — the default. Three fixes found in the 2026-10 largest-component audit:
+    1. Reference-device headings are found anywhere in a heading line that ends in
+       ":" and names no predicate, e.g. "Legally Marketed Reference Devices Used to
+       Support Substantial Equivalence:" (K161569). v1 matched only headings that
+       START with "Reference Device".
+    2. Font-encoded heading lines (PyMuPDF output where every character is shifted
+       by a fixed code-point offset, e.g. K180373's "5HIHUHQFH3UHGLFDWHV" =
+       "ReferencePredicates") are decoded before zone detection. Decoding is used
+       only to recognise headings; K-number positions are never altered.
+       Parenthetical table labels ("(Reference Predicate)") and lines carrying a
+       K-number label one entry, not a section, so they never open a v2 zone.
+    3. A K-number the document INTRODUCES in a REFERENCE zone (its first mention
+       is there) stays excluded even when it is mentioned again elsewhere, unless
+       that other mention sits on a line that explicitly names it a predicate.
+       "Reference Predicate(s)" labels count as reference devices (author
+       decision, 2026-10-21). v1 kept it on any outside mention, so a
+       reference device re-mentioned in a materials or biocompatibility paragraph
+       (K171595's K082792; K161569's K151264) leaked back in. Compatibility zones
+       keep the v1 behaviour, because real predicates often recur in compatibility
+       tables.
 
 Both rules label each edge by cue proximity:
   NEAR_CUE     — a strong cue (predicate / reference device) within 300 characters
@@ -44,6 +67,12 @@ COMPAT = re.compile(r"(?i)\b(?:compatib\w*|accessor(?:y|ies)|mating\s+components
 #   matches "Reference Device:", "V. Reference Devices", "Reference Device(s): K123456 …"
 REFDEV = re.compile(r"(?i)^\W*(?:[IVXLC]{1,6}[.)]|\d{1,2}(?:\.\d+)*[.)]?|[A-Z][.)])?\s*"
                     r"(?:additional\s+)?reference\s+devices?(?:\s*\(s\))?\s*(?::|$)")
+# v2: reference-device heading anywhere in the line ("Legally Marketed Reference Devices …:"),
+#     also "Reference Predicate(s)" as some sponsors label them
+REFDEV_ANY = re.compile(r"(?i)reference\s*(?:devices?|predicates?)(?:\s*\(s\))?")
+REFDEV_WHOLE = re.compile(r"(?i)\W*reference\s*(?:devices?|predicates?)(?:\s*\(s\))?\W*")
+PRED_WORD = re.compile(r"(?i)predicate")
+DECODE_CUES = re.compile(r"(?i)reference|predicate|compatib|accessor")
 # headings that always END a zone (a new section has begun)
 SECTION_WORDS = re.compile(r"(?i)\b(?:predicate|substantial(?:ly)?\s+equival|conclusion|"
                            r"device\s+description|indications?\s+for\s+use|intended\s+use|"
@@ -64,13 +93,47 @@ def _heading_like(line: str) -> bool:
     return len(s) <= 60 and not s.endswith(".")
 
 
-def _zone_start(line: str):
+def _decode_line(s: str):
+    """
+    v2. Some PDFs extract with a font whose glyphs are shifted by a fixed code-point
+    offset ("5HIHUHQFH3UHGLFDWHV" -> "ReferencePredicates", offset 29). For a single
+    spaceless token that is not a K-number, try each offset; return the decoded text
+    only if it is all letters AND contains a zone/section cue word. Otherwise None.
+    """
+    s = s.strip()
+    # only spaceless tokens (any whitespace, incl. non-breaking spaces, means ordinary text),
+    # never K-numbers, and never a line that already reads as a cue word
+    if re.search(r"\s", s) or len(s) < 6 or KPAT.search(s) or DECODE_CUES.search(s):
+        return None
+    for shift in range(1, 65):
+        try:
+            d = "".join(chr(ord(c) + shift) for c in s)
+        except ValueError:
+            return None
+        letters = d.replace(" ", "")                                   # encoded spaces decode to " "
+        if letters.isascii() and letters.isalpha() and DECODE_CUES.search(d):
+            return d.strip()
+    return None
+
+
+def _zone_start(line: str, version: str = "v1"):
     """Return 'compat' / 'reference' if this line opens an exclusion zone, else None."""
     s = line.strip()
+    if version == "v2":
+        s = _decode_line(s) or s
     if not _heading_like(s):
         return None
     if REFDEV.match(s):
         return "reference"
+    if version == "v2" and "(" not in s and ")" not in s and not KPAT.search(s):
+        # parenthetical row/column labels ("(Reference Predicate)", "… VLP, reference predicate)")
+        # label a single table entry, not a section, so they never open a zone
+        m = REFDEV_ANY.search(s)
+        if m:
+            rest = s[:m.start()] + s[m.end():]
+            whole = REFDEV_WHOLE.fullmatch(s)
+            if not PRED_WORD.search(rest) and (s.endswith(":") or whole):
+                return "reference"
     if COMPAT.search(s) and not SECTION_WORDS.search(re.sub(COMPAT, "", s)):
         return "compat"
     return None
@@ -86,7 +149,7 @@ SECTION_TITLE = re.compile(r"(?i)^\W*(?:[IVXLC]{1,6}[.)]|\d{1,2}(?:\.\d+)*[.)]?|
                            r"[A-Za-z/&\-\s()]{0,40}:?\s*$")
 
 
-def _zone_end(line: str) -> bool:
+def _zone_end(line: str, version: str = "v1") -> bool:
     """
     A line that begins a different section ends any open zone. Page headers/footers,
     table rows and running titles must NOT end a zone, so this is deliberately strict:
@@ -95,6 +158,8 @@ def _zone_end(line: str) -> bool:
       - a whole-line section title ("Conclusion", "V. Predicate Devices")
     """
     s = line.strip()
+    if version == "v2":
+        s = _decode_line(s) or s
     if not _heading_like(s):
         return False
     if BARE_NUMERAL.match(s):
@@ -104,7 +169,7 @@ def _zone_end(line: str) -> bool:
     return bool(SECTION_TITLE.match(s))
 
 
-def exclusion_zones(text: str):
+def exclusion_zones(text: str, version: str = "v1"):
     """
     Yield (start_char, end_char, kind, heading) for every exclusion zone in `text`.
     Zones are located on the line structure produced by PyMuPDF get_text().
@@ -114,12 +179,12 @@ def exclusion_zones(text: str):
     open_zone = None          # (start_char, kind, heading)
     for line in text.splitlines(keepends=True):
         stripped = line.strip()
-        kind = _zone_start(stripped)
+        kind = _zone_start(stripped, version)
         if kind is not None:
             if open_zone is not None:                       # back-to-back zones
                 zones.append((open_zone[0], pos, open_zone[1], open_zone[2]))
             open_zone = (pos, kind, stripped)   # zone includes the heading line itself ("Reference Device: K123456")
-        elif open_zone is not None and _zone_end(stripped):
+        elif open_zone is not None and _zone_end(stripped, version):
             zones.append((open_zone[0], pos, open_zone[1], open_zone[2]))
             open_zone = None
         pos += len(line)
@@ -140,9 +205,21 @@ def _confidence(text: str, idx: int) -> str:
     return "NEAR_CUE" if CUE_STRONG.search(window) else "DISTANT_CUE"
 
 
-def extract(text: str, device: str, valid: set):
+def _line_at(text: str, idx: int) -> str:
+    a = text.rfind("\n", 0, idx) + 1
+    b = text.find("\n", idx)
+    return text[a: len(text) if b == -1 else b]
+
+
+def _named_predicate_on_line(text: str, idx: int) -> bool:
+    """v2: the mention's own line calls it a predicate (and not a 'reference predicate')."""
+    line = REFDEV_ANY.sub("", _line_at(text, idx))
+    return bool(PRED_WORD.search(line))
+
+
+def extract(text: str, device: str, valid: set, rule2_version: str = "v2"):
     """
-    Apply both rules to one document.
+    Apply both rules to one document. `rule2_version` = "v2" (default) or "v1" (see top).
 
     Returns dict with:
       has_cue        bool
@@ -160,7 +237,7 @@ def extract(text: str, device: str, valid: set):
         return out
 
     in_corpus = sorted({k for k in found if k in valid and k != device})
-    zones = exclusion_zones(text)
+    zones = exclusion_zones(text, rule2_version)
     out["zones"] = zones
 
     for pred in in_corpus:
@@ -172,6 +249,16 @@ def extract(text: str, device: str, valid: set):
         out["rule1"].append((pred, conf1))
 
         outside = [i for i in positions if _in_zone(i, zones) is None]
+        if rule2_version == "v2" and outside:
+            # the document INTRODUCES it as a reference device: its first mention is in a
+            # reference zone. A device first listed elsewhere (e.g. under "Primary Predicate")
+            # is never dropped just because it recurs inside a reference section.
+            first_kind = (_in_zone(first, zones) or ("",))[0]
+            in_ref = [first] if first_kind == "reference" else []
+            if in_ref and not any(_named_predicate_on_line(text, i) for i in outside):
+                kind, head = _in_zone(in_ref[0], zones)
+                out["excluded"].append((pred, kind, head, conf1))
+                continue
         if outside:
             out["rule2"].append((pred, _confidence(text, outside[0])))
         else:
