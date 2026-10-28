@@ -114,8 +114,12 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
   modelled: public data contain no event that ends predicate eligibility.
 - **Reporting:** all post hoc. The matched comparator is reported in Results as exploratory and worded
   "recall did not reduce later predicate use", with no causal implication (author decision 2026-10-21).
-- **Status:** the 2026-10-09 numbers were computed on Rule 2 v1 edges, the year rule and K060694
-  excluded. They must be re-run on the D8/D10 definitions before reporting (pipeline stage 06b, pending).
+- **Status (2026-10-27):** now pipeline stage `06b_denominators.ipynb`, run on the D8/D10 definitions:
+  Rule 2 v2 edges; outcome = a non-recalled 510(k) received after the recall was public; time origin
+  = the public date; prior use = cited by a 510(k) received before it. Evaluable 1,689; persistent 893
+  (52.9%, 95% CI 50.5–55.2); cumulative incidence 20.2% at 1 y, 46.1% at 5 y, 57.6% at 10 y; matched
+  comparator (also matched on prior use) 53.3% vs 40.3%, +13.0 points (10.5–15.6). The 2026-10-09
+  numbers (Rule 2 v1, year rule, K060694 excluded) are superseded. Checked by Stage 8 Tier 3.
 
 ## D8 — Post-recall timing on exact dates; K060694 rescued (post hoc, 2026-10-13 / 2026-10-21)
 - **Prereg basis / manuscript v5:** a citation was post-recall if the citing device's clearance YEAR
@@ -136,6 +140,13 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
   2008-03-13 recall. No other device's date changed.
 - **Effect:** see RUN_LOG Part Six. Primary triple 893 / 2,553 / 1,709 (year rule 910 / 2,643 / 1,762),
   on Rule 2 v2 edges.
+- **Timing analysis (2026-10-27):** now pipeline stage `06c_recall_timing.ipynb`. Of the 2,837 citations
+  from non-recalled devices cleared after the recall began: received after public 2,553 (90.0%),
+  after initiation but before public 119 (4.2%), before initiation 159 (5.6%), uncertain 6. Requiring
+  public posting ≥90 / ≥180 days before receipt leaves 2,435 / 2,323 citations (859 / 834 predicates).
+  Within the 2,643 year-rule citations, 2,510 (95.0%) were received after public. Public dates before
+  2012 come from recall-database postings alone, some batch-entered later; a delayed public date can only
+  move a citation out of the primary count, so the primary counts are conservative.
 
 ## D9 — Design-related recall arm (post hoc, 2026-10-15)
 - **Critique addressed:** a K-number linked to a recall does not show that the predicate's design was

@@ -111,6 +111,16 @@ Code changes: edge_rules.py (Rule 2 v2), test_edge_rules.py (16 tests), 03_extra
   - Limitation: MAUDE is a live database. Reports received before the cutoff can later be edited,
     reclassified or removed, so these counts may not be fully reproducible by a later run.
 - Stage 8 (self-consistency): 19/19 PASS
+- Stage 6b (denominators/KM, D7): 2026-10-27 — evaluable 1,689 | persistent 893 (52.9%) | >=5 y follow-up 58.6%
+  | prior use 56.4% vs none 47.7% | cumulative incidence 20.2 / 46.1 / 57.6% at 1 / 5 / 10 y | median time to
+  first post-recall citing submission 1.7 y | matched comparator (prior-use matched, n 1,519) 53.3% vs 40.3%,
+  +13.0 pts (10.5–15.6)
+- Stage 6c (recall timing, D8): 2026-10-27 — 2,837 citations cleared after recall initiation: A 2,553 | B 119 |
+  C 159 | U 6 | lag 90 d A 2,435 [859/2435/1631] | lag 180 d A 2,323 [834/2323/1553] | year-rule citations
+  received after public 2,510 of 2,643 | crude same-firm share of A 43.3% (lower bound; no family map)
+- Stage 8 re-run with Tier 3 (06b/06c re-derived independently): 2026-10-27 — 30/30 PASS
+- Public-date check (2026-10-27): recall-database posting dates start 2002-12; Enforcement Report dates in the
+  snapshot start ~2012; some postings are batch entries. Effect can only lower the primary counts.
 - Reference file: expected_values_REFERENCE.json replaced with the Part Six run (2026-10-22); Part Five reference
   preserved as expected_values_REFERENCE_rule2v1_2026-09-16.json
 - Independent reproduction (compare_to_reference.py, second analyst): [pending]
