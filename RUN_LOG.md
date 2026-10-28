@@ -119,6 +119,13 @@ Code changes: edge_rules.py (Rule 2 v2), test_edge_rules.py (16 tests), 03_extra
   C 159 | U 6 | lag 90 d A 2,435 [859/2435/1631] | lag 180 d A 2,323 [834/2323/1553] | year-rule citations
   received after public 2,510 of 2,643 | crude same-firm share of A 43.3% (lower bound; no family map)
 - Stage 8 re-run with Tier 3 (06b/06c re-derived independently): 2026-10-27 — 30/30 PASS
+- Stage 6d (largest component): 2026-10-28 — 11,588 devices | 28,322 edges | 111 product codes | 2,852 roots | top
+  root K990148 reaches 1,257 (10.8%) | 44 roots reach >=5% | cross-code edges 9,743 (34.4%) | same-code edges only:
+  72 families of >=10 devices, largest 994 | direct hip<->spine edges 5 (audited; see DEVIATIONS D10)
+- Design arm D3: 2026-10-28 — any-recall arm reproduces parent (893/2553/1709; high_conf 789/1949/1418; rule1
+  925/2793/1825; first_after 356; max gap 21) | design (FDA mapping, preliminary) 168/430/360, 288 exposed |
+  design + unclear 379/1031/811
+- Figures (09_figures.py, repo-relative paths, current rule): 2026-10-28 — figures/fig_lineages, fig_structure
 - Public-date check (2026-10-27): recall-database posting dates start 2002-12; Enforcement Report dates in the
   snapshot start ~2012; some postings are batch entries. Effect can only lower the primary counts.
 - Reference file: expected_values_REFERENCE.json replaced with the Part Six run (2026-10-22); Part Five reference

@@ -157,7 +157,13 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
   primary analysis. FDA root cause is mapped to five categories (`cause_map.py`); all unclear events
   and a 40-per-category validation sample are dual-coded by blinded reviewers with adjudication;
   agreement (Cohen's kappa) and FDA-mapping concordance are reported.
-- **Status:** coding and adjudication pending. Must use the D8 timing rule and D10 edges before reporting.
+- **Coders (2026-10-22):** two investigators (C.M., G.D.) code independently, blinded to FDA's root-cause
+  field and to validation-sample membership (neither opens `coding/review_key.csv` before both sheets are
+  returned); a third author not involved in coding adjudicates disagreements.
+- **Status (2026-10-28):** `D3_design_analysis.ipynb` now uses the D8 rule and D10 edges; its any-recall arm
+  reproduces the parent exactly (893 / 2,553 / 1,709). Preliminary, with FDA's root-cause mapping:
+  design-related 168 / 430 / 360 (288 exposed devices); design + unclear 379 / 1,031 / 811. Final counts
+  await the manual coding.
 
 ## D10 — Rule 2 revised (v2) after the largest-component audit (2026-10-21)
 - **What the audit found:** Rule 2 (D4) kept FDA reference devices as predicate edges in three
@@ -179,4 +185,9 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
   text. 16 unit tests (`test_edge_rules.py`). v1 is retained and reproduces D4 exactly.
 - **Effect:** Rule 2 v1 29,234 edges → v2 28,562; 672 edges dropped in 345 documents, all from
   reference-device zones; none added. Every change is listed in `data/rule2_v1_vs_v2.csv`.
+- **Known limits (2026-10-28 component audit):** v2 cannot exclude a reference device that is labelled on
+  the same line as its K-number (K152893 → K132788, "Reference Predicate Device – … (K132788)") or that is
+  named only in running text (K210263 → K181963). Both kept as edges; not fixed, to avoid the over-reach
+  seen in the first v2 draft. Of the 9 direct hip↔spine edges under v1, 5 remain under v2: 3 are genuine
+  predicates whose product codes sit in different body-region regulations, 2 are these two cases.
 - **Pending:** the second analyst's validation join is repeated on the v2 edge set.
