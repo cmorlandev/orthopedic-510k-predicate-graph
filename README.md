@@ -64,8 +64,10 @@ Launch JupyterLab **from the repo root** so relative paths resolve, and **Run Al
 | 4 | `04_recalls.ipynb` | none | secs | `data/recall_links.csv` |
 | 5 | `05_classify.ipynb` | none | secs | `data/recalled_nodes.csv` |
 | 6 | `06_graph_and_analysis.ipynb` | none | ~1 min | **`data/expected_values.json`** (the results) |
+| 6b | `06b_denominators.ipynb` | none | secs | post hoc (D7): `data/denominators.csv`, `km_cumulative_incidence.csv`, `matched_comparator.csv`, `denominators_summary.json` |
+| 6c | `06c_recall_timing.ipynb` | none | secs | post hoc (D8): `data/citation_timing.csv`, `timing_summary.json` |
 | 7 | `07_maude.ipynb` | api.fda.gov | ~15 min | `data/maude_comparison.json` (H4) |
-| 8 | `08_verify.ipynb` | none | secs | PASS/FAIL against `expected_values.json` |
+| 8 | `08_verify.ipynb` | none | secs | PASS/FAIL against `expected_values.json` and the 6b/6c summaries (run 6b and 6c first) |
 
 **Fast check:** if the analyst also deposited the derived `data/*.csv` on OSF, you can run
 `08_verify.ipynb` alone to re-check every headline number in seconds before committing to the full

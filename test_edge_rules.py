@@ -67,6 +67,108 @@ def test_synthetic_reference_heading_inline():
     assert [p for p, _ in r["rule2"]] == ["K111111"]
 
 
+# ---- Rule 2 v2 (DEVIATIONS.md D10): the three audit documents from the 2026-10 largest-component check
+
+def test_k180373_font_encoded_reference_heading():
+    t = _load("K180373")
+    if t is None:
+        return print("skip K180373 (no text file)")
+    r = er.extract(t, "K180373", _valid(t))
+    assert sorted(p for p, _ in r["rule2"]) == ["K143158", "K150481", "K152011"], r["rule2"]
+    assert [(p, z) for p, z, _, _ in r["excluded"]] == [("K081171", "reference")]
+    r1 = er.extract(t, "K180373", _valid(t), rule2_version="v1")      # v1 reproduces the old leak
+    assert "K081171" in [p for p, _ in r1["rule2"]]
+
+
+def test_k161569_reference_heading_not_at_line_start():
+    t = _load("K161569")
+    if t is None:
+        return print("skip K161569 (no text file)")
+    r = er.extract(t, "K161569", _valid(t))
+    assert sorted(p for p, _ in r["rule2"]) == ["K081171", "K943549"], r["rule2"]
+    assert all(z == "reference" for _, z, _, _ in r["excluded"])
+    assert len(r["excluded"]) == 6
+
+
+def test_k171595_reference_device_remention_stays_excluded():
+    t = _load("K171595")
+    if t is None:
+        return print("skip K171595 (no text file)")
+    r = er.extract(t, "K171595", _valid(t))
+    assert sorted(p for p, _ in r["rule2"]) == ["K000080", "K021932", "K024060", "K112028",
+                                                 "K130092", "K962011"], r["rule2"]
+    assert sorted(p for p, _, _, _ in r["excluded"]) == ["K082792", "K091967"]
+
+
+# ---- regressions found when v2 first ran on the full corpus (2026-10-21)
+
+def test_k172235_parenthetical_label_does_not_swallow_primary_family():
+    t = _load("K172235")
+    if t is None:
+        return print("skip K172235 (no text file)")
+    r = er.extract(t, "K172235", _valid(t))
+    kept = {p for p, _ in r["rule2"]}
+    assert {"K150062", "K090299", "K042344"} <= kept, sorted(kept)   # primary predicate and its family
+    assert r["excluded"] == []
+
+
+def test_k191972_primary_predicate_recurring_in_reference_section_is_kept():
+    t = _load("K191972")
+    if t is None:
+        return print("skip K191972 (no text file)")
+    r = er.extract(t, "K191972", _valid(t))
+    assert "K170705" in [p for p, _ in r["rule2"]]
+    assert [(p, z) for p, z, _, _ in r["excluded"]] == [("K180972", "reference")]
+
+
+def test_k182119_reference_predicate_label_is_excluded():
+    t = _load("K182119")
+    if t is None:
+        return print("skip K182119 (no text file)")
+    r = er.extract(t, "K182119", _valid(t))
+    assert sorted(p for p, _ in r["rule2"]) == ["K090390", "K091974", "K113174", "K132328"]
+    assert [(p, z) for p, z, _, _ in r["excluded"]] == [("K171689", "reference")]
+
+
+def test_k170119_nonbreaking_space_heading_is_not_decoded():
+    t = _load("K170119")
+    if t is None:
+        return print("skip K170119 (no text file)")
+    v = _valid(t)
+    v1 = {p for p, _ in er.extract(t, "K170119", v, rule2_version="v1")["rule2"]}
+    v2 = {p for p, _ in er.extract(t, "K170119", v)["rule2"]}
+    assert v2 <= v1, sorted(v2 - v1)                       # v2 never adds edges here
+    assert not ({"K153782", "K160597", "K160958", "K161230"} & v2)   # listed under REFERENCE\xa0DEVICES
+    assert er._decode_line("REFERENCE\xa0DEVICES") is None
+
+
+def test_synthetic_parenthetical_label_opens_no_zone():
+    t = ("Predicate Devices:\nFoo (primary predicate)\nK111111\nBar (reference predicate)\nK222222\n"
+         "Baz\nK333333\nDevice Description:\nblah\n")
+    r = er.extract(t, "K999999", {"K111111", "K222222", "K333333"})
+    assert sorted(p for p, _ in r["rule2"]) == ["K111111", "K222222", "K333333"]
+
+
+def test_synthetic_predicate_and_reference_heading_is_not_a_zone():
+    t = "Predicate and Reference Devices:\nK111111\nK222222\nDevice Description:\nblah predicate\n"
+    r = er.extract(t, "K999999", {"K111111", "K222222"})
+    assert sorted(p for p, _ in r["rule2"]) == ["K111111", "K222222"]
+
+
+def test_synthetic_reference_device_also_named_predicate_is_kept():
+    t = ("Reference Device: K222222\nDevice Description:\nblah\n"
+         "Primary Predicate: Foo (K222222)\nConclusion:\nsubstantially equivalent\n")
+    r = er.extract(t, "K999999", {"K222222"})
+    assert [p for p, _ in r["rule2"]] == ["K222222"]
+
+
+def test_decoder_ignores_k_numbers_and_ordinary_words():
+    assert er._decode_line("K081171") is None
+    assert er._decode_line("Description") is None
+    assert er._decode_line("5HIHUHQFH3UHGLFDWHV") == "ReferencePredicates"
+    assert er._decode_line("5HIHUHQFH\x033UHGLFDWHV\x03") == "Reference Predicates"   # encoded spaces
+
+
 def test_no_cue_no_edges():
     r = er.extract("nothing here K111111", "K999999", {"K111111"})
     assert r["rule1"] == [] and r["rule2"] == []

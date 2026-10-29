@@ -1,45 +1,54 @@
 {
   "snapshot_date": "2026-08-08",
   "corpus_devices": 15581,
-  "edges": 29234,
+  "edges": 28562,
   "is_dag": false,
-  "connected_nodes": 11960,
+  "connected_nodes": 11923,
   "max_chain_depth": 30,
-  "largest_component": 11638,
+  "largest_component": 11588,
   "recalled_nodes": 1691,
   "pct_recalled": 10.9,
-  "persistent_predicates": 921,
-  "post_recall_citations": 2712,
-  "downstream_devices": 1798,
-  "first_after_recall": 382,
+  "persistent_predicates": 893,
+  "post_recall_citations": 2553,
+  "downstream_devices": 1709,
+  "first_after_recall": 356,
   "max_gap_years": 21,
   "sens_class_I_II": [
-    703,
-    1997,
-    1361
+    680,
+    1883,
+    1298
   ],
   "sens_high_conf": [
-    816,
-    2087,
-    1496
+    789,
+    1949,
+    1418
   ],
   "sens_combined": [
-    634,
-    1554,
-    1149
+    613,
+    1454,
+    1088
   ],
-  "edge_rule": "rule2_restricted",
+  "edge_rule": "rule2_restricted_v2",
+  "post_recall_rule": "received_after_public",
+  "recalled_with_public_date": 1689,
+  "sens_year_rule": [
+    910,
+    2643,
+    1762
+  ],
+  "first_after_recall_year_rule": 376,
+  "edges_rule2_v1": 29234,
   "edges_rule1": 30476,
-  "edges_excluded_by_rule2": 1242,
+  "edges_excluded_by_rule2": 1914,
   "sens_maximal_rule": [
-    938,
-    2877,
-    1873
+    925,
+    2793,
+    1825
   ],
   "sens_class_na": [
-    210,
-    704,
-    583
+    206,
+    661,
+    546
   ],
   "recalled_by_class": {
     "Class I": 11,
@@ -48,9 +57,9 @@
     "n/a": 356
   },
   "panel_nonpilot": null,
-  "cov_excluded_only_pct": 0.3,
+  "cov_excluded_only_pct": 0.4,
   "text_corpus_sha256": "27646debf7d7176cb6bd4d7e9aa2ce36af133f77caf1b94c0e7fd82fe4322607",
-  "cov_resolvable_pct": 72.2,
+  "cov_resolvable_pct": 72.1,
   "cov_name_only_pct": 2.8,
   "cov_out_of_scope_pct": 12.2
 }
