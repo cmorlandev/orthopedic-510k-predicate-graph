@@ -12,3 +12,10 @@ __pycache__/
 # all data (frozen + derived + PDFs) is archived on OSF, not GitHub
 data/
 Claude outputs/
+
+# kept out of the public repo (added 2026-11-20): coding keys and coder sheets, local workspaces
+design_arm/coding/
+design_arm/reviewer_packet/
+design_arm/validation/
+*.jupyterlab-workspace
+Untitled*.ipynb

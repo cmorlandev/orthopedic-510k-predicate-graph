@@ -191,3 +191,72 @@ None of these were in §8's closed list; all are labelled post hoc in the manusc
   seen in the first v2 draft. Of the 9 direct hip↔spine edges under v1, 5 remain under v2: 3 are genuine
   predicates whose product codes sit in different body-region regulations, 2 are these two cases.
 - **Pending:** the second analyst's validation join is repeated on the v2 edge set.
+
+<!-- Added 2026-11-19 to match eTable 1 of Supplement 1 (manuscript v9). -->
+
+## D9 revision (2026-11-12) — Option A: FDA root-cause label primary, 120-event validation sample
+- **Change:** Design-related recall arm. Recall cause from FDA's root-cause field by a fixed map (Oct 15, 2026). Vague causes bounded (not design vs design) rather than hand coded. Hand coding limited to a 120-event validation sample (60 FDA design, 20 each manufacturing, labeling, and packaging or sterility; seed 20261110), coded by 2 blinded authors and adjudicated by a non-coding author. The earlier plan (all 337 vague events linked to cited predicates plus 40 per mapped category, 497 events, seed 20261015) was retired before any coding
+- **Reason:** Recall linked by K-number does not show a design defect; the 497-event plan was replaced to limit hand coding to a validation sample, with FDA's root-cause field as the primary classification
+- **Effect and reporting:** Post hoc; revised plan registered as an OSF addendum on Nov 12, 2026. FDA label 168/430/360 (upper bound 379/1,031/811). Validation sample: positive predictive value 0.85 (51 of 60), κ 0.73. eMethods 8
+- **Validation result (2026-11-18):** κ before adjudication 0.73 (design) and 0.48 (scope); 40 events adjudicated by TL; PPV of FDA's design label 51 of 60 (0.85; Wilson 95% CI, 0.74 to 0.92), above the 0.80 threshold. Supersedes the D9 note that final counts await manual coding.
+
+## D4a — Second validation round assessed against a stricter criterion (Sep 2026)
+- **Preregistered plan:** Precision criterion was predicate or reference device (§8)
+- **What was done:** Second validation round used true predicate only, in a separate random sample
+- **Reason:** Reference devices are not equivalence claims
+- **Effect and reporting:** 78.4% (strict) vs 83.9% (registered criterion) for Rule 1.
+
+## D11 — Maximum gap (H3) definition (Oct 2026)
+- **Preregistered plan:** Maximum gap as recall to latest citation (§6)
+- **What was done:** Text reports public date to last non-recalled citing receipt; pipeline computes citing clearance year minus initiation year over all successors
+- **Reason:** Align with exact-date primary rule
+- **Effect and reporting:** Both 21 years (21.3 by text definition)
+
+## D12 — MAUDE comparison group is an unmatched random sample (Aug 2026)
+- **Preregistered plan:** MAUDE comparison group described as matched (§7 H4)
+- **What was done:** Simple random sample (seed 42), not matched on product code or clearance year
+- **Reason:** Preregistration §8 specified a random sample; §4 and §7 called it matched
+- **Effect and reporting:** Described as an unmatched random sample in Methods and Limitations
+
+## D13 — MAUDE two-proportion z test computed outside the pipeline (Aug 2026)
+- **Preregistered plan:** Secondary MAUDE test, two-proportion z test, "reported regardless of outcome" (§8)
+- **What was done:** Not computed by the pipeline; computed by an archived post hoc script
+- **Reason:** Omission
+- **Effect and reporting:** z = 18.45, P < .001. eMethods 6
+
+## D14 — Tier (near vs distant cue) as implemented (Aug 2026)
+- **Preregistered plan:** Tier by any predicate cue within 300 characters of first mention (§5)
+- **What was done:** Strong cue (predicate or reference device) within 300 characters either side; under Rule 2, first mention outside an exclusion zone
+- **Reason:** As implemented in Stage 3
+- **Effect and reporting:** Affects the 2 preregistered sensitivity subsets that use the tier. eMethods 2
+
+## D15 — Starting device and lineage figure identify devices (Oct 2026)
+- **Preregistered plan:** No manufacturer named and no device ranked (§10)
+- **What was done:** Network description identifies the starting device with the greatest reach (K990148) and eFigure 2 shows the recalled devices with the most downstream devices
+- **Reason:** Show that no single device dominates the network and illustrate lineages
+- **Effect and reporting:** Descriptive only. No manufacturer named in the text. eResults, eFigure 2
+
+## D16 — Recall open vs terminated at citation (post hoc) (Nov 2026)
+- **Preregistered plan:** Not planned
+- **What was done:** Post hoc split of post-recall citations by whether a linked recall was open when the citing 510(k) was received
+- **Reason:** Recall records in the snapshot carry termination dates
+- **Effect and reporting:** Post hoc; primary counts unchanged. eMethods 7, Table 2
+
+## D17 — Design-related recall harm analysis (registered post hoc addendum) (Nov 12, 2026)
+- **Preregistered plan:** Not planned
+- **What was done:** Cox analysis of each citing device's own first recall by predicate recall exposure (design exposed, non-design exposed, distant, reference), with bounding and a hand-code sensitivity analysis
+- **Reason:** Hypothesis suggested by exploratory analyses run Nov 9 to 10, 2026, on the same frozen data
+- **Effect and reporting:** Post hoc; specification registered as an OSF addendum before the registered analysis was run; exploratory estimates not reported. Primary hazard ratio 1.63 (95% CI, 1.17–2.15); supported by the prespecified rule. eMethods 8, eTable 10
+
+## D18 — MAUDE counts queried live rather than from frozen files (Aug 8 and Oct 22, 2026)
+- **Preregistered plan:** All numbers derived from frozen files, none from the live API (§2)
+- **What was done:** MAUDE report counts queried from the live openFDA endpoint (Aug 8 without a date limit; final run Oct 22 limited to reports received through Aug 8, 2026)
+- **Reason:** Adverse-event records were not part of the frozen snapshot
+- **Effect and reporting:** Counts may differ slightly on rerun (product code HRS, 38,827 reports as of the snapshot vs 39,163 live). eMethods 6
+
+## D10 update (2026-11-19)
+- The pending second-analyst validation join on the v2 edge set was not carried out. The v2 precision (155 of 158) was obtained by matching the second-round verdicts to the v2 link list.
+
+## Other corrections (2026-11-19)
+- Coverage diagnostic (Stage 03): a summary's own K-number no longer counts as a cited device. Out-of-scope 73 and name-only 1,786 (previously 1,507 and 352); links unchanged.
+- Open-recall count at citation (D16): recall records with an invalid initiation date are ignored, as in the primary analysis. Open 810 (previously reported 811 from a pandas version that parsed K060694's corrupted date).

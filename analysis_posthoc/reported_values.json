@@ -1,0 +1,363 @@
+{
+ "T1|All recalled devices|recalled": 1689,
+ "T1|All recalled devices|cited_after": 893,
+ "T1|All recalled devices|pct": 52.9,
+ "T1|All recalled devices|citations": 2553,
+ "T1|All recalled devices|later_devices": 1709,
+ "T1|All recalled devices|median_years_to_last": [
+  4.7,
+  2.3,
+  8.6
+ ],
+ "T1|All recalled devices|over_10y": 163,
+ "T1|All recalled devices|first_cited_after": 356,
+ "T1|Recall class: Class I|recalled": 11,
+ "T1|Recall class: Class I|cited_after": 7,
+ "T1|Recall class: Class I|pct": 63.6,
+ "T1|Recall class: Class I|citations": 29,
+ "T1|Recall class: Class I|later_devices": 29,
+ "T1|Recall class: Class I|median_years_to_last": [
+  9.4,
+  7.1,
+  10.7
+ ],
+ "T1|Recall class: Class I|over_10y": 3,
+ "T1|Recall class: Class I|first_cited_after": 6,
+ "T1|Recall class: Class II|recalled": 1306,
+ "T1|Recall class: Class II|cited_after": 673,
+ "T1|Recall class: Class II|pct": 51.5,
+ "T1|Recall class: Class II|citations": 1854,
+ "T1|Recall class: Class II|later_devices": 1283,
+ "T1|Recall class: Class II|median_years_to_last": [
+  4.1,
+  1.9,
+  7.4
+ ],
+ "T1|Recall class: Class II|over_10y": 82,
+ "T1|Recall class: Class II|first_cited_after": 256,
+ "T1|Recall class: Class III|recalled": 18,
+ "T1|Recall class: Class III|cited_after": 7,
+ "T1|Recall class: Class III|pct": 38.9,
+ "T1|Recall class: Class III|citations": 9,
+ "T1|Recall class: Class III|later_devices": 9,
+ "T1|Recall class: Class III|median_years_to_last": [
+  2.8,
+  2.1,
+  5.6
+ ],
+ "T1|Recall class: Class III|over_10y": 0,
+ "T1|Recall class: Class III|first_cited_after": 1,
+ "T1|Recall class: Not available|recalled": 354,
+ "T1|Recall class: Not available|cited_after": 206,
+ "T1|Recall class: Not available|pct": 58.2,
+ "T1|Recall class: Not available|citations": 661,
+ "T1|Recall class: Not available|later_devices": 546,
+ "T1|Recall class: Not available|median_years_to_last": [
+  7.5,
+  3.9,
+  11.4
+ ],
+ "T1|Recall class: Not available|over_10y": 78,
+ "T1|Recall class: Not available|first_cited_after": 93,
+ "T1|Region: Hip|recalled": 302,
+ "T1|Region: Hip|cited_after": 152,
+ "T1|Region: Hip|pct": 50.3,
+ "T1|Region: Hip|citations": 396,
+ "T1|Region: Hip|later_devices": 217,
+ "T1|Region: Hip|median_years_to_last": [
+  6.3,
+  2.6,
+  9.8
+ ],
+ "T1|Region: Hip|over_10y": 37,
+ "T1|Region: Hip|first_cited_after": 52,
+ "T1|Region: Knee|recalled": 310,
+ "T1|Region: Knee|cited_after": 157,
+ "T1|Region: Knee|pct": 50.6,
+ "T1|Region: Knee|citations": 403,
+ "T1|Region: Knee|later_devices": 234,
+ "T1|Region: Knee|median_years_to_last": [
+  5.7,
+  2.0,
+  9.5
+ ],
+ "T1|Region: Knee|over_10y": 36,
+ "T1|Region: Knee|first_cited_after": 68,
+ "T1|Region: Spine|recalled": 327,
+ "T1|Region: Spine|cited_after": 203,
+ "T1|Region: Spine|pct": 62.1,
+ "T1|Region: Spine|citations": 637,
+ "T1|Region: Spine|later_devices": 509,
+ "T1|Region: Spine|median_years_to_last": [
+  3.8,
+  1.8,
+  7.0
+ ],
+ "T1|Region: Spine|over_10y": 24,
+ "T1|Region: Spine|first_cited_after": 84,
+ "T1|Region: Shoulder and other joints|recalled": 162,
+ "T1|Region: Shoulder and other joints|cited_after": 85,
+ "T1|Region: Shoulder and other joints|pct": 52.5,
+ "T1|Region: Shoulder and other joints|citations": 230,
+ "T1|Region: Shoulder and other joints|later_devices": 132,
+ "T1|Region: Shoulder and other joints|median_years_to_last": [
+  4.3,
+  1.6,
+  8.5
+ ],
+ "T1|Region: Shoulder and other joints|over_10y": 13,
+ "T1|Region: Shoulder and other joints|first_cited_after": 34,
+ "T1|Region: Fracture fixation, cement, and bone fillers|recalled": 588,
+ "T1|Region: Fracture fixation, cement, and bone fillers|cited_after": 296,
+ "T1|Region: Fracture fixation, cement, and bone fillers|pct": 50.3,
+ "T1|Region: Fracture fixation, cement, and bone fillers|citations": 887,
+ "T1|Region: Fracture fixation, cement, and bone fillers|later_devices": 635,
+ "T1|Region: Fracture fixation, cement, and bone fillers|median_years_to_last": [
+  4.9,
+  2.7,
+  8.4
+ ],
+ "T1|Region: Fracture fixation, cement, and bone fillers|over_10y": 53,
+ "T1|Region: Fracture fixation, cement, and bone fillers|first_cited_after": 118,
+ "T1|Recall made public: 2005 or earlier|recalled": 76,
+ "T1|Recall made public: 2005 or earlier|cited_after": 48,
+ "T1|Recall made public: 2005 or earlier|pct": 63.2,
+ "T1|Recall made public: 2005 or earlier|citations": 165,
+ "T1|Recall made public: 2005 or earlier|later_devices": 142,
+ "T1|Recall made public: 2005 or earlier|median_years_to_last": [
+  10.9,
+  5.7,
+  15.0
+ ],
+ "T1|Recall made public: 2005 or earlier|over_10y": 27,
+ "T1|Recall made public: 2005 or earlier|first_cited_after": 31,
+ "T1|Recall made public: 2006 to 2015|recalled": 794,
+ "T1|Recall made public: 2006 to 2015|cited_after": 508,
+ "T1|Recall made public: 2006 to 2015|pct": 64.0,
+ "T1|Recall made public: 2006 to 2015|citations": 1632,
+ "T1|Recall made public: 2006 to 2015|later_devices": 1129,
+ "T1|Recall made public: 2006 to 2015|median_years_to_last": [
+  6.9,
+  3.7,
+  10.1
+ ],
+ "T1|Recall made public: 2006 to 2015|over_10y": 136,
+ "T1|Recall made public: 2006 to 2015|first_cited_after": 211,
+ "T1|Recall made public: 2016 to 2026|recalled": 819,
+ "T1|Recall made public: 2016 to 2026|cited_after": 337,
+ "T1|Recall made public: 2016 to 2026|pct": 41.1,
+ "T1|Recall made public: 2016 to 2026|citations": 756,
+ "T1|Recall made public: 2016 to 2026|later_devices": 619,
+ "T1|Recall made public: 2016 to 2026|median_years_to_last": [
+  2.7,
+  1.3,
+  4.4
+ ],
+ "T1|Recall made public: 2016 to 2026|over_10y": 0,
+ "T1|Recall made public: 2016 to 2026|first_cited_after": 114,
+ "ph01_table1_figure2.figure2.All recalled devices.1y.0": 20.2,
+ "ph01_table1_figure2.figure2.All recalled devices.5y": [
+  46.1,
+  43.6,
+  48.6
+ ],
+ "ph01_table1_figure2.figure2.All recalled devices.10y": [
+  57.6,
+  55.0,
+  60.2
+ ],
+ "ph01_table1_figure2.figure2.Cited as a predicate before recall.5y.0": 52.3,
+ "ph01_table1_figure2.figure2.Not cited before recall.5y.0": 37.1,
+ "ph01_table1_figure2.figure2.Cited as a predicate before recall.n": 1002,
+ "ph01_table1_figure2.figure2.Not cited before recall.n": 687,
+ "ph01_table1_figure2.etable8.2016 to 2026.15y": null,
+ "ph01_table1_figure2.etable8.2016 to 2026.at_risk_10y": 44,
+ "ph01_table1_figure2.etable8.All.at_risk_10y": 389,
+ "ph01_table1_figure2.etable8.All.at_risk_15y": 157,
+ "ph01_table1_figure2.etable8.2005 or earlier.at_risk_10y": 35,
+ "ph01_table1_figure2.etable8.2006 to 2015.at_risk_10y": 310,
+ "ph02_recall_status_family.status.open.citations": 810,
+ "ph02_recall_status_family.status.open.pct": 31.7,
+ "ph02_recall_status_family.status.open.same_family": 402,
+ "ph02_recall_status_family.status.open.other": 408,
+ "ph02_recall_status_family.status.open.predicates": 457,
+ "ph02_recall_status_family.status.open.citing_devices": 654,
+ "ph02_recall_status_family.status.closed.citations": 1513,
+ "ph02_recall_status_family.status.closed.pct": 59.3,
+ "ph02_recall_status_family.status.closed.same_family": 672,
+ "ph02_recall_status_family.status.closed.other": 841,
+ "ph02_recall_status_family.status.between.citations": 230,
+ "ph02_recall_status_family.status.between.same_family": 101,
+ "ph02_recall_status_family.status.between.other": 129,
+ "ph02_recall_status_family.open_design_citations": 99,
+ "ph02_recall_status_family.open_design_devices": 95,
+ "ph02_recall_status_family.open_if_undated_terminated_closed": 784,
+ "ph02_recall_status_family.same_family_citations": 1175,
+ "ph02_recall_status_family.other_company_citations": 1378,
+ "ph02_recall_status_family.family_device_level.only_same_family": 331,
+ "ph02_recall_status_family.family_device_level.no_same_family": 267,
+ "ph02_recall_status_family.family_device_level.at_least_1_other_family": 562,
+ "ph02_recall_status_family.same_family_via_map": 1066,
+ "ph02_recall_status_family.same_family_first_word_only": 109,
+ "ph02_recall_status_family.timing.after_initiation_total": 2837,
+ "ph02_recall_status_family.timing.before_public": 119,
+ "ph02_recall_status_family.timing.before_initiation": 159,
+ "ph02_recall_status_family.timing.gt90d": 2435,
+ "ph02_recall_status_family.timing.gt180d": 2323,
+ "ph03_timing.persistent": 893,
+ "ph03_timing.citations": 2553,
+ "ph03_timing.first_cited_only_after_recall": 356,
+ "ph03_timing.of_which_in_persistent": 328,
+ "ph03_timing.of_which_not_persistent": 28,
+ "ph03_timing.years_to_last_citation.over_10y": 163,
+ "ph03_timing.years_to_last_citation.max": 21.3,
+ "ph03_timing.still_cited.last_on_or_after_2024_07_24": 184,
+ "ph03_timing.still_cited.last_on_or_after_2025_07_24": 66,
+ "ph03_timing.still_cited.last_in_2025_or_2026": 115,
+ "ph03_timing.recalled_citers.citations": 508,
+ "ph03_timing.recalled_citers.citing_devices": 259,
+ "ph03_timing.recalled_citers.predicates_cited_only_by_recalled": 70,
+ "ph03_timing.initiation_to_public_days.median": 63.0,
+ "ph03_timing.initiation_to_public_days.per_predicate_median": 61.0,
+ "ph03_timing.not_cited_after_recall": [
+  796,
+  47.1
+ ],
+ "ph04_as_registered.check_rule2v2_year_rule.primary": [
+  910,
+  2643,
+  1762
+ ],
+ "ph04_as_registered.check_rule2v2_year_rule.H2": 376,
+ "ph04_as_registered.as_registered.primary": [
+  939,
+  2880,
+  1875
+ ],
+ "ph04_as_registered.as_registered.H2": 382,
+ "ph04_as_registered.as_registered.H3_max_gap_years": 21,
+ "ph04_as_registered.as_registered.class_I_II": [
+  719,
+  2144,
+  1438
+ ],
+ "ph04_as_registered.as_registered.near_cue": [
+  839,
+  2211,
+  1564
+ ],
+ "ph04_as_registered.as_registered.both": [
+  655,
+  1662,
+  1215
+ ],
+ "ph04_as_registered.as_registered_excluding_K060694.primary": [
+  938,
+  2877,
+  1873
+ ],
+ "ph04_as_registered.as_registered_excluding_K060694.H2": 381,
+ "ph05_network_corpus.largest_component": 11588,
+ "ph05_network_corpus.recalled_with_link": 1525,
+ "ph05_network_corpus.recalled_in_largest_component": 1487,
+ "ph05_network_corpus.nonrecalled_in_largest_component": [
+  10101,
+  13890,
+  72.7
+ ],
+ "ph05_network_corpus.links_predicate_cleared_after_citing": 3,
+ "ph05_network_corpus.mutual_links": 2,
+ "ph05_network_corpus.de_novo_records": 13,
+ "ph05_network_corpus.product_codes_with_devices": 137,
+ "ph05_network_corpus.readable_by_clearance_period.1976-2000": [
+  47,
+  3747
+ ],
+ "ph05_network_corpus.readable_by_clearance_period.2001-2005": [
+  1466,
+  2006
+ ],
+ "ph05_network_corpus.readable_by_clearance_period.2006-2026": [
+  9342,
+  9828
+ ],
+ "ph05_network_corpus.text_files.zero_bytes": 146,
+ "ph05_network_corpus.text_files.le_10_bytes": 1533,
+ "ph05_network_corpus.H2_predicate_cleared_2000_or_earlier": 48,
+ "ph05_network_corpus.H2_predicate_cleared_2001_or_later": 308,
+ "ph06_validation_maude.rule2v2_precision_199.surviving_links": 158,
+ "ph06_validation_maude.rule2v2_precision_199.confirmed": 155,
+ "ph06_validation_maude.rule2v2_precision_199.wilson": [
+  94.6,
+  99.4
+ ],
+ "ph06_validation_maude.rule2v2_precision_199.by_tier.NEAR_CUE.0": 122,
+ "ph06_validation_maude.rule2v2_precision_199.by_tier.DISTANT_CUE.0": 33,
+ "ph06_validation_maude.rule2v2_precision_199.by_tier.DISTANT_CUE.1": 36,
+ "ph06_validation_maude.rule1_on_sample": [
+  156,
+  199
+ ],
+ "ph06_validation_maude.round2_sample.documents": 45,
+ "ph06_validation_maude.round1_sample.documents": 40,
+ "ph06_validation_maude.rejections.links": 43,
+ "ph06_validation_maude.maude_z_test.recalled_with_reports": [
+  1149,
+  1360
+ ],
+ "ph06_validation_maude.maude_z_test.nonrecalled_with_reports": [
+  700,
+  1360
+ ],
+ "ph06_validation_maude.maude_z_test.z": 18.45,
+ "ph06_validation_maude.maude_other_plus_unlabeled": 10191,
+ "ph07_severity_dating.no_class_by_initiation.2002_2011": 343,
+ "ph07_severity_dating.no_class_by_initiation.2012_or_later": 13,
+ "ph07_severity_dating.initiated_2011_or_earlier": [
+  461,
+  343
+ ],
+ "ph07_severity_dating.persistent_without_class": 206,
+ "ph07_severity_dating.over_10y_without_class": [
+  163,
+  78
+ ],
+ "ph07_severity_dating.median_years_to_last": {
+  "no_class": 7.51,
+  "classified": 4.12
+ },
+ "ph07_severity_dating.enforcement_report_date_min": "2012-06-20",
+ "ph07_severity_dating.class_I_II_devices_with_earlier_other_recall": [
+  107,
+  1317
+ ],
+ "ph08_design_validation_frame.frame_events": 1237,
+ "ph08_design_validation_frame.frame_predicates": 963,
+ "ph08_design_validation_frame.by_category": {
+  "manufacturing_process": 473,
+  "other_unclear": 275,
+  "labeling": 197,
+  "design": 177,
+  "packaging_sterility": 115
+ },
+ "ph08_design_validation_frame.sample_in_frame": 120,
+ "ph08_design_validation_frame.sample_strata_match_frame": true,
+ "T1|All recalled devices|km5": 46.1,
+ "T1|Recall class: Class I|km5": 18.2,
+ "T1|Recall class: Class II|km5": 48.6,
+ "T1|Recall class: Class III|km5": 34.6,
+ "T1|Recall class: Not available|km5": 39.0,
+ "T1|Region: Hip|km5": 38.6,
+ "T1|Region: Knee|km5": 40.5,
+ "T1|Region: Spine|km5": 61.3,
+ "T1|Region: Shoulder and other joints|km5": 45.0,
+ "T1|Region: Fracture fixation, cement, and bone fillers|km5": 44.5,
+ "T1|Recall made public: 2005 or earlier|km5": 34.2,
+ "T1|Recall made public: 2006 to 2015|km5": 47.6,
+ "T1|Recall made public: 2016 to 2026|km5": 45.5,
+ "ph03_timing.later_devices_citing_2plus_predicates": [
+  1531,
+  1709,
+  4.0
+ ]
+}

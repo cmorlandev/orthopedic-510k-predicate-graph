@@ -53,7 +53,7 @@ print("top 4 by downstream reach:",[(a,reach[a],rclass.get(a),rdate[a].year) for
 
 # ---------- Figure: lineages descending from four recalled predicates ----------
 fig,axes=plt.subplots(1,4,figsize=(16,4.6))
-for ax,A in zip(axes,top):
+for ax,A,L in zip(axes,top,"ABCD"):
     gen=descendants_by_gen(A)
     sub=G.subgraph(gen).copy()
     bygen={}
@@ -72,22 +72,22 @@ for ax,A in zip(axes,top):
     ax.scatter([pos[n][0] for n in recs],[pos[n][1] for n in recs],s=16,color=RED,zorder=3,lw=0)
     ax.scatter([0],[0],s=260,marker="^",color=RED,edgecolor=INK,lw=1.2,zorder=4)
     latest=max(year[n] for n in gen if n!=A and pd.notna(year.get(n)))
-    cls=rclass.get(A,"n/a"); cls="class n/a" if cls=="n/a" else cls
-    ax.set_title(f"{reach[A]:,} downstream devices\n{cls}; recalled {rdate[A].year}; cited through {int(latest)} (+{int(latest-rdate[A].year)} yr)",
+    cls=rclass.get(A,"n/a"); cls="severity class not available" if cls=="n/a" else cls
+    cls=cls[0].upper()+cls[1:]
+    ax.set_title(f"{L}  {reach[A]:,} later devices\n{cls}\nRecalled {rdate[A].year}; cited through {int(latest)} (+{int(latest-rdate[A].year)} y)",
                  fontsize=9,loc="left",color=INK)
-    ax.set_xlabel("Generations downstream",fontsize=8,color=INK2)
+    ax.set_xlabel("Citation generations after the recalled device",fontsize=8,color=INK2)
     ax.set_xticks(range(0,max(gen.values())+1,5)); ax.tick_params(labelsize=7,colors=INK2)
     ax.set_yticks([]); 
     for s in ["top","right","left"]: ax.spines[s].set_visible(False)
     ax.spines["bottom"].set_color(EDGE)
-fig.suptitle("Predicate lineages descending from recalled devices: the two with the largest downstream reach, and the largest-reach Class II and Class I recalls",x=0.01,ha="left",fontsize=11,color=INK,fontweight="bold")
 from matplotlib.lines import Line2D
-h=[Line2D([],[],marker="^",color=RED,markeredgecolor=INK,ls="",ms=11,label="recalled predicate (root)"),
-   Line2D([],[],marker="o",color=RED,ls="",ms=6,label="descendant that was itself recalled"),
-   Line2D([],[],marker="o",color=GREY,ls="",ms=4,label="descendant never recalled")]
+h=[Line2D([],[],marker="^",color=RED,markeredgecolor=INK,ls="",ms=11,label="Recalled predicate (starting device)"),
+   Line2D([],[],marker="o",color=RED,ls="",ms=6,label="Later device that was itself recalled"),
+   Line2D([],[],marker="o",color=GREY,ls="",ms=4,label="Later device never recalled")]
 fig.legend(handles=h,loc="lower left",bbox_to_anchor=(0.01,0.0),ncol=3,frameon=False,fontsize=8)
-fig.text(0.99,0.02,"one column per citation generation; edges run predicate → citing device; within a column, devices are ordered by clearance year",ha="right",fontsize=8,color=INK2)
-plt.tight_layout(rect=[0,0.06,1,0.93])
+fig.text(0.99,0.02,"One column per citation generation. Lines run from predicate to citing device. Within a column, devices are ordered by clearance year.",ha="right",fontsize=8,color=INK2)
+plt.tight_layout(rect=[0,0.06,1,1])
 fig.savefig(f"{OUT}/fig_lineages.png",dpi=300); fig.savefig(f"{OUT}/fig_lineages.pdf")
 
 # ---------- Figure: graph structure, three panels ----------
@@ -105,14 +105,14 @@ ingraph=set(n for n in G if G.degree(n)>0)
 dec=corpus.groupby("decade").k_number.agg(total="count",ingraph=lambda s:s.isin(ingraph).sum())
 fig,ax=plt.subplots(1,3,figsize=(15,4.4))
 ax[0].bar(dvals.index,dvals.values,color=GREY,width=0.85)
-ax[0].set_yscale("log"); ax[0].set_xlabel("Predicate-chain depth (hops from a root)"); ax[0].set_ylabel("Devices (log)")
-ax[0].set_title(f"a  Chains reach {max(depth.values())} hops deep",loc="left",fontweight="bold")
+ax[0].set_yscale("log"); ax[0].set_xlabel("Links from a starting device"); ax[0].set_ylabel("Devices, No. (log scale)")
+ax[0].set_title("A  Predicate chain depth",loc="left",fontweight="bold")
 ax[1].hist(outdeg.values,bins=range(1,outdeg.max()+2),color=GREY)
-ax[1].set_yscale("log"); ax[1].set_xlabel("Times cited as a predicate (out-degree)"); ax[1].set_ylabel("Devices (log)")
-ax[1].set_title("b  A few predicates are reused heavily",loc="left",fontweight="bold")
-x=np.arange(len(dec)); ax[2].bar(x,dec.total,color=GREY,label="all devices"); ax[2].bar(x,dec.ingraph,color=RED,label="in graph (≥1 edge)")
-ax[2].set_xticks(x); ax[2].set_xticklabels([f"{int(d)}s" for d in dec.index]); ax[2].set_xlabel("Decade of clearance"); ax[2].set_ylabel("Devices")
-ax[2].set_title("c  Edge recovery improves after 2000",loc="left",fontweight="bold"); ax[2].legend(frameon=False,fontsize=8)
+ax[1].set_yscale("log"); ax[1].set_xlabel("Times cited as a predicate"); ax[1].set_ylabel("Devices, No. (log scale)")
+ax[1].set_title("B  Reuse of cited predicates",loc="left",fontweight="bold")
+x=np.arange(len(dec)); ax[2].bar(x,dec.total,color=GREY,label="All devices"); ax[2].bar(x,dec.ingraph,color=RED,label="Linked to at least 1 other device")
+ax[2].set_xticks(x); ax[2].set_xticklabels([f"{int(d)}s" for d in dec.index]); ax[2].set_xlabel("Decade of clearance"); ax[2].set_ylabel("Devices, No.")
+ax[2].set_title("C  Devices linked in the network, by decade",loc="left",fontweight="bold"); ax[2].legend(frameon=False,fontsize=8)
 for a in ax:
     for s in ["top","right"]: a.spines[s].set_visible(False)
     a.tick_params(labelsize=8,colors=INK2)
